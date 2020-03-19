@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const config = require('./config');
 
 const registerRoutes = require('./routes/api/register');
+const authRoutes = require('./routes/api/auth');
 const connectionString = config.ATLAS_URI;
 
 const app = express();
@@ -23,5 +24,6 @@ mongoose
     .catch(err => console.log(err));
 
 app.use('/api/register', registerRoutes);
+app.use('/api/auth', authRoutes);
 
 module.exports = app;
