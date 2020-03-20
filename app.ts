@@ -1,11 +1,12 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const morgan = require('morgan');
-const config = require('./config');
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import morgan from 'morgan';
+import config from './config';
 
-const registerRoutes = require('./routes/api/register');
-const authRoutes = require('./routes/api/auth');
+// routes
+import authRoutes from './routes/api/auth';
+import registerRoutes from './routes/api/register';
 const connectionString = config.ATLAS_URI;
 
 const app = express();
@@ -26,4 +27,4 @@ mongoose
 app.use('/api/register', registerRoutes);
 app.use('/api/auth', authRoutes);
 
-module.exports = app;
+export default app;
