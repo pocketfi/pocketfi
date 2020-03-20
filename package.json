@@ -2,25 +2,44 @@
   "name": "expense-tracker",
   "version": "1.0.0",
   "description": "my expense tracker",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
+    "start": "tsc && node ./dist/server.js",
+    "build": "tsc",
     "client-install": "npm install --prefix client",
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "server": "nodemon ./dist/server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "test": "node ./node_modules/mocha/bin/mocha"
   },
   "author": "Mileshko Alesia",
   "license": "ISC",
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.6",
+    "@types/express": "^4.17.3",
+    "@types/jsonwebtoken": "^8.3.8",
+    "@types/mongoose": "^5.7.6",
+    "@types/morgan": "^1.9.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "concurrently": "^5.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^7.1.1",
     "mongoose": "^5.9.5",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "should": "^13.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "nodemon": "^2.0.2",
+    "supertest": "^4.0.2",
+    "ts-node": "^8.7.0",
+    "typescript": "^3.8.3"
   }
 }

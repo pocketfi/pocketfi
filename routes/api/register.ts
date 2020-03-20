@@ -1,9 +1,10 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const User = require('../../models/User');
-const jwt = require('jsonwebtoken');
-const config = require('../../config');
+import {Router} from 'express';
+import bcrypt from 'bcryptjs';
+import config from '../../config';
+import jwt from 'jsonwebtoken';
+import User from '../../models/User';
+
+const router = Router();
 
 router.post('/', (req, res) => {
     const {name, email, password} = req.body;
@@ -35,7 +36,6 @@ router.post('/', (req, res) => {
                             {expiresIn: 3600},
                             (err, token) => {
                                 if (err) throw err;
-
                                 res.json({
                                     token,
                                     user: {
@@ -50,7 +50,6 @@ router.post('/', (req, res) => {
         });
 
     });
-
 });
 
-module.exports = router;
+export default router;
