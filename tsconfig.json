@@ -15,7 +15,8 @@
     "server.ts",
     "config/*.ts",
     "models/*.ts",
-    "routes/**/*.ts"
+    "routes/**/*.ts",
+    "tests/**/*.ts"
   ],
   "exclude": [
     "node_modules"

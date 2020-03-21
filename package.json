@@ -6,10 +6,7 @@
   "scripts": {
     "start": "tsc && node ./dist/server.js",
     "build": "tsc",
-    "client-install": "npm install --prefix client",
-    "server": "nodemon ./dist/server.js",
-    "client": "npm start --prefix client",
-    "test": "node ./node_modules/mocha/bin/mocha"
+    "test": "jasmine --config=jasmine.json"
   },
   "author": "Mileshko Alesia",
   "license": "ISC",
@@ -28,12 +25,13 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^7.1.1",
     "mongoose": "^5.9.5",
     "morgan": "^1.9.1",
     "should": "^13.2.3"
   },
   "devDependencies": {
+    "jasmine": "^3.5.0",
+    "@types/jasmine": "^3.5.9",
     "@types/node": "^13.9.2",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.20.1",
