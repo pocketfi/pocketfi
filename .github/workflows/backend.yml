@@ -26,5 +26,5 @@ jobs:
       - run: npm test
         env:
           CI: true
-        working-directory: ./server
+        working-directory: ./src
 
