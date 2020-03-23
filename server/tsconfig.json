@@ -11,12 +11,12 @@
     "outDir": "./dist"
   },
   "include": [
-    "src/app.ts",
-    "src/server.ts",
-    "src/config/*.ts",
-    "src/models/*.ts",
-    "src/routes/**/*.ts",
-    "src/tests/**/*.ts"
+    "./app.ts",
+    "./server.ts",
+    "./config/*.ts",
+    "./models/*.ts",
+    "./routes/**/*.ts",
+    "./tests/**/*.ts"
   ],
   "exclude": [
     "../node_modules"
