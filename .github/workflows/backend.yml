@@ -14,22 +14,17 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [10.x, 12.x]
+        node-version: [12.x]
 
     steps:
       - uses: actions/checkout@v2
+
       - name: install
         working-directory: ./server
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
         run: npm install
 
       - name: test
         working-directory: ./server
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
         run: npm test
 
     env:
