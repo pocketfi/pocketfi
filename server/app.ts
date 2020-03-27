@@ -7,7 +7,6 @@ import config from './config';
 // routes
 import authRoutes from './routes/api/auth';
 import registerRoutes from './routes/api/register';
-const connectionString = config.ATLAS_URI;
 
 const app = express();
 
@@ -16,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 mongoose
-    .connect(connectionString, {
+    .connect(config.ATLAS_URI, {
         useNewUrlParser: true,
         useCreateIndex: true,
         useUnifiedTopology: true
