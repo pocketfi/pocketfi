@@ -1,22 +1,26 @@
 import config from '../config'
 import User from '../models/User';
 import request from 'supertest'
-import app from "../app";
+import app, {authRoute, registerRoute} from "../app";
 
 const http = request(app);
 
-describe('authentication test', () => {
+const user = new User({
+	name: 'name',
+	email: 'email@mail.com',
+	password: 'password'
+});
 
-	const user = new User({
-		name: 'name',
-		email: 'email@mail.com',
-		password: 'password'
-	});
+describe('authentication test', () => {
 
 	beforeAll(done => {
 		request(app)
-			.post('/api/register')
-			.send(user)
+			.post(registerRoute)
+			.send({
+				name: user.name,
+				email: user.email,
+				password: user.password
+			})
 			.expect(200, done);
 	});
 
@@ -32,7 +36,7 @@ describe('authentication test', () => {
 
 	it('should auth existing user', done => {
 		http
-			.post('/api/auth')
+			.post(authRoute)
 			.send({
 				email: user.email,
 				password: user.password
@@ -46,7 +50,7 @@ describe('authentication test', () => {
 
 	it('should not auth existing user due to invalid password', done => {
 		http
-			.post('/api/auth')
+			.post(authRoute)
 			.send({
 				email: user.email,
 				password: ''
@@ -56,7 +60,7 @@ describe('authentication test', () => {
 
 	it('should not auth nonexistent user', done => {
 		http
-			.post('/api/auth')
+			.post(authRoute)
 			.send({
 				email: '',
 				password: user.password
