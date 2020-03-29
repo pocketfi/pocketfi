@@ -6,14 +6,12 @@ import {returnErrors} from "./error";
 export const login = ({ email, password }: AuthUser) => (
     dispatch: Function
 ) => {
-    // Headers
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     };
 
-    // Request body
     const body = JSON.stringify({ email, password });
 
     axios
