@@ -1,3 +1,3 @@
 export interface LogoutProps {
-    logout(): void;
+  logout(): void;
 }

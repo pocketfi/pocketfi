@@ -1,3 +1,3 @@
 export interface Msg {
-    msg: string | any;
+  msg: string | any;
 }
