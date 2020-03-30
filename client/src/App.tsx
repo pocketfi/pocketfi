@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './store';
 import {loadUser} from "./actions/loadUser";
 import AppNavbar from "./components/AppNavbar";
@@ -12,12 +12,12 @@ const App = () => {
   }, []);
 
   return (
-      <Provider store={store}>
-        <div className="App">
-            <AppNavbar />
+    <Provider store={store}>
+      <div className="App">
+        <AppNavbar/>
 
-        </div>
-      </Provider>
+      </div>
+    </Provider>
   );
 };
 

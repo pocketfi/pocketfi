@@ -1,5 +1,5 @@
 export interface ConfigHeaders {
-    headers: {
-        [index: string]: string;
-    };
+  headers: {
+    [index: string]: string;
+  };
 }
