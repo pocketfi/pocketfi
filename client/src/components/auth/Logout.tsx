@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {NavLink} from 'reactstrap';
 import {connect} from 'react-redux';
-import {logout} from '../../actions/logoutUser';
-import {LogoutProps} from "../../interfaces/LogoutProps";
+import {LogoutProps} from "../../types/LogoutProps";
+import {logout} from "../../actions/authActions";
 
 export const Logout = ({logout}: LogoutProps) => {
   return (

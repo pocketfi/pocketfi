@@ -1,10 +1,9 @@
 import {applyMiddleware, compose, createStore} from 'redux';
-import thunk from 'redux-thunk';
+import thunk, {ThunkMiddleware} from 'redux-thunk';
 import rootReducer from './reducers';
+import {AuthActionTypes} from "./actions/AuthActionTypes";
 
 const initialState = {};
-
-const middleWare = [thunk];
 
 declare global {
   interface Window {
@@ -12,11 +11,13 @@ declare global {
   }
 }
 
+export type AppState = ReturnType<typeof rootReducer>;
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
   rootReducer,
   initialState,
-  composeEnhancers(applyMiddleware(...middleWare))
+  composeEnhancers(applyMiddleware(thunk as ThunkMiddleware<AppState, AuthActionTypes>))
 );
 
 export default store;

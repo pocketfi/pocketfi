@@ -1,17 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, NavLink} from 'reactstrap';
 import {connect} from 'react-redux';
-import {register} from '../../actions/registerUser';
-import {clearErrors} from '../../actions/error';
-import {Target} from "../../interfaces/Target";
-import {Register} from "../../interfaces/Register";
-import {AuthProps} from "../../interfaces/AuthProps";
+import {Target} from "../../types/Target";
+import {Register} from "../../types/Register";
+import {AuthProps} from "../../types/AuthProps";
+import {register} from "../../actions/authActions";
 
 const RegisterModal = ({
                          isAuthenticated,
-                         error,
-                         register,
-                         clearErrors
+                         register
                        }: Register) => {
   const [modal, setModal] = useState(false);
   const [name, setName] = useState('');
@@ -20,10 +17,9 @@ const RegisterModal = ({
   const [msg, setMsg] = useState(null);
 
   const handleToggle = useCallback(() => {
-    // Clear errors
-    clearErrors();
+
     setModal(!modal);
-  }, [clearErrors, modal]);
+  }, [modal]);
 
   const handleChangeName = (e: Target) => setName(e.target.value);
   const handleChangeEmail = (e: Target) => setEmail(e.target.value);
@@ -32,32 +28,22 @@ const RegisterModal = ({
   const handleOnSubmit = (e: any) => {
     e.preventDefault();
 
-    // Create user object
     const user = {
       name,
       email,
       password
     };
 
-    // Attempt to login
     register(user);
   };
 
   useEffect(() => {
-    // Check for register error
-    if (error.id === 'REGISTER_FAIL') {
-      setMsg(error.msg.msg);
-    } else {
-      setMsg(null);
-    }
-
-    // If authenticated, close modal
     if (modal) {
       if (isAuthenticated) {
         handleToggle();
       }
     }
-  }, [error, handleToggle, isAuthenticated, modal]);
+  }, [handleToggle, isAuthenticated, modal]);
 
   return (
     <div>
@@ -112,10 +98,9 @@ const RegisterModal = ({
 };
 
 const mapStateToProps = (state: AuthProps) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  error: state.error
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, {register, clearErrors})(
+export default connect(mapStateToProps, {register})(
   RegisterModal
 );

@@ -1,13 +1,11 @@
 import {
   AUTH_ERROR,
-  LOGIN_FAIL,
-  LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
-  REGISTER_FAIL,
+  AuthActionTypes, LOGIN_FAIL,
+  LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTER_FAIL,
   REGISTER_SUCCESS,
   USER_LOADED,
   USER_LOADING
-} from "../actions/types";
+} from "../actions/AuthActionTypes";
 
 const initialState = {
   token: localStorage.getItem('token'),
@@ -16,12 +14,11 @@ const initialState = {
   user: null
 };
 
-export default function (state = initialState, action: any) {
+export default function (state = initialState, action: AuthActionTypes) {
   switch (action.type) {
     case USER_LOADING:
       return {
         ...state,
-        isLoading: true
       };
     case USER_LOADED:
       return {

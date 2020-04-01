@@ -1,27 +1,23 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, NavLink} from 'reactstrap';
 import {connect} from 'react-redux';
-import {login} from '../../actions/loginUser';
-import {clearErrors} from '../../actions/error';
-import {Login} from "../../interfaces/Login";
-import {Target} from "../../interfaces/Target";
-import {AuthProps} from "../../interfaces/AuthProps";
+import {Login} from "../../types/Login";
+import {Target} from "../../types/Target";
+import {AuthProps} from "../../types/AuthProps";
+import {login} from "../../actions/authActions";
 
 const LoginModal = ({
                       isAuthenticated,
-                      error,
-                      login,
-                      clearErrors
-                    }: Login) => {
+                      login}: Login) => {
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [msg, setMsg] = useState(null);
 
   const handleToggle = useCallback(() => {
-    clearErrors();
+
     setModal(!modal);
-  }, [clearErrors, modal]);
+  }, [modal]);
 
   const handleChangeEmail = (e: Target) => setEmail(e.target.value);
   const handleChangePassword = (e: Target) => setPassword(e.target.value);
@@ -35,18 +31,12 @@ const LoginModal = ({
   };
 
   useEffect(() => {
-    if (error.id === 'LOGIN_FAIL') {
-      setMsg(error.msg.msg);
-    } else {
-      setMsg(null);
-    }
-
     if (modal) {
       if (isAuthenticated) {
         handleToggle();
       }
     }
-  }, [error, handleToggle, isAuthenticated, modal]);
+  }, [handleToggle, isAuthenticated, modal]);
 
   return (
     <div>
@@ -96,8 +86,7 @@ const LoginModal = ({
 };
 
 const mapStateToProps = (state: AuthProps) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  error: state.error
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, {login, clearErrors})(LoginModal);
+export default connect(mapStateToProps, {login})(LoginModal);

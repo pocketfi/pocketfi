@@ -4,8 +4,8 @@ import {connect} from 'react-redux';
 import Register from './auth/Register';
 import Login from './auth/Login';
 import Logout from './auth/Logout';
-import {AuthProps} from "../interfaces/AuthProps";
-import {NavbarApp} from "../interfaces/NavbarApp";
+import {AuthProps} from "../types/AuthProps";
+import {NavbarApp} from "../types/NavbarApp";
 
 const AppNavbar = ({auth}: NavbarApp) => {
   const [isOpen, setIsOpen] = useState(false);
