@@ -1,121 +1,74 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Alert, Button, Form, FormGroup, Input, Label, Modal, ModalBody, ModalHeader, NavLink} from 'reactstrap';
+import React from 'react';
+import {Button, Form, FormGroup, Input} from 'reactstrap';
 import {connect} from 'react-redux';
-import {register} from '../../actions/registerUser';
-import {clearErrors} from '../../actions/error';
-import {Target} from "../../interfaces/Target";
-import {Register} from "../../interfaces/Register";
-import {AuthProps} from "../../interfaces/AuthProps";
+import {AuthProps} from '../../interfaces/AuthProps';
+import {login} from '../../actions/loginUser';
+import {RegisterUser} from '../../interfaces/RegisterUser';
+import {AuthForm} from '../../interfaces/AuthForm';
 
-const RegisterModal = ({
-                         isAuthenticated,
-                         error,
-                         register,
-                         clearErrors
-                       }: Register) => {
-  const [modal, setModal] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [msg, setMsg] = useState(null);
+export interface RegisterProps extends AuthForm {
+  register(user: RegisterUser): void;
+}
 
-  const handleToggle = useCallback(() => {
-    // Clear errors
-    clearErrors();
-    setModal(!modal);
-  }, [clearErrors, modal]);
-
-  const handleChangeName = (e: Target) => setName(e.target.value);
-  const handleChangeEmail = (e: Target) => setEmail(e.target.value);
-  const handleChangePassword = (e: Target) => setPassword(e.target.value);
-
-  const handleOnSubmit = (e: any) => {
-    e.preventDefault();
-
-    // Create user object
-    const user = {
-      name,
-      email,
-      password
-    };
-
-    // Attempt to login
-    register(user);
+class RegisterModal extends React.Component<RegisterProps> {
+  state: any = {
+    name: '',
+    email: '',
+    password: ''
   };
 
-  useEffect(() => {
-    // Check for register error
-    if (error.id === 'REGISTER_FAIL') {
-      setMsg(error.msg.msg);
-    } else {
-      setMsg(null);
-    }
+  constructor(props: RegisterProps) {
+    super(props);
+  }
 
-    // If authenticated, close modal
-    if (modal) {
-      if (isAuthenticated) {
-        handleToggle();
-      }
-    }
-  }, [error, handleToggle, isAuthenticated, modal]);
+  handleSubmit() {
+    this.props.register(new RegisterUser(this.state.name, this.state.email, this.state.password));
+  }
 
-  return (
-    <div>
-      <NavLink onClick={handleToggle} href="#">
-        Register
-      </NavLink>
-
-      <Modal isOpen={modal} toggle={handleToggle}>
-        <ModalHeader toggle={handleToggle}>Register</ModalHeader>
-        <ModalBody>
-          {msg ? <Alert color="danger">{msg}</Alert> : null}
-          <Form onSubmit={handleOnSubmit}>
-            <FormGroup>
-              <Label for="name">Name</Label>
-              <Input
-                type="text"
-                name="name"
-                id="name"
-                placeholder="Name"
-                className="mb-3"
-                onChange={handleChangeName}
-              />
-
-              <Label for="email">Email</Label>
-              <Input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                className="mb-3"
-                onChange={handleChangeEmail}
-              />
-
-              <Label for="password">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                className="mb-3"
-                onChange={handleChangePassword}
-              />
-              <Button color="dark" style={{marginTop: '2rem'}} block>
-                Register
-              </Button>
-            </FormGroup>
-          </Form>
-        </ModalBody>
-      </Modal>
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className='login'>
+        <Form>
+          <FormGroup>
+            <Input
+              value={this.state.name}
+              onChange={e => this.setState({name: e.target.value})}
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Name"
+            />
+            <Input
+              value={this.state.email}
+              onChange={e => this.setState({email: e.target.value})}
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+            />
+            <Input
+              value={this.state.password}
+              onChange={e => this.setState({password: e.target.value})}
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+            />
+            <Button
+              onClick={() => this.handleSubmit()}
+            >
+              Login
+            </Button>
+          </FormGroup>
+        </Form>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (state: AuthProps) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  error: state.error
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, {register, clearErrors})(
-  RegisterModal
+export default connect(mapStateToProps, {login})(RegisterModal
 );
