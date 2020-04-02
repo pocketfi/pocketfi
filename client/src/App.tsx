@@ -1,14 +1,13 @@
 import React from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Provider} from 'react-redux';
 import store from './store';
 import {loadUser} from './actions/loadUser';
-import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Login from './components/routed/Login/Login';
+import Register from './components/routed/Register/Register';
+import Overview from './components/routed/Overview/Overview';
 
-class App extends React.Component {
+export class App extends React.Component {
+
   constructor(props: any) {
     super(props);
     store.dispatch(loadUser());
@@ -16,17 +15,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
-          <BrowserRouter>
-            <Switch>
-              <Route path='/login' component={Login}/>
-              <Route path='/register' component={Register}/>
-              <Redirect path='/' to='/login'/>
-            </Switch>
-          </BrowserRouter>
-        </div>
-      </Provider>
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route path='/overview' component={Overview}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+          </Switch>
+        </BrowserRouter>
+      </div>
     );
   }
 }
