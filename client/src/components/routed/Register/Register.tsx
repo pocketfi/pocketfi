@@ -1,17 +1,16 @@
 import React from 'react';
 import {Button, Form, Input} from 'reactstrap';
 import {connect} from 'react-redux';
-import {AuthState} from '../../../interfaces/AuthState';
-import {RegisterUser} from '../../../interfaces/RegisterUser';
-import {AuthForm} from '../../../interfaces/AuthForm';
+import {AuthState} from '../../../types/AuthState';
+import {RegisterUser} from '../../../types/RegisterUser';
 import './../Login/Login.sass'
 import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
 import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
 import {Link} from 'react-router-dom';
 import {Title} from '../../embedded/Title/Title';
-import {register} from '../../../actions/registerUser';
+import {register} from '../../../actions/registerActions';
 
-export interface RegisterProps extends AuthForm {
+export interface RegisterProps extends AuthState {
   register(user: RegisterUser): void;
 }
 

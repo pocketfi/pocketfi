@@ -1,6 +1,6 @@
 import React from 'react';
 import store from './store';
-import {loadUser} from './actions/loadUser';
+import {loadUser} from './actions/authActions';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './components/routed/Login/Login';
 import Register from './components/routed/Register/Register';
