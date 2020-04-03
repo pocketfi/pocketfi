@@ -1,24 +1,31 @@
-import React, {useEffect} from 'react';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import {Provider} from 'react-redux';
+import React from 'react';
 import store from './store';
-import {loadUser} from "./actions/loadUser";
-import AppNavbar from "./components/AppNavbar";
+import {loadUser} from './actions/loadUser';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import Login from './components/routed/Login/Login';
+import Register from './components/routed/Register/Register';
+import Overview from './components/routed/Overview/Overview';
 
-const App = () => {
-  useEffect(() => {
+export class App extends React.Component {
+
+  constructor(props: any) {
+    super(props);
     store.dispatch(loadUser());
-  }, []);
+  }
 
-  return (
-    <Provider store={store}>
+  render() {
+    return (
       <div className="App">
-        <AppNavbar/>
-
+        <BrowserRouter>
+          <Switch>
+            <Route path='/overview' component={Overview}/>
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+          </Switch>
+        </BrowserRouter>
       </div>
-    </Provider>
-  );
-};
+    );
+  }
+}
 
 export default App;
