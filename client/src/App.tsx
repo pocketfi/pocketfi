@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Login from './components/routed/Login/Login';
 import Register from './components/routed/Register/Register';
 import Overview from './components/routed/Overview/Overview';
+import NewTransaction from './components/routed/NewTransaction/NewTransaction';
 
 export class App extends React.Component {
 
@@ -19,6 +20,7 @@ export class App extends React.Component {
         <BrowserRouter>
           <Switch>
             <Route path='/overview' component={Overview}/>
+            <Route path='/new' component={NewTransaction}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
           </Switch>
