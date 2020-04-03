@@ -5,11 +5,9 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   LOGOUT_SUCCESS,
-  REGISTER_FAIL,
-  REGISTER_SUCCESS,
   USER_LOADED,
   USER_LOADING
-} from './AuthActionTypes';
+} from './types/AuthActionTypes';
 import {AuthUser} from "../types/AuthUser";
 import {ConfigHeaders} from "../types/ConfigHeaders";
 import {Dispatch} from "redux";
@@ -33,16 +31,6 @@ export const authError = (message: Msg, status: number): AppActions => {
     payload: {message, status}
   }
 };
-
-export const registerSuccess = (registeredUser: RegisteredUser): AppActions => ({
-  type: REGISTER_SUCCESS,
-  payload: registeredUser,
-});
-
-export const registerFail = (message: Msg, status: number): AppActions => ({
-  type: REGISTER_FAIL,
-  payload: {message, status}
-});
 
 export const loginSuccess = (authUser: User): AppActions => ({
   type: LOGIN_SUCCESS,
@@ -68,28 +56,6 @@ export const loadUser = () => (dispatch: Dispatch<AppActions>, getState: () => A
     })
     .catch(err => {
       dispatch(authError(err.response.data, err.response.status));
-    });
-};
-
-export const register = ({name, email, password}: AuthUser) => (
-  dispatch: Dispatch<AppActions>
-) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  };
-
-  const body = JSON.stringify({name, email, password});
-
-  axios
-    .post('/api/register', body, config)
-    .then(res => {
-        dispatch(registerSuccess(res.data))
-      }
-    )
-    .catch(err => {
-      dispatch(registerFail(err.response.data, err.response.status));
     });
 };
 
@@ -122,7 +88,7 @@ export const logout = () => (
 };
 
 export const tokenConfig = (getState: () => AppState) => {
-  const token = getState().auth.token;
+  const token = (<RegisteredUser>getState().auth).token;
 
   const config: ConfigHeaders = {
     headers: {
