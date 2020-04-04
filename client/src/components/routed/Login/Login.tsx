@@ -30,7 +30,6 @@ class Login extends React.Component<LoginProps> {
     return (
       <div className='login'>
         <Form>
-          <Title value='Login'/>
           <EmailInput
             id="email"
             value={this.state.email}

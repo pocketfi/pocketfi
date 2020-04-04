@@ -29,7 +29,6 @@ class Register extends React.Component<RegisterProps> {
     return (
       <div className='register login'>
         <Form>
-          <Title value='Register'/>
           <Input
             value={this.state.name}
             onChange={e => this.setState({name: e.target.value})}

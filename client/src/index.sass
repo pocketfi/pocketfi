@@ -1,34 +1,35 @@
 @import 'colors'
+@import 'constants'
 @import url('https://fonts.googleapis.com/css?family=Inter&display=swap')
 
 *
   box-sizing: border-box
 
   font-family: 'Inter', serif
-  font-size: 30px
+  font-size: $font-size
 
   margin: 0
   padding: 0
 
-body
+html, body
   width: 100vw
-  height: 100vh
+  height: 100%
 
   display: flex
   align-items: center
   justify-content: center
 
 button
-  height: 60px
+  height: $input-height
   border: none
   border-radius: 10px
   background: $special
   color: $white
-  margin: 10px
+  margin: $input-margin
   cursor: pointer
 
 a
-  font-size: 24px
+  font-size: $font-size
   color: $dark
   text-decoration: underline
   padding: 10px
