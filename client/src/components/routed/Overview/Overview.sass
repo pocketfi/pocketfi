@@ -1,0 +1,41 @@
+@import 'src/colors'
+@import 'src/constants'
+
+#root
+  align-self: flex-start
+
+.overview
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 100%
+  max-width: $max-page-width
+  height: 100%
+  padding: 10px
+
+  .banner
+    padding: 10px 0
+
+  .separator
+    margin: 8px
+
+  .menu
+    width: 100%
+    display: flex
+    flex-direction: column
+
+    .transactions
+      svg
+        color: $green
+
+    .limits
+      svg
+        color: $yellow
+
+    .analytics
+      svg
+        color: $special
+
+    .calendar
+      svg
+        color: $purple

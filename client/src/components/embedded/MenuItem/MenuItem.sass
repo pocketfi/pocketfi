@@ -1,0 +1,24 @@
+@import 'src/constants'
+@import 'src/colors'
+
+.menu-item
+  display: flex
+  align-items: center
+  padding: 5px
+  margin: 5px
+  border-radius: 10px
+  cursor: pointer
+  transition: background-color .1s ease-out
+  user-select: none
+
+  &:hover
+    background: $gray
+
+  *
+    margin: 5px
+
+  .title
+    font-weight: normal
+
+  svg
+    font-size: 50px
