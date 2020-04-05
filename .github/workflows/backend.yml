@@ -39,7 +39,7 @@ jobs:
     env:
       CI: true
       PORT: 4000
-      ATLAS_URI: mongodb://localhost:27017/expense_tracker
+      MONGO_URI: mongodb://localhost:27017/expense_tracker
       JWT_SECRET: secret
-      ATLAS_URI_TEST: mongodb://localhost:27017/expense_tracker_test
+      MONGO_URI_TEST: mongodb://localhost:27017/expense_tracker_test
 
