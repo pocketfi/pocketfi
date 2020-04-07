@@ -19,6 +19,10 @@ html, body, #root, .App
   align-items: center
   justify-content: center
 
+html
+  //this fix bug with 100% screen height
+  display: table
+
 button
   height: $input-height
   border: none
@@ -27,6 +31,9 @@ button
   color: $white
   margin: $input-margin
   cursor: pointer
+
+  &:focus
+    outline: 0
 
 a
   font-size: $font-size

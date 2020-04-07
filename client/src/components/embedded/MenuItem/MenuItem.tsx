@@ -1,20 +1,31 @@
 import React, {ReactNode} from 'react';
-import {Title} from '../Title/Title';
 import './MenuItem.sass'
+import {Title} from '../Title/Title';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
 
-interface MenuItemProps {
+interface MenuItemProps extends RouteComponentProps {
   icon: ReactNode;
   title: string;
   className?: string;
+  route?: string;
 }
 
-export const MenuItem = ({
-                           icon,
-                           title,
-                           className = ''
-                         }: MenuItemProps) => (
-  <div className={'menu-item ' + className}>
-    {icon}
-    <Title value={title}/>
-  </div>
-);
+class MenuItem extends React.Component<MenuItemProps> {
+  static defaultProps = {
+    className: ''
+  };
+
+  render() {
+    return (
+      <div
+        className={'menu-item ' + this.props.className}
+        onClick={() => this.props.route && this.props.history.push(this.props.route)}
+      >
+        {this.props.icon}
+        <Title value={this.props.title}/>
+      </div>
+    );
+  }
+}
+
+export default withRouter(MenuItem);

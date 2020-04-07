@@ -2,8 +2,10 @@ import React from 'react'
 import {OverviewBanner} from '../../embedded/OverviewBanner/OverviewBanner';
 import './Overview.sass'
 import {Separator} from '../../embedded/Separator/Separator';
-import {MenuItem} from '../../embedded/MenuItem/MenuItem';
-import {IoIosCalendar, MdAttachMoney, MdNotInterested, MdShowChart} from 'react-icons/all';
+import {IoIosCalendar, MdAdd, MdAttachMoney, MdNotInterested, MdSettings, MdShowChart} from 'react-icons/all';
+import {Button} from 'reactstrap';
+import {RouteComponentProps, withRouter} from 'react-router-dom';
+import MenuItem from '../../embedded/MenuItem/MenuItem';
 
 export enum OverviewCardType {
   DAY = 'day',
@@ -17,7 +19,7 @@ export interface Card {
   averageDelta?: number;
 }
 
-export class OverviewProps {
+export interface OverviewProps extends RouteComponentProps {
 }
 
 class Overview extends React.Component<OverviewProps> {
@@ -48,14 +50,25 @@ class Overview extends React.Component<OverviewProps> {
         />
         <Separator/>
         <div className='menu'>
-          <MenuItem className='transactions' icon={<MdAttachMoney/>} title='Transactions'/>
-          <MenuItem className='limits' icon={<MdNotInterested/>} title='Limits'/>
-          <MenuItem className='analytics' icon={<MdShowChart/>} title='Analytics'/>
-          <MenuItem className='calendar' icon={<IoIosCalendar/>} title='Calendar'/>
+          <MenuItem className='transactions' icon={<MdAttachMoney/>} title='Transactions' route='/transactions'/>
+          <MenuItem className='limits' icon={<MdNotInterested/>} title='Limits' route='/limits'/>
+          <MenuItem className='analytics' icon={<MdShowChart/>} title='Analytics' route='/analytics'/>
+          <MenuItem className='calendar' icon={<IoIosCalendar/>} title='Calendar' route='/calendar'/>
+          <MenuItem className='settings' icon={<MdSettings/>} title='Settings' route='/settings'/>
+        </div>
+        <div className='button-wrapper'>
+          <Button
+            children={<MdAdd/>}
+            title='New transaction'
+            onClick={() => {
+              console.log('new!');
+              this.props.history.push('/new');
+            }}
+          />
         </div>
       </div>
     );
   }
 }
 
-export default Overview;
+export default withRouter(Overview);
