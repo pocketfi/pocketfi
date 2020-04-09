@@ -8,7 +8,6 @@ import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
 import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
 import {Link} from 'react-router-dom';
 import {LoginUser} from '../../../types/LoginUser';
-import {Title} from '../../embedded/Title/Title';
 import './Login.sass'
 
 export interface LoginProps extends AuthState {

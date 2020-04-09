@@ -1,0 +1,71 @@
+@import 'src/colors'
+@import 'src/constants'
+
+#root
+  align-self: flex-start
+
+.overview
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  width: 100%
+  max-width: $max-page-width
+  height: 100%
+  padding: 10px
+  box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.02)
+
+  .separator
+    margin: 8px
+
+  .menu
+    width: 100%
+    display: flex
+    flex-direction: column
+    margin-bottom: 120px
+
+    .transactions
+      svg
+        color: $green
+
+    .limits
+      svg
+        color: $yellow
+
+    .analytics
+      svg
+        color: $special
+
+    .calendar
+      svg
+        color: $purple
+
+    .settings
+      svg
+        color: $dark
+
+  .button-wrapper
+    position: fixed
+    display: flex
+    justify-content: flex-end
+    bottom: 0
+    width: 100%
+    max-width: $max-page-width
+
+    button
+      $button-size: 80px
+
+      width: $button-size
+      height: $button-size
+      margin: 40px
+      border-radius: 50%
+      box-shadow: 5px 5px 10px 0 $gray
+      transition: all .2s ease-in-out
+
+      &:hover
+        width: calc(#{$button-size} + 10px)
+        height: calc(#{$button-size} + 10px)
+        margin: 35px
+
+      svg
+        font-size: $button-size

@@ -5,7 +5,7 @@ interface SwitcherProps {
   switched: boolean;
   option1: string;
   option2: string;
-  onChange: (switched: boolean) => void
+  onChange: (switched: boolean) => void;
 }
 
 export class Switcher extends React.Component<SwitcherProps> {
