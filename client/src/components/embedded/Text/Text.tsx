@@ -1,12 +1,11 @@
 import React from 'react';
 import './Text.sass'
 
-export class TextProps {
-  value: string = ''
+export interface TextProps {
+  value?: string;
+  className?: string;
 }
 
-export const Text = (props: TextProps) => (
-  <p className='text'>
-    {props.value}
-  </p>
+export const Text = ({value = '', className = ''}: TextProps) => (
+  <p className={'text ' + className}>{value}</p>
 );

@@ -1,12 +1,7 @@
 import React from 'react';
 import './Title.sass'
+import {TextProps} from '../Text/Text';
 
-export class TextProps {
-  value: string = ''
-}
-
-export const Title = (props: TextProps) => (
-  <p className='title'>
-    {props.value}
-  </p>
+export const Title = ({value = '', className = ''}: TextProps) => (
+  <p className={'title ' + className}>{value}</p>
 );
