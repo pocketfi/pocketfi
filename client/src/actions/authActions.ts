@@ -8,13 +8,14 @@ import {
   USER_LOADED,
   USER_LOADING
 } from './types/AuthActionTypes';
-import {AuthUser} from "../types/AuthUser";
 import {ConfigHeaders} from "../types/ConfigHeaders";
 import {Dispatch} from "redux";
 import {Msg} from "../types/Msg";
 import {User} from "../types/User";
 import {AppState} from "../store";
 import {RegisteredUser} from "../types/RegisteredUser";
+import {GoogleLoginResponse} from "react-google-login";
+import {LoginUser} from "../types/LoginUser";
 
 export const userLoading = (): AppActions => ({
   type: USER_LOADING
@@ -46,6 +47,22 @@ export const logoutSuccess = (): AppActions => ({
   type: LOGOUT_SUCCESS
 });
 
+export const oauthGoogle = (googleUser: GoogleLoginResponse) => (dispatch: Dispatch<AppActions>) => {
+  console.log('oauthGoogle');
+  axios.post('http://localhost:5000/api/auth/google', {
+    access_token: googleUser
+  })
+    .then(res => {
+        console.log(res.data);
+        dispatch(loginSuccess(res.data));
+      }
+    )
+    .catch(err => {
+      dispatch(loginFail(err.response.data, err.response.status
+      ));
+    });
+};
+
 export const loadUser = () => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
   dispatch(userLoading());
 
@@ -59,7 +76,7 @@ export const loadUser = () => (dispatch: Dispatch<AppActions>, getState: () => A
     });
 };
 
-export const login = ({email, password}: AuthUser) => (
+export const login = ({email, password}: LoginUser) => (
   dispatch: Dispatch<AppActions>
 ) => {
   const config = {
