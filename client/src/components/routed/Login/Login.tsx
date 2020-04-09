@@ -8,8 +8,8 @@ import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
 import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
 import {Link} from 'react-router-dom';
 import {LoginUser} from '../../../types/LoginUser';
-import {Title} from '../../embedded/Title/Title';
 import './Login.sass'
+import GoogleLogin, {GoogleLoginResponse, GoogleLoginResponseOffline} from "react-google-login";
 
 export interface LoginProps extends AuthState {
   login(user: AuthUser): void;
@@ -22,8 +22,25 @@ class Login extends React.Component<LoginProps> {
     password: ''
   };
 
+  responseGoogle(googleUser: GoogleLoginResponse | GoogleLoginResponseOffline){
+
+
+    console.log({accessToken: googleUser})
+    // Make user login in your system
+    // login success tracking...
+  }
+
   handleSubmit() {
     this.props.login(new LoginUser(this.state.email, this.state.password));
+  }
+
+  preLoginTracking(): void {
+    console.log('Attemp to login with google');
+  }
+
+  errorHandler(error: string): void{
+    // handle error if login got failed...
+    console.error(error)
   }
 
   render() {
@@ -43,10 +60,17 @@ class Login extends React.Component<LoginProps> {
           <Button onClick={() => this.handleSubmit()}>
             Login
           </Button>
+
         </Form>
+
         <Link className='hint' to='/register'>
           Register
         </Link>
+        <GoogleLogin
+          clientId= '882065851022-oec80nq5tmg71dj8r68d81cc0cgt1anf.apps.googleusercontent.com'
+          onSuccess={this.responseGoogle}
+          onFailure={this.responseGoogle}
+        />
       </div>
     );
   }
