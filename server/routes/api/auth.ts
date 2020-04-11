@@ -6,6 +6,16 @@ import User from '../../models/User';
 
 const router = Router();
 
+export const tokenGeneration = (id: string) => {
+  const token = jwt.sign(
+    {id: id},
+    config.JWT_SECRET,
+    {expiresIn: 3600}
+  );
+  console.log(token);
+  return token;
+};
+
 router.post('/', (req, res) => {
   const {email, password} = req.body;
 
@@ -18,48 +28,44 @@ router.post('/', (req, res) => {
 
     bcrypt.compare(password, user.password).then(isMatch => {
       if (!isMatch) return res.status(400).json({msg: 'Invalid credentials'});
-
-      jwt.sign(
-        {id: user.id},
-        config.JWT_SECRET,
-        {expiresIn: 3600},
-        (err, token) => {
-          console.log(token);
-          if (err) throw err;
-
-          res.json({
-            token,
-            user: {
-              id: user.id,
-              name: user.name,
-              email: user.email
-            }
-          });
-        });
+      const token = tokenGeneration(user.id);
+      res.json({
+        token,
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email
+        }
+      });
     });
   });
 });
 
 router.post('/google', (req, res) => {
-  console.log(req.body.access_token.profileObj);
-  const googleUser = req.body.access_token.profileObj;
+  const {email, firstName} = req.body;
+  console.log(email, firstName);
 
-  jwt.sign(
-    {id: googleUser.googleId},
-    config.JWT_SECRET,
-    {expiresIn: 3600},
-    (err, token) => {
-      if (err) throw err;
-      res.json({
-        token,
-        user: {
-          id: googleUser.googleId,
-          name: googleUser.name,
-          email: googleUser.email
-        }
+  User.findOne({email}).then(user => {
+
+    if (!user) {
+      user = new User({
+        name: firstName,
+        email: email
       });
-    });
+      user.save();
+    }
 
+    const token = tokenGeneration(user.id);
+
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email
+      }
+    });
+  });
 });
 
 export default router;

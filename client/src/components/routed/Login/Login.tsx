@@ -2,43 +2,35 @@ import React from 'react';
 import {Button, Form} from 'reactstrap';
 import {connect} from 'react-redux';
 import {AuthState} from '../../../types/AuthState';
-import * as ac from "../../../actions/authActions";
-
 import {AuthUser} from '../../../types/AuthUser';
 import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
 import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
 import {Link} from 'react-router-dom';
 import {LoginUser} from '../../../types/LoginUser';
+import GoogleLogin from "react-google-login";
 import './Login.sass'
-import GoogleLogin, {GoogleLoginResponse} from "react-google-login";
+import * as actions from '../../../actions/authActions';
+
+import {CLIENT_ID} from "../../../config/const";
 
 export interface LoginProps extends AuthState {
   login(user: AuthUser): void;
-  oauthGoogle(googleUser : GoogleLoginResponse): void;
+  oauthGoogle(googleUser: any): void;
 }
 
 class Login extends React.Component<LoginProps> {
-  constructor(props: LoginProps) {
-    super(props);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.responseGoogle = this.responseGoogle.bind(this);
-  }
-
   state: any = {
     email: '',
     password: ''
   };
 
-  responseGoogle(googleUser: any){
-      this.props.oauthGoogle(googleUser);
-      console.log({accessToken: googleUser});
+  responseGoogle(authResponse: any) {
+    this.props.oauthGoogle(authResponse);
   }
 
   handleSubmit() {
     this.props.login(new LoginUser(this.state.email, this.state.password));
   }
-
-
 
   render() {
     return (
@@ -64,9 +56,10 @@ class Login extends React.Component<LoginProps> {
           Register
         </Link>
         <GoogleLogin
-          clientId= {''}
-          onSuccess={this.responseGoogle}
-          onFailure={this.responseGoogle}
+          clientId={CLIENT_ID}
+          buttonText="Login with google"
+          onSuccess={(authResponse) => this.responseGoogle(authResponse)}
+          onFailure={(authResponse) => this.responseGoogle(authResponse)}
         />
       </div>
     );
@@ -77,4 +70,4 @@ const mapStateToProps = (state: AuthState) => ({
   isAuthenticated: state.isAuthenticated
 });
 
-export default connect(mapStateToProps, ac)(Login);
+export default connect(mapStateToProps, actions)(Login);

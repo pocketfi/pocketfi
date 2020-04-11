@@ -47,10 +47,10 @@ export const logoutSuccess = (): AppActions => ({
   type: LOGOUT_SUCCESS
 });
 
-export const oauthGoogle = (googleUser: GoogleLoginResponse) => (dispatch: Dispatch<AppActions>) => {
-  console.log('oauthGoogle');
+export const oauthGoogle = (authResponse: GoogleLoginResponse) => (dispatch: Dispatch<AppActions>) => {
+  console.log(authResponse);
   axios.post('http://localhost:5000/api/auth/google', {
-    access_token: googleUser
+    email: authResponse.profileObj.email, firstName: authResponse.profileObj.givenName
   })
     .then(res => {
         console.log(res.data);
@@ -72,7 +72,7 @@ export const loadUser = () => (dispatch: Dispatch<AppActions>, getState: () => A
       dispatch(userLoaded(res.data))
     })
     .catch(err => {
-      dispatch(authError(err.response.data, err.response.status));
+      console.log(err);
     });
 };
 
@@ -89,9 +89,10 @@ export const login = ({email, password}: LoginUser) => (
 
   axios
     .post('/api/auth', body, config)
-    .then(res =>
+    .then(res => {
+      console.log(res.data);
       dispatch(loginSuccess(res.data))
-    )
+    })
     .catch(err => {
       dispatch(loginFail(err.response.data, err.response.status
       ));
