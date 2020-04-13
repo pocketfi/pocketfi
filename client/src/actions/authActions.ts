@@ -14,7 +14,6 @@ import {Msg} from "../types/Msg";
 import {User} from "../types/User";
 import {AppState} from "../store";
 import {RegisteredUser} from "../types/RegisteredUser";
-import {GoogleLoginResponse} from "react-google-login";
 import {LoginUser} from "../types/LoginUser";
 
 export const userLoading = (): AppActions => ({
@@ -47,19 +46,14 @@ export const logoutSuccess = (): AppActions => ({
   type: LOGOUT_SUCCESS
 });
 
-export const oauthGoogle = (googleUser: GoogleLoginResponse) => (dispatch: Dispatch<AppActions>) => {
-  console.log('oauthGoogle');
-  axios.post('http://localhost:5000/api/auth/google', {
-    access_token: googleUser
-  })
+export const oauthGoogle = (access_token: string) => (dispatch: Dispatch<AppActions>) => {
+  axios.post('/api/auth/google', {access_token})
     .then(res => {
-        console.log(res.data);
         dispatch(loginSuccess(res.data));
       }
     )
     .catch(err => {
-      dispatch(loginFail(err.response.data, err.response.status
-      ));
+      dispatch(loginFail(err.response.data, err.response.status));
     });
 };
 
@@ -72,7 +66,7 @@ export const loadUser = () => (dispatch: Dispatch<AppActions>, getState: () => A
       dispatch(userLoaded(res.data))
     })
     .catch(err => {
-      dispatch(authError(err.response.data, err.response.status));
+      console.error(err);
     });
 };
 
@@ -88,10 +82,10 @@ export const login = ({email, password}: LoginUser) => (
   const body = JSON.stringify({email, password});
 
   axios
-    .post('/api/auth', body, config)
-    .then(res =>
+    .post('api/auth', body, config)
+    .then(res => {
       dispatch(loginSuccess(res.data))
-    )
+    })
     .catch(err => {
       dispatch(loginFail(err.response.data, err.response.status
       ));
