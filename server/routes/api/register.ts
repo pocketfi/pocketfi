@@ -1,8 +1,7 @@
 import {Router} from 'express';
 import bcrypt from 'bcryptjs';
-import config from '../../config';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
+import {tokenGeneration} from "../../utils/tokenGeneration";
 
 const router = Router();
 
@@ -29,12 +28,7 @@ router.post('/', (req, res) => {
         newUser.password = hash;
         newUser.save()
           .then(user => {
-            jwt.sign(
-              {id: user.id},
-              config.JWT_SECRET,
-              {expiresIn: 3600},
-              (err, token) => {
-                if (err) throw err;
+            const token = tokenGeneration(user.id)
                 res.json({
                   token,
                   user: {
@@ -43,13 +37,11 @@ router.post('/', (req, res) => {
                     email: user.email
                   }
                 });
-              });
           }).catch(err => {
           res.status(400).json({err: err});
         });
       });
     });
-
   });
 });
 

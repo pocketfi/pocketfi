@@ -1,18 +1,10 @@
 import {Router} from 'express';
 import bcrypt from 'bcryptjs';
-import config from '../../config';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import {google} from "googleapis";
+import {tokenGeneration} from "../../utils/tokenGeneration";
 
 const router = Router();
-export const tokenGeneration = (id: string) => {
-  return jwt.sign(
-    {id: id},
-    config.JWT_SECRET,
-    {expiresIn: 3600}
-  );
-};
 
 router.post('/', (req, res) => {
   const {email, password} = req.body;
