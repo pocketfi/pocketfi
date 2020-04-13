@@ -47,13 +47,11 @@ class Login extends React.Component<LoginProps> {
           <Button onClick={() => this.handleSubmit()}>
             Login
           </Button>
-
         </Form>
-
         <Link className='hint' to='/register'>
           Register
         </Link>
-        <GoogleLoginButton oauthGoogle={access_token=>this.responseGoogle(access_token)}/>
+        <GoogleLoginButton oauthGoogle={access_token => this.responseGoogle(access_token)}/>
       </div>
     );
   }
