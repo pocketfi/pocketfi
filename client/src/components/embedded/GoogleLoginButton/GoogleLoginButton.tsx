@@ -9,7 +9,7 @@ export interface LoginProps {
 
 export class GoogleLoginButton extends React.Component<LoginProps> {
 
-  responseGoogle(authResult: GoogleLoginInfo) {
+  handleResponseGoogle(authResult: GoogleLoginInfo) {
     const access_token = authResult.getAuthResponse().access_token;
     this.props.oauthGoogle(access_token);
   }
@@ -40,7 +40,7 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
             className='react-google-oauth-button-login'
             socialId={CLIENT_ID}
             buttonText='Login with google'
-            responseHandler={authResponse => this.responseGoogle(authResponse)}
+            responseHandler={authResponse => this.handleResponseGoogle(authResponse)}
           />
         </div>
       </div>
