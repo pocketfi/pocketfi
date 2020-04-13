@@ -1,81 +1,116 @@
-import {Router} from 'express';
-import bcrypt from 'bcryptjs';
-import config from '../../config';
-import jwt from 'jsonwebtoken';
-import User from '../../models/User';
-import {google} from "googleapis";
+import axios from 'axios';
+import {
+  AppActions,
+  AUTH_ERROR,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  USER_LOADED,
+  USER_LOADING
+} from './types/AuthActionTypes';
+import {ConfigHeaders} from "../types/ConfigHeaders";
+import {Dispatch} from "redux";
+import {Msg} from "../types/Msg";
+import {User} from "../types/User";
+import {AppState} from "../store";
+import {RegisteredUser} from "../types/RegisteredUser";
+import {LoginUser} from "../types/LoginUser";
 
-const router = Router();
-export const tokenGeneration = (id: string) => {
-  const token = jwt.sign(
-    {id: id},
-    config.JWT_SECRET,
-    {expiresIn: 3600}
-  );
-  console.log(token);
-  return token;
+export const userLoading = (): AppActions => ({
+  type: USER_LOADING
+});
+
+export const userLoaded = (loadedUser: User): AppActions => ({
+  type: USER_LOADED,
+  payload: loadedUser
+});
+
+export const authError = (message: Msg, status: number): AppActions => {
+  return {
+    type: AUTH_ERROR,
+    payload: {message, status}
+  }
 };
 
-router.post('/', (req, res) => {
-  const {email, password} = req.body;
+export const loginSuccess = (authUser: User): AppActions => ({
+  type: LOGIN_SUCCESS,
+  payload: authUser
+});
 
-  if (!email || !password) {
-    return res.status(400).json({msg: 'Please enter all fields'});
+export const loginFail = (message: Msg, status: number): AppActions => ({
+  type: LOGIN_FAIL,
+  payload: {message, status}
+});
+
+export const logoutSuccess = (): AppActions => ({
+  type: LOGOUT_SUCCESS
+});
+
+export const oauthGoogle = (access_token: string) => (dispatch: Dispatch<AppActions>) => {
+  axios.post('/api/auth/google', {access_token})
+    .then(res => {
+        dispatch(loginSuccess(res.data));
+      }
+    )
+    .catch(err => {
+      dispatch(loginFail(err.response.data, err.response.status));
+    });
+};
+
+export const loadUser = () => (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
+  dispatch(userLoading());
+
+  axios
+    .get('/api/user', tokenConfig(getState))
+    .then(res => {
+      dispatch(userLoaded(res.data))
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+export const login = ({email, password}: LoginUser) => (
+  dispatch: Dispatch<AppActions>
+) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  const body = JSON.stringify({email, password});
+
+  axios
+    .post('api/auth', body, config)
+    .then(res => {
+      console.log(res.data);
+      dispatch(loginSuccess(res.data))
+    })
+    .catch(err => {
+      dispatch(loginFail(err.response.data, err.response.status
+      ));
+    });
+};
+
+export const logout = () => (
+  dispatch: Dispatch<AppActions>
+) => {
+  dispatch(logoutSuccess())
+};
+
+export const tokenConfig = (getState: () => AppState) => {
+  const token = (<RegisteredUser>getState().auth).token;
+
+  const config: ConfigHeaders = {
+    headers: {
+      'Content-type': 'application/json'
+    }
+  };
+
+  if (token) {
+    config.headers['x-auth-token'] = token;
   }
 
-  User.findOne({email}).then(user => {
-    if (!user) return res.status(400).json({msg: 'User does not exist'});
-
-    bcrypt.compare(password, user.password).then(isMatch => {
-      if (!isMatch) return res.status(400).json({msg: 'Invalid credentials'});
-      const token = tokenGeneration(user.id);
-      res.json({
-        token,
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email
-        }
-      });
-    });
-  });
-});
-
-router.post('/google', (req, resp) => {
-  const access_token = req.body.access_token;
-  const oauth2Client = new google.auth.OAuth2();
-  oauth2Client.setCredentials({access_token: access_token});
-  const oauth2 = google.oauth2({
-    auth: oauth2Client,
-    version: 'v2'
-  });
-  oauth2.userinfo.get((err, res) => {
-      if (err) {
-        return resp.status(400);
-      } else {
-        const {email, name} = res.data;
-        User.findOne({email}).then(user => {
-
-          if (!user) {
-            user = new User({
-              name: name,
-              email: email
-            });
-            user.save();
-          }
-
-          const token = tokenGeneration(user.id);
-          resp.json({
-                token,
-                user: {
-                  id: user.id,
-                  name: user.name,
-                  email: user.email
-                }
-              });
-        });
-      }
-    });
-});
-
-export default router;
+  return config;
+};
