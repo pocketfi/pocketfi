@@ -47,7 +47,7 @@ export const logoutSuccess = (): AppActions => ({
 });
 
 export const oauthGoogle = (access_token: string) => (dispatch: Dispatch<AppActions>) => {
-  axios.post('/api/auth/google', access_token)
+  axios.post('/api/auth/google', {access_token})
     .then(res => {
         console.log(res.data);
         dispatch(loginSuccess(res.data));
