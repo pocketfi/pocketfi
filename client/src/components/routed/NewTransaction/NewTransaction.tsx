@@ -3,8 +3,12 @@ import {Button, Form, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import './NewTransaction.sass'
 import {Switcher} from '../../embedded/Switcher/Switcher';
+import {Transaction} from "../../../types/Transaction";
+import * as actions from '../../../actions/transactionAction';
 
 export interface NewTransactionProps {
+  getRate(): void;
+  newTransaction(transaction: Transaction): void;
 }
 
 enum TransactionType {
@@ -13,17 +17,40 @@ enum TransactionType {
 }
 
 class NewTransaction extends React.Component<NewTransactionProps> {
+  constructor(props: NewTransactionProps) {
+    super(props);
+    this.getRate();
+  }
 
   state: any = {
     transactionType: TransactionType.EXPENSE,
     category: '',
     place: '',
     price: '0.00',
-    currency: '$'
+    currency: '$',
+    currencyRate: {}
+  };
+
+  getRate = () => {
+    fetch('https://api.exchangeratesapi.io/latest')
+      .then(res => {
+        res.json().then(data => {
+          console.log('rates', data.rates);
+          this.setState({currencyRate: data.rates})
+        })
+      })
   };
 
   handleSubmit() {
     console.log(this.state);
+    const transaction = new Transaction(
+      this.state.transactionType,
+      this.state.category,
+      this.state.place,
+      this.state.price,
+      this.state.currency);
+    console.log(transaction);
+    this.props.newTransaction(transaction)
   }
 
   render() {
@@ -77,4 +104,4 @@ class NewTransaction extends React.Component<NewTransactionProps> {
 
 const mapStateToProps = (state: any) => ({});
 
-export default connect(mapStateToProps)(NewTransaction);
+export default connect(mapStateToProps, actions)(NewTransaction);

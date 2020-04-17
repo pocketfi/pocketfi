@@ -11,16 +11,16 @@ import {
 import {ConfigHeaders} from "../types/ConfigHeaders";
 import {Dispatch} from "redux";
 import {Msg} from "../types/Msg";
-import {User} from "../types/User";
 import {AppState} from "../store";
 import {RegisteredUser} from "../types/RegisteredUser";
 import {LoginUser} from "../types/LoginUser";
+import {AuthenticatedUser} from "../types/AuthenticatedUser";
 
 export const userLoading = (): AppActions => ({
   type: USER_LOADING
 });
 
-export const userLoaded = (loadedUser: User): AppActions => ({
+export const userLoaded = (loadedUser: AuthenticatedUser): AppActions => ({
   type: USER_LOADED,
   payload: loadedUser
 });
@@ -32,7 +32,7 @@ export const authError = (message: Msg, status: number): AppActions => {
   }
 };
 
-export const loginSuccess = (authUser: User): AppActions => ({
+export const loginSuccess = (authUser: AuthenticatedUser): AppActions => ({
   type: LOGIN_SUCCESS,
   payload: authUser
 });
