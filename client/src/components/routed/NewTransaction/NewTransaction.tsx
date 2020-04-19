@@ -3,11 +3,11 @@ import {Button, Form, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import './NewTransaction.sass'
 import {Switcher} from '../../embedded/Switcher/Switcher';
+import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
 import {Transaction} from "../../../types/Transaction";
 import * as actions from '../../../actions/transactionAction';
 
 export interface NewTransactionProps {
-  getRate(): void;
   newTransaction(transaction: Transaction): void;
 }
 
@@ -28,17 +28,20 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     place: '',
     price: '0.00',
     currency: '$',
-    currencyRate: {}
+    currencyRate: []
   };
 
   getRate = () => {
     fetch('https://api.exchangeratesapi.io/latest')
       .then(res => {
-        res.json().then(data => {
-          console.log('rates', data.rates);
-          this.setState({currencyRate: data.rates})
-        })
-      })
+        return res.json()
+      }).then(data => {
+      const rates = JSON.stringify(data.rates);
+      JSON.parse(rates, (key, value) => {
+        console.log(key);
+        this.state.currencyRate.push({label: key, value: key});
+      });
+    })
   };
 
   handleSubmit() {
@@ -84,12 +87,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
               onChange={e => this.setState({price: e.target.value})}
               placeholder="0.00"
             />
-            <Input
-              className='currency'
-              value={this.state.currency}
-              onChange={e => this.setState({currency: e.target.value})}
-              placeholder="$"
-            />
+            <DropdownMenu currencyRate={this.state.currencyRate} onChange={value => this.setState({currency: value})}/>
           </div>
           <Button
             className={this.state.transactionType.toLowerCase()}
