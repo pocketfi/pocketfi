@@ -6,12 +6,14 @@ import Login from './components/routed/Login/Login';
 import Register from './components/routed/Register/Register';
 import Overview from './components/routed/Overview/Overview';
 import NewTransaction from './components/routed/NewTransaction/NewTransaction';
+import {fetchRate} from "./actions/rateActions";
 
 export class App extends React.Component {
 
   constructor(props: any) {
     super(props);
     store.dispatch(loadUser());
+    store.dispatch(fetchRate());
   }
 
   render() {

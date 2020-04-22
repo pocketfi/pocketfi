@@ -16,8 +16,7 @@ const TransactionSchema = new Schema({
     ref: 'category'
   },
   place: {
-    type: String,
-    required: true
+    type: String
   },
   price: {
     type: Number,

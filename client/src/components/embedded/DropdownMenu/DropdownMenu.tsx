@@ -2,8 +2,9 @@ import React from 'react';
 import Select from "react-select";
 
 interface DropdownMenuProps {
-  currencyRate: []
+  options: [];
   onChange(value: any): void;
+  placeholder: string;
 }
 
 export class DropdownMenu extends React.Component<DropdownMenuProps> {
@@ -41,8 +42,8 @@ export class DropdownMenu extends React.Component<DropdownMenuProps> {
       <div>
         <Select
           styles={customStyles}
-          placeholder='USD'
-          options={this.props.currencyRate}
+          placeholder={this.props.placeholder}
+          options={this.props.options}
           components={{DropdownIndicator: () => null, IndicatorSeparator:() => null}}
           onChange={this.handleChange}
         />

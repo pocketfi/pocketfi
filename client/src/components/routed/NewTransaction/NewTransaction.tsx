@@ -6,6 +6,7 @@ import {Switcher} from '../../embedded/Switcher/Switcher';
 import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
 import {Transaction} from "../../../types/Transaction";
 import * as actions from '../../../actions/transactionAction';
+import store from "../../../store";
 
 export interface NewTransactionProps {
   newTransaction(transaction: Transaction): void;
@@ -17,10 +18,6 @@ enum TransactionType {
 }
 
 class NewTransaction extends React.Component<NewTransactionProps> {
-  constructor(props: NewTransactionProps) {
-    super(props);
-    this.getRate();
-  }
 
   state: any = {
     transactionType: TransactionType.EXPENSE,
@@ -28,20 +25,9 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     place: '',
     price: '0.00',
     currency: '$',
-    currencyRate: []
-  };
-
-  getRate = () => {
-    fetch('https://api.exchangeratesapi.io/latest')
-      .then(res => {
-        return res.json()
-      }).then(data => {
-      const rates = JSON.stringify(data.rates);
-      JSON.parse(rates, (key, value) => {
-        console.log(key);
-        this.state.currencyRate.push({label: key, value: key});
-      });
-    })
+    placeholder: 'USD',
+    // @ts-ignore
+    codeRates: store.getState().rate.codeRates
   };
 
   handleSubmit() {
@@ -87,7 +73,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
               onChange={e => this.setState({price: e.target.value})}
               placeholder="0.00"
             />
-            <DropdownMenu currencyRate={this.state.currencyRate} onChange={value => this.setState({currency: value})}/>
+            <DropdownMenu placeholder={this.state.placeholder} options={this.state.codeRates} onChange={value => this.setState({currency: value})}/>
           </div>
           <Button
             className={this.state.transactionType.toLowerCase()}
