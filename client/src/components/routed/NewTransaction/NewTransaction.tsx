@@ -3,8 +3,13 @@ import {Button, Form, Input} from 'reactstrap';
 import {connect} from 'react-redux';
 import './NewTransaction.sass'
 import {Switcher} from '../../embedded/Switcher/Switcher';
+import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
+import {Transaction} from "../../../types/Transaction";
+import * as actions from '../../../actions/transactionAction';
+import store from "../../../store";
 
 export interface NewTransactionProps {
+  newTransaction(transaction: Transaction): void;
 }
 
 enum TransactionType {
@@ -19,11 +24,22 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     category: '',
     place: '',
     price: '0.00',
-    currency: '$'
+    currency: '$',
+    placeholder: 'USD',
+    // @ts-ignore
+    codeRates: store.getState().rate.codeRates
   };
 
   handleSubmit() {
     console.log(this.state);
+    const transaction = new Transaction(
+      this.state.transactionType,
+      this.state.category,
+      this.state.place,
+      this.state.price,
+      this.state.currency);
+    console.log(transaction);
+    this.props.newTransaction(transaction)
   }
 
   render() {
@@ -57,12 +73,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
               onChange={e => this.setState({price: e.target.value})}
               placeholder="0.00"
             />
-            <Input
-              className='currency'
-              value={this.state.currency}
-              onChange={e => this.setState({currency: e.target.value})}
-              placeholder="$"
-            />
+            <DropdownMenu placeholder={this.state.placeholder} options={this.state.codeRates} onChange={value => this.setState({currency: value})}/>
           </div>
           <Button
             className={this.state.transactionType.toLowerCase()}
@@ -77,4 +88,4 @@ class NewTransaction extends React.Component<NewTransactionProps> {
 
 const mapStateToProps = (state: any) => ({});
 
-export default connect(mapStateToProps)(NewTransaction);
+export default connect(mapStateToProps, actions)(NewTransaction);
