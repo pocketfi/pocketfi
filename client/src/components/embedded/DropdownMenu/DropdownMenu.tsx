@@ -17,9 +17,9 @@ export class DropdownMenu extends React.Component<DropdownMenuProps> {
     const customStyles = {
       control: (base: any) => ({
         ...base,
-        'background-color': '#f1f1f1',
-        'border-radius': '8px',
-        'border-style': 'none'
+        backgroundColor: '#f1f1f1',
+        borderRadius: '8px',
+        borderStyle: 'none'
       }),
       valueContainer: (base: any) => ({
         ...base,
@@ -27,7 +27,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps> {
       }),
       menuList: (base: any) => ({
         ...base,
-        'font-size': 14,
+        fontSize: 14,
         height: 200
       }),
       input: (base: any) => ({
