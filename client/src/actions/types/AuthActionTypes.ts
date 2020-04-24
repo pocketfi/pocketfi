@@ -1,5 +1,5 @@
 import {Msg} from "../../types/Msg";
-import {User} from "../../types/User";
+import {AuthenticatedUser} from "../../types/AuthenticatedUser";
 
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";
@@ -14,7 +14,7 @@ export interface UserLoading {
 
 export interface UserLoaded {
   type: typeof USER_LOADED;
-  payload: User
+  payload: AuthenticatedUser
 }
 
 export interface AuthError {
@@ -24,7 +24,7 @@ export interface AuthError {
 
 export interface LoginSuccess {
   type: typeof LOGIN_SUCCESS;
-  payload: User
+  payload: AuthenticatedUser
 }
 
 export interface LoginFail {
