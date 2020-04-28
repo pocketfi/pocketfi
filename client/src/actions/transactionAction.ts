@@ -4,11 +4,13 @@ import {Dispatch} from "redux";
 import {
   TRANSACTION_FAIL,
   TRANSACTION_SUCCESS,
-  TransactionActionTypes
+  TransactionActionTypes,
+  TRANSACTIONS_RECEIVED
 } from "./types/TransactionActionTypes";
 import {Msg} from "../types/Msg";
 import {tokenConfig} from "./authActions";
 import {AppState} from "../store";
+import {CreatingTransaction} from "../types/CreatingTransaction";
 
 export const transactionSuccess = (transaction: Transaction): TransactionActionTypes => ({
   type: TRANSACTION_SUCCESS,
@@ -20,9 +22,12 @@ export const transactionFail = (message: Msg, status: number): TransactionAction
   payload: {message, status}
 });
 
-export const newTransaction = (transaction: Transaction) => (
-  dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState
-) => {
+export const transactionsReceived = (transactions: Transaction[]): TransactionActionTypes => ({
+  type: TRANSACTIONS_RECEIVED,
+  transactions: transactions
+});
+
+export const newTransaction = (transaction: CreatingTransaction) => ( dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
   console.log(tokenConfig(getState));
 
   axios
@@ -35,3 +40,13 @@ export const newTransaction = (transaction: Transaction) => (
       dispatch(transactionFail(err.response.data, err.response.status));
     });
 };
+
+export const getTransactions = () => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
+  axios.get('api/transaction/get', tokenConfig(getState))
+    .then(res => {
+      dispatch(transactionsReceived(res.data))
+    })
+    .catch(err => {
+      dispatch(transactionFail(err, err));
+    })
+}

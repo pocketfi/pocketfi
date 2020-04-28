@@ -1,10 +1,12 @@
-import {TRANSACTION_FAIL, TRANSACTION_SUCCESS, TransactionActionTypes} from "../actions/types/TransactionActionTypes";
+import {
+  TRANSACTION_FAIL,
+  TRANSACTION_SUCCESS,
+  TransactionActionTypes,
+  TRANSACTIONS_RECEIVED
+} from "../actions/types/TransactionActionTypes";
 
 const initialState = {
-  token: localStorage.getItem('token'),
-  isAuthenticated: null,
-  isLoading: false,
-  user: null
+  transactions: []
 };
 
 export default function (state = initialState, action: TransactionActionTypes) {
@@ -18,6 +20,11 @@ export default function (state = initialState, action: TransactionActionTypes) {
       return {
         ...state
       };
+    case TRANSACTIONS_RECEIVED:
+      return {
+        ...state,
+        transactions: action.transactions
+      }
     default:
       return state;
   }

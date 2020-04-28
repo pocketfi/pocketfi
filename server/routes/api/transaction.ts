@@ -11,19 +11,19 @@ router.post('/new', auth, (req, res) => {
 
   User.findById(user.id)
     .then(user => {
-    if (!user) res.status(400).json({err: 'user does not exist'});
-    return user._id
-  }).then(userId => {
+      if (!user) res.status(400).json({err: 'user does not exist'});
+      return user._id
+    }).then(userId => {
     Category.findOne({name: category})
       .then(transactionCategory => {
-      if (transactionCategory) {
-        return transactionCategory._id;
-      }
-      new Category({name: category, user: userId}).save()
-        .then(transactionCategory => {
-        return transactionCategory._id;
-      })
-    }).then(category => {
+        if (transactionCategory) {
+          return transactionCategory._id;
+        }
+        new Category({name: category, user: userId}).save()
+          .then(transactionCategory => {
+            return transactionCategory._id;
+          })
+      }).then(category => {
       const newTransaction = new Transaction({
         user: userId,
         transactionType,
@@ -41,5 +41,21 @@ router.post('/new', auth, (req, res) => {
     });
   });
 });
+
+router.get('/get', auth, ((req, res) => {
+  const {user} = req.body;
+  var d = new Date(),
+    month = d.getMonth(),
+    year = d.getFullYear();
+  Transaction.find({
+    transactionType: 'EXPENSE',
+    user: user.id,
+    created: {$lt: new Date(), $gt: new Date(year + ',' + month)}
+  }).then(transactions => {
+    res.json(transactions);
+  }).catch(err => {
+    console.error(err);
+  })
+}))
 
 export default router;
