@@ -20,7 +20,7 @@ export const  fetchRate = () => (dispatch: Dispatch<AppActions>) => {
     }).then(data => {
     const rates = JSON.stringify(data.rates);
     JSON.parse(rates, (key:string, value: number) => {
-      currencyRate.push({key,value});
+      currencyRate.push({code: key,value: value});
       codeRates.push({value: key,label: key});
     });
   });

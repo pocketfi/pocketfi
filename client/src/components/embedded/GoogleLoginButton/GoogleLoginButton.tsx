@@ -1,8 +1,6 @@
 import React from 'react';
 import {GoogleLogin, GoogleLoginInfo} from "react-google-login-component";
-import {CLIENT_ID} from "../../../config/const";
 import './GoogleLoginButton.sass'
-
 export interface LoginProps {
   oauthGoogle(access_token: string): void;
 }
@@ -15,6 +13,10 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
   }
 
   render() {
+    let CLIENT_ID;
+    if (process.env.CLIENT_ID !== undefined)
+      CLIENT_ID = process.env.CLIENT_ID;
+    else CLIENT_ID = '';
     return (
       <div className="react-google-oauth-button-main">
         <div className="react-google-oauth-button-border">
