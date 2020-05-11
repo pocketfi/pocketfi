@@ -6,16 +6,12 @@ import {Switcher} from '../../embedded/Switcher/Switcher';
 import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
 import {AppState} from "../../../store";
 import {newTransaction} from "../../../actions/transactionAction";
-import {CreatingTransaction} from "../../../types/CreatingTransaction";
+import {CreateTransaction} from "../../../types/CreateTransaction";
+import {TransactionType} from "../../../types/TransactionType";
 
 export interface NewTransactionProps {
-  newTransaction(transaction: CreatingTransaction): void;
+  newTransaction(transaction: CreateTransaction): void;
   codeRates: [];
-}
-
-enum TransactionType {
-  EXPENSE = 'EXPENSE',
-  INCOME = 'INCOME'
 }
 
 class NewTransaction extends React.Component<NewTransactionProps> {
@@ -30,7 +26,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
   };
 
   handleSubmit() {
-    const transaction = new CreatingTransaction(
+    const transaction = new CreateTransaction(
       this.state.transactionType,
       this.state.category,
       this.state.place,

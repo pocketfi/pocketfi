@@ -1,8 +1,6 @@
 import {applyMiddleware, compose, createStore} from 'redux';
 import thunk, {ThunkMiddleware} from 'redux-thunk';
 import rootReducer from './reducers';
-import {AuthActionTypes} from "./actions/types/AuthActionTypes";
-import {RegisterActionTypes} from "./actions/types/RegisterActionTypes";
 
 const initialState = {};
 

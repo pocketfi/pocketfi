@@ -1,9 +1,9 @@
 export class Rate {
-  key: string;
+  code: string;
   value: number;
 
-  constructor(key: string, value: number) {
-    this.key = key;
+  constructor(code: string, value: number) {
+    this.code = code;
     this.value = value;
   }
 }

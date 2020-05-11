@@ -5,13 +5,14 @@ import {AuthState} from '../../../types/AuthState';
 import {AuthUser} from '../../../types/AuthUser';
 import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
 import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
-import {Link} from 'react-router-dom';
+import {Link, RouteComponentProps} from 'react-router-dom';
 import {LoginUser} from '../../../types/LoginUser';
 import './Login.sass'
 import * as actions from '../../../actions/authActions';
 import {GoogleLoginButton} from "../../embedded/GoogleLoginButton/GoogleLoginButton";
+import {AppState} from "../../../store";
 
-export interface LoginProps extends AuthState {
+export interface LoginProps extends AuthState, RouteComponentProps {
   login(user: AuthUser): void;
   oauthGoogle(access_token: string): void;
 }
@@ -31,6 +32,10 @@ class Login extends React.Component<LoginProps> {
   }
 
   render() {
+    console.log(this.props.isAuthenticated);
+    if (this.props.isAuthenticated) {
+      this.props.history.push('/overview')
+    }
     return (
       <div className='login'>
         <Form>
@@ -57,8 +62,9 @@ class Login extends React.Component<LoginProps> {
   }
 }
 
-const mapStateToProps = (state: AuthState) => ({
-  isAuthenticated: state.isAuthenticated
+const mapStateToProps = (state: AppState) => ({
+  // @ts-ignore
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, actions)(Login);

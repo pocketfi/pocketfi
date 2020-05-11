@@ -4,13 +4,14 @@ import './Overview.sass'
 import {Separator} from '../../embedded/Separator/Separator';
 import {IoIosCalendar, MdAdd, MdAttachMoney, MdNotInterested, MdSettings, MdShowChart} from 'react-icons/all';
 import {Button} from 'reactstrap';
-import {RouteComponentProps} from 'react-router-dom';
 import MenuItem from '../../embedded/MenuItem/MenuItem';
 import {connect} from "react-redux";
 import {getTransactions} from "../../../actions/transactionAction";
 import {AppState} from "../../../store";
 import {Transaction} from "../../../types/Transaction";
 import {Rate} from "../../../types/Rate";
+import {TransactionType} from "../../../types/TransactionType";
+import {RouteComponentProps} from 'react-router-dom';
 
 export enum OverviewCardType {
   DAY = 'day',
@@ -31,46 +32,46 @@ export interface OverviewProps extends RouteComponentProps {
 }
 
 class Overview extends React.Component<OverviewProps> {
-  constructor(props:OverviewProps) {
+  constructor(props: OverviewProps) {
     super(props);
     this.getTransactions()
   }
+
   state: any = {
     spentDay: 0,
     spentWeek: 0,
     spentMonth: 0
   }
 
-  getTransactions(){
+  getTransactions() {
     this.props.getTransactions();
   }
 
   render() {
-    const transactions = this.props.transactions;
+    const transactions = this.props.transactions.filter(transaction => transaction.transactionType === TransactionType.EXPENSE);
     const USD = this.props.rates.find(rate => {
-      return rate.key === 'USD'
+      return rate.code === 'USD'
     })
     let spentDay = 0;
     let spentWeek = 0;
     let spentMonth = 0;
     let today = new Date();
     var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-    transactions.forEach(transaction => {
+    transactions.forEach((transaction: Transaction) => {
       let price = transaction.price;
-      if (transaction.currency !== 'USD'){
+      if (transaction.currency !== 'USD') {
         const currency = this.props.rates.find(rate => {
-          return rate.key === transaction.currency
+          return rate.code === transaction.currency
         })
-        if (currency && USD ){
-        price = transaction.price * USD.value / currency.value
+        if (currency && USD) {
+          price = transaction.price * USD.value / currency.value
         }
       }
       const transactionCreated = new Date(transaction.created);
-      console.log(transaction.price)
-      if (transactionCreated.getFullYear() === today.getFullYear() && transactionCreated.getMonth() === today.getMonth() && transactionCreated.getDate() === today.getDate()){
+      if (transactionCreated.getFullYear() === today.getFullYear() && transactionCreated.getMonth() === today.getMonth() && transactionCreated.getDate() === today.getDate()) {
         spentDay += price;
       }
-      if (transactionCreated > lastWeek){
+      if (transactionCreated > lastWeek) {
         spentWeek += price;
       }
       spentMonth += price;
@@ -129,4 +130,4 @@ const mapStateToProps = (state: AppState) => ({
   rates: state.rate.rates
 });
 
-export default connect(mapStateToProps,{getTransactions})(Overview);
+export default connect(mapStateToProps, {getTransactions})(Overview);

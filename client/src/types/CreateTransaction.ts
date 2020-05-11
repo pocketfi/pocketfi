@@ -1,4 +1,4 @@
-export class CreatingTransaction {
+export class CreateTransaction {
   transactionType: string;
   category: string;
   place: string;

@@ -10,7 +10,7 @@ import {
 import {Msg} from "../types/Msg";
 import {tokenConfig} from "./authActions";
 import {AppState} from "../store";
-import {CreatingTransaction} from "../types/CreatingTransaction";
+import {CreateTransaction} from "../types/CreateTransaction";
 
 export const transactionSuccess = (transaction: Transaction): TransactionActionTypes => ({
   type: TRANSACTION_SUCCESS,
@@ -27,7 +27,7 @@ export const transactionsReceived = (transactions: Transaction[]): TransactionAc
   transactions: transactions
 });
 
-export const newTransaction = (transaction: CreatingTransaction) => ( dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
+export const newTransaction = (transaction: CreateTransaction) => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
   console.log(tokenConfig(getState));
 
   axios
