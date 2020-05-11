@@ -4,17 +4,14 @@ import {connect} from 'react-redux';
 import './NewTransaction.sass'
 import {Switcher} from '../../embedded/Switcher/Switcher';
 import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
-import {Transaction} from "../../../types/Transaction";
-import * as actions from '../../../actions/transactionAction';
-import store from "../../../store";
+import {AppState} from "../../../store";
+import {newTransaction} from "../../../actions/transactionAction";
+import {CreateTransaction} from "../../../types/CreateTransaction";
+import {TransactionType} from "../../../types/TransactionType";
 
 export interface NewTransactionProps {
-  newTransaction(transaction: Transaction): void;
-}
-
-enum TransactionType {
-  EXPENSE = 'EXPENSE',
-  INCOME = 'INCOME'
+  newTransaction(transaction: CreateTransaction): void;
+  codeRates: [];
 }
 
 class NewTransaction extends React.Component<NewTransactionProps> {
@@ -24,21 +21,17 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     category: '',
     place: '',
     price: '0.00',
-    currency: '$',
-    placeholder: 'USD',
-    // @ts-ignore
-    codeRates: store.getState().rate.codeRates
+    currency: 'USD',
+    placeholder: 'USD'
   };
 
   handleSubmit() {
-    console.log(this.state);
-    const transaction = new Transaction(
+    const transaction = new CreateTransaction(
       this.state.transactionType,
       this.state.category,
       this.state.place,
       this.state.price,
       this.state.currency);
-    console.log(transaction);
     this.props.newTransaction(transaction)
   }
 
@@ -73,7 +66,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
               onChange={e => this.setState({price: e.target.value})}
               placeholder="0.00"
             />
-            <DropdownMenu placeholder={this.state.placeholder} options={this.state.codeRates} onChange={value => this.setState({currency: value})}/>
+            <DropdownMenu placeholder={this.state.placeholder} options={this.props.codeRates} onChange={value => this.setState({currency: value})}/>
           </div>
           <Button
             className={this.state.transactionType.toLowerCase()}
@@ -86,6 +79,9 @@ class NewTransaction extends React.Component<NewTransactionProps> {
   }
 }
 
-const mapStateToProps = (state: any) => ({});
+const mapStateToProps = (state: AppState) => ({
+  // @ts-ignore
+  codeRates: state.rate.codeRates
+});
 
-export default connect(mapStateToProps, actions)(NewTransaction);
+export default connect(mapStateToProps, {newTransaction})(NewTransaction);
