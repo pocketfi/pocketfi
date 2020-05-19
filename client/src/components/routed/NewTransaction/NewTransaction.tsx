@@ -8,8 +8,9 @@ import {AppState} from "../../../store";
 import {newTransaction} from "../../../actions/transactionAction";
 import {CreateTransaction} from "../../../types/CreateTransaction";
 import {TransactionType} from "../../../types/TransactionType";
+import {RouteComponentProps} from "react-router-dom";
 
-export interface NewTransactionProps {
+export interface NewTransactionProps extends RouteComponentProps {
   newTransaction(transaction: CreateTransaction): void;
   codeRates: [];
 }
@@ -33,6 +34,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
       this.state.price,
       this.state.currency);
     this.props.newTransaction(transaction)
+    this.props.history.push('/overview');
   }
 
   render() {

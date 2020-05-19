@@ -7,6 +7,7 @@ import Register from './components/routed/Register/Register';
 import Overview from './components/routed/Overview/Overview';
 import NewTransaction from './components/routed/NewTransaction/NewTransaction';
 import {fetchRate} from "./actions/rateActions";
+import TransactionsList from "./components/routed/TransactionsList/TransactionsList";
 
 export class App extends React.Component {
 
@@ -23,6 +24,7 @@ export class App extends React.Component {
           <Switch>
             <Route path='/overview' component={Overview}/>
             <Route path='/new' component={NewTransaction}/>
+            <Route path='/transactions' component={TransactionsList}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
           </Switch>
