@@ -24,7 +24,7 @@ router.post('/new', auth, (req, res) => {
             .map(n => Number.parseInt(n))
           const randomIndex = Math.floor(Math.random() * enumValues.length / 2)
           const randomEnumValue = enumValues[randomIndex]
-          return new Category({name: category, user: userId, color: CategoryColor[randomEnumValue]}).save()
+          return new Category({name: category, user: userId, color: CategoryColor[randomEnumValue].toString()}).save()
             .then(category => {
               return category._id;
             })
@@ -56,7 +56,6 @@ router.get('/get', auth, ((req, res) => {
     user: user.id,
     created: {$lt: new Date(), $gt: new Date(year, month)}
   }).populate('category').then(transactions => {
-    console.log(transactions)
     res.json(transactions);
   }).catch(err => {
     console.error(err);
