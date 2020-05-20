@@ -1,0 +1,21 @@
+@import 'src/colors'
+
+.separator-text
+  width: 100%
+  color: $dark
+
+.separator-text
+  display: flex
+  align-items: center
+  text-align: center
+
+.separator-text::before, .separator-text::after
+  content: ''
+  flex: 1
+  border-bottom: 1.8px solid $gray
+
+.separator-text::before
+  margin-right: 20px
+
+.separator-text::after
+  margin-left: 20px
