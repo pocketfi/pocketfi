@@ -7,7 +7,6 @@ export const TRANSACTIONS_RECEIVED = 'TRANSACTIONS_RECEIVED';
 
 export interface TransactionSuccess {
   type: typeof TRANSACTION_SUCCESS;
-  payload: Transaction;
 }
 
 export interface TransactionFail {

@@ -13,8 +13,7 @@ export default function (state = initialState, action: TransactionActionTypes) {
   switch (action.type) {
     case TRANSACTION_SUCCESS:
       return {
-        ...state,
-        ...action.payload
+        ...state
       };
     case TRANSACTION_FAIL:
       return {
