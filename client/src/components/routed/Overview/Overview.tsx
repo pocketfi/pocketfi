@@ -5,12 +5,12 @@ import {Separator} from '../../embedded/Separator/Separator';
 import {IoIosCalendar, MdAdd, MdAttachMoney, MdNotInterested, MdSettings, MdShowChart} from 'react-icons/all';
 import {Button} from 'reactstrap';
 import MenuItem from '../../embedded/MenuItem/MenuItem';
-import {connect} from "react-redux";
-import {getTransactions} from "../../../actions/transactionAction";
-import {AppState} from "../../../store";
-import {Transaction} from "../../../types/Transaction";
-import {Rate} from "../../../types/Rate";
-import {TransactionType} from "../../../types/TransactionType";
+import {connect} from 'react-redux';
+import {getTransactions} from '../../../actions/transactionAction';
+import {AppState} from '../../../store';
+import {Transaction} from '../../../types/Transaction';
+import {Rate} from '../../../types/Rate';
+import {TransactionType} from '../../../types/TransactionType';
 import {RouteComponentProps} from 'react-router-dom';
 
 export enum OverviewCardType {
@@ -27,6 +27,7 @@ export interface Card {
 
 export interface OverviewProps extends RouteComponentProps {
   getTransactions(): void
+
   transactions: Transaction[]
   rates: Rate[]
 }
@@ -48,6 +49,7 @@ class Overview extends React.Component<OverviewProps> {
   }
 
   render() {
+    // TODO: refactor. Move cards calculation to separate method
     const transactions = this.props.transactions.filter(transaction => transaction.transactionType === TransactionType.EXPENSE);
     const USD = this.props.rates.find(rate => {
       return rate.code === 'USD'
@@ -112,10 +114,7 @@ class Overview extends React.Component<OverviewProps> {
           <Button
             children={<MdAdd/>}
             title='New transaction'
-            onClick={() => {
-              console.log('new!');
-              this.props.history.push('/new');
-            }}
+            onClick={() => { this.props.history.push('/new');}}
           />
         </div>
       </div>

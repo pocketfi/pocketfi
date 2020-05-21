@@ -26,7 +26,7 @@ class Overview extends React.Component<TransactionListProps> {
 
   render() {
     const transactionDates = this.props.transactions
-      .map((transaction: Transaction, i: number) =>
+      .map((transaction: Transaction) =>
         moment(transaction.created).format('MMM D')
       )
       .reverse()
@@ -34,11 +34,11 @@ class Overview extends React.Component<TransactionListProps> {
       <div className='transaction-list'>
         {
           this.props.transactions.reverse().map((transaction: Transaction, i: number) => {
-              const transactionItem = <TransactionItem className='transaction-item' transaction={transaction}/>;
+              const transactionItem = <TransactionItem className='transaction-item' transaction={transaction} key={i}/>;
 
               if (i === 0) {
                 return <>
-                  <SeparatorWithDate value={transactionDates[i]}/>
+                  <SeparatorWithDate value={transactionDates[i]} key={`sep${i}`}/>
                   {transactionItem}
                 </>
               }
@@ -46,7 +46,7 @@ class Overview extends React.Component<TransactionListProps> {
               if (i !== transactionDates.length - 1 && transactionDates[i + 1] !== transactionDates[i]) {
                 return <>
                   {transactionItem}
-                  <SeparatorWithDate value={transactionDates[i + 1]}/>
+                  <SeparatorWithDate value={transactionDates[i + 1]} key={`sep${i}`}/>
                 </>
               }
 
