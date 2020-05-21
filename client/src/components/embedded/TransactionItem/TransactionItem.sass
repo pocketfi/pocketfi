@@ -1,21 +1,95 @@
 @import 'src/colors'
+@import 'src/constants'
 
-.transaction-item
-  width: 100%
-  display: grid
-  grid-template-columns: auto 1fr auto
-  align-items: center
-  justify-content: center
-  padding: 2px 4px
-  cursor: pointer
-  border-radius: 5px
+.transaction
+  transition: all .5s
 
-  &:hover
-    background: $gray
+  .transaction-item
+    width: 100%
+    display: grid
+    grid-template-columns: auto 1fr auto
+    align-items: center
+    justify-content: center
+    padding: 2px 4px
+    cursor: pointer
+    border-radius: 5px
 
-  .color-dot
-    display: flex
-    padding: 0 5px
+    &:hover
+      background: $gray
+
+    .category, .description, .actions
+      display: none
+
+    .color-dot
+      display: flex
+      padding: 0 5px
+
+    .other-dot
+      color: $dark
+
+    svg
+      background: transparent
+
+  .transaction-preview
+    width: 100%
+    display: grid
+    grid-template-columns: auto 1fr auto
+    grid-template-rows: repeat(3, auto)
+    align-items: center
+    justify-content: center
+    padding: 2px 4px
+    margin: 10px 0
+    border-radius: 5px
+    box-shadow: 0 0 20px 0 $gray
+
+    &:focus
+      outline: none
+
+    .color-dot
+      display: none
+
+    .price-container
+      p
+        font-size: $title-font-size
+
+    .category
+      grid-column: 1
+      grid-row: 1
+      padding: 0 4px
+      margin: 4px 8px 4px 4px
+      border-radius: 4px
+      color: $white
+
+    .other-category
+      background: $dark
+
+    .description
+      grid-column: 2
+      grid-row: 2
+      margin: 5px 0
+      background: transparent
+
+    .actions
+      grid-column: 1/3
+      grid-row: 3
+      display: flex
+      align-items: center
+
+      svg
+        margin: 10px
+        cursor: pointer
+        opacity: .5
+        transition: all .2s
+        font-size: 30px
+
+        &:hover
+          opacity: 1
+
+      .delete
+        color: $red
+
+      .move
+        color: $purple
 
   .place
     width: 100%
@@ -35,9 +109,6 @@
     .currency
       color: $dark
 
-  svg
-    color: $gray
-
   .expense
     svg
       color: $red
@@ -46,50 +117,4 @@
     svg
       color: $green
 
-  .color0
-    svg
-      color: $red
-
-  .color1
-    svg
-      color: $crimson
-
-  .color2
-    svg
-      color: $violet
-
-  .color3
-    svg
-      color: $purple
-
-  .color4
-    svg
-      color: $indigo
-
-  .color5
-    svg
-      color: $blue
-
-  .color6
-    svg
-      color: $turquoise
-
-  .color7
-    svg
-      color: $green
-
-  .color8
-    svg
-      color: $light-green
-
-  .color9
-    svg
-      color: $yellow
-
-  .color10
-    svg
-      color: $orange
-
-  .color11
-    svg
-      color: $carrot
+  @import 'src/category-colors'

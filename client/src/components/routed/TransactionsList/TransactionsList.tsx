@@ -34,7 +34,7 @@ class Overview extends React.Component<TransactionListProps> {
       <div className='transaction-list'>
         {
           this.props.transactions.reverse().map((transaction: Transaction, i: number) => {
-              const transactionItem = <TransactionItem className='transaction-item' transaction={transaction} key={i}/>;
+              const transactionItem = <TransactionItem transaction={transaction} key={i}/>;
 
               if (i === 0) {
                 return <>

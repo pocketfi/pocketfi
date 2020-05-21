@@ -1,19 +1,31 @@
 import React from 'react';
 import './TransactionItem.sass'
 import {CategoryColor} from '../../../types/CategoryColor';
-import {GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all';
+import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all';
 import {TransactionType} from '../../../types/TransactionType';
 import {Transaction} from '../../../types/Transaction';
+import enhanceWithClickOutside from 'react-click-outside';
+import TextareaAutosize from 'react-textarea-autosize';
+
 
 interface TransactionItemProps {
-  className?: string;
+  expanded?: boolean;
   transaction: Transaction;
 }
 
 class TransactionItem extends React.Component<TransactionItemProps> {
   static defaultProps = {
-    className: ''
+    expanded: false
   };
+
+  state = {
+    expanded: this.props.expanded,
+    description: ''
+  }
+
+  handleClickOutside() {
+    this.setState({expanded: false})
+  }
 
   render() {
     let color = ''
@@ -28,19 +40,38 @@ class TransactionItem extends React.Component<TransactionItemProps> {
     }
 
     return (
-      <div className={this.props.className}>
-        <div className={'color-dot ' + color}>
-          <GoPrimitiveDot/>
-        </div>
-        <p className='place'>{this.props.transaction.place || ''}</p>
-        <div className={'price-container ' + this.props.transaction.transactionType.toLowerCase()}>
-          {this.props.transaction.transactionType === TransactionType.INCOME ? <MdExpandLess/> : <MdExpandMore/>}
-          <p className='price'>{this.props.transaction.price}</p>
-          <p className='currency'>{this.props.transaction.currency}</p>
+      <div className='transaction'>
+        <div className={(this.state.expanded ? 'transaction-preview' : 'transaction-item')}
+             onClick={() => this.setState({expanded: true})}
+        >
+          <div className={'color-dot'}><GoPrimitiveDot className={color || 'other-dot'}/></div>
+          <p className='place'>{this.props.transaction.place}</p>
+          <div className={'price-container ' + this.props.transaction.transactionType.toLowerCase()}>
+            {this.props.transaction.transactionType === TransactionType.INCOME ? <MdExpandLess/> : <MdExpandMore/>}
+            <p className='price'>{this.props.transaction.price}</p>
+            <p className='currency'>{this.props.transaction.currency}</p>
+          </div>
+          <div className={'category ' + (color || 'other-category')}>
+            {
+              this.props.transaction.category
+                ? this.props.transaction.category.name
+                : 'Other'
+            }
+          </div>
+          <TextareaAutosize
+            className='description'
+            placeholder='Description'
+            value={this.state.description}
+            onChange={e => this.setState({description: e.target.value})}
+          />
+          <div className='actions'>
+            <FaTrash className='delete'/>
+            <FaCalendar className='move'/>
+          </div>
         </div>
       </div>
     );
   }
 }
 
-export default TransactionItem;
+export default enhanceWithClickOutside(TransactionItem);
