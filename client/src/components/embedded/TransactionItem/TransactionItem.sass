@@ -1,22 +1,42 @@
 @import 'src/colors'
 
-.category
+.transaction-item
+  width: 100%
+  display: grid
+  grid-template-columns: auto 1fr auto
+  align-items: center
+  justify-content: center
+  padding: 2px 0
 
-  .expense
+  .color-dot
+    display: flex
+    padding: 0 10px
+
+  .place
     width: 100%
+    font-size: 24px
+
+  .price-container
     display: flex
     justify-content: flex-end
     align-items: center
+    white-space: nowrap
 
+    p
+      font-size: 24px
+      padding-left: 4px
+
+    .currency
+      color: $dark
+
+  svg
+    color: $gray
+
+  .expense
     svg
       color: $red
 
   .income
-    width: 100%
-    display: flex
-    justify-content: flex-end
-    align-items: center
-
     svg
       color: $green
 
