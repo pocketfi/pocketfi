@@ -12,9 +12,8 @@ import {tokenConfig} from "./authActions";
 import {AppState} from "../store";
 import {CreateTransaction} from "../types/CreateTransaction";
 
-export const transactionSuccess = (transaction: Transaction): TransactionActionTypes => ({
-  type: TRANSACTION_SUCCESS,
-  payload: transaction,
+export const transactionSuccess = (): TransactionActionTypes => ({
+  type: TRANSACTION_SUCCESS
 });
 
 export const transactionFail = (message: Msg, status: number): TransactionActionTypes => ({
@@ -28,16 +27,14 @@ export const transactionsReceived = (transactions: Transaction[]): TransactionAc
 });
 
 export const newTransaction = (transaction: CreateTransaction) => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
-  console.log(tokenConfig(getState));
-
   axios
     .post('api/transaction/new', transaction, tokenConfig(getState))
     .then(res => {
-        dispatch(transactionSuccess(res.data))
+        dispatch(transactionSuccess())
       }
     )
     .catch(err => {
-      dispatch(transactionFail(err.response.data, err.response.status));
+      dispatch(transactionFail(err.data, err.status));
     });
 };
 
