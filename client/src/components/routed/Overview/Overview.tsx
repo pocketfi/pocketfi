@@ -104,11 +104,11 @@ class Overview extends React.Component<OverviewProps> {
         />
         <Separator/>
         <div className='menu'>
-          <MenuItem className='transactions' icon={<MdAttachMoney/>} title='Transactions' route='/transactions'/>
-          <MenuItem className='limits' icon={<MdNotInterested/>} title='Limits' route='/limits'/>
-          <MenuItem className='analytics' icon={<MdShowChart/>} title='Analytics' route='/analytics'/>
-          <MenuItem className='calendar' icon={<IoIosCalendar/>} title='Calendar' route='/calendar'/>
-          <MenuItem className='settings' icon={<MdSettings/>} title='Settings' route='/settings'/>
+          <MenuItem className='transactions-item' icon={<MdAttachMoney/>} title='Transactions' route='/transactions'/>
+          <MenuItem className='limits-item' icon={<MdNotInterested/>} title='Limits' route='/limits'/>
+          <MenuItem className='analytics-item' icon={<MdShowChart/>} title='Analytics' route='/analytics'/>
+          <MenuItem className='calendar-item' icon={<IoIosCalendar/>} title='Calendar' route='/calendar'/>
+          <MenuItem className='settings-item' icon={<MdSettings/>} title='Settings' route='/settings'/>
         </div>
         <div className='button-wrapper'>
           <Button
