@@ -22,12 +22,12 @@
 
     .color-dot
       display: flex
-      padding: 0 5px
 
     .other-dot
       color: $dark
 
     svg
+      font-size: 30px
       background: transparent
 
   .transaction-preview
@@ -92,14 +92,16 @@
         color: $purple
 
   .place
-    width: 100%
+    max-width: 100%
     font-size: 24px
+    overflow-x: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
 
   .price-container
     display: flex
-    justify-content: flex-end
     align-items: center
-    padding: 0 5px
+    justify-content: flex-end
     white-space: nowrap
 
     p

@@ -7,7 +7,7 @@ import Register from './components/routed/Register/Register';
 import Overview from './components/routed/Overview/Overview';
 import NewTransaction from './components/routed/NewTransaction/NewTransaction';
 import {fetchRate} from "./actions/rateActions";
-import TransactionsList from "./components/routed/TransactionsList/TransactionsList";
+import TransactionsList from "./components/routed/Transactions/Transactions";
 
 export class App extends React.Component {
 

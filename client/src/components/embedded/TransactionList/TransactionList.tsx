@@ -1,29 +1,15 @@
 import React from 'react'
-import './TransactionsList.sass'
-import {connect} from 'react-redux';
-import {getTransactions} from '../../../actions/transactionAction';
-import {AppState} from '../../../store';
+import './TransactionList.sass'
 import {Transaction} from '../../../types/Transaction';
 import {SeparatorWithDate} from '../../embedded/SeparatorWithDate/SeparatorWithDate';
 import moment from 'moment';
 import TransactionItem from '../../embedded/TransactionItem/TransactionItem';
 
 export interface TransactionListProps {
-  getTransactions(): void
-
   transactions: Transaction[]
 }
 
-class Overview extends React.Component<TransactionListProps> {
-  constructor(props: TransactionListProps) {
-    super(props);
-    this.getTransactions()
-  }
-
-  getTransactions() {
-    this.props.getTransactions();
-  }
-
+export class TransactionList extends React.Component<TransactionListProps> {
   render() {
     const transactionDates = this.props.transactions
       .map((transaction: Transaction) =>
@@ -36,17 +22,10 @@ class Overview extends React.Component<TransactionListProps> {
           this.props.transactions.reverse().map((transaction: Transaction, i: number) => {
               const transactionItem = <TransactionItem transaction={transaction} key={i}/>;
 
-              if (i === 0) {
+              if (i === 0 || transactionDates[i] !== transactionDates[i - 1]) {
                 return <>
                   <SeparatorWithDate value={transactionDates[i]} key={`sep${i}`}/>
                   {transactionItem}
-                </>
-              }
-
-              if (i !== transactionDates.length - 1 && transactionDates[i + 1] !== transactionDates[i]) {
-                return <>
-                  {transactionItem}
-                  <SeparatorWithDate value={transactionDates[i + 1]} key={`sep${i}`}/>
                 </>
               }
 
@@ -59,9 +38,3 @@ class Overview extends React.Component<TransactionListProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  // @ts-ignore
-  transactions: state.transaction.transactions
-});
-
-export default connect(mapStateToProps, {getTransactions})(Overview);
