@@ -52,14 +52,19 @@ router.get('/get', auth, ((req, res) => {
   var d = new Date(),
     month = d.getMonth(),
     year = d.getFullYear();
-  Transaction.find({
-    user: user.id,
-    created: {$lt: new Date(), $gt: new Date(year, month)}
-  }).populate('category').then(transactions => {
-    res.json(transactions);
-  }).catch(err => {
-    console.error(err);
-  })
+  Transaction
+    .find({
+      user: user.id,
+      created: {$lt: new Date(), $gt: new Date(year, month)}
+    })
+    .sort({created: 1})
+    .populate('category')
+    .then(transactions => {
+      res.json(transactions);
+    })
+    .catch(err => {
+      console.error(err);
+    })
 }))
 
 export default router;
