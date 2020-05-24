@@ -1,7 +1,7 @@
 import React from 'react'
 import './TransactionList.sass'
 import {Transaction} from '../../../types/Transaction';
-import {SeparatorWithDate} from '../../embedded/SeparatorWithDate/SeparatorWithDate';
+import {SeparatorWithDate} from '../SeparatorWithDate/SeparatorWithDate';
 import moment from 'moment';
 import TransactionItem from '../../embedded/TransactionItem/TransactionItem';
 

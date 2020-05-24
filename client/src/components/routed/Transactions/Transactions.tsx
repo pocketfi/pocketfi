@@ -5,6 +5,7 @@ import {getTransactions} from '../../../actions/transactionAction';
 import {AppState} from '../../../store';
 import {Transaction} from '../../../types/Transaction';
 import {TransactionList} from '../../embedded/TransactionList/TransactionList';
+import {SearchBar} from '../../embedded/SearchBar/SearchBar';
 
 export interface TransactionsProps {
   transactions: Transaction[]
@@ -24,9 +25,12 @@ class Transactions extends React.Component<TransactionsProps> {
 
   render() {
     return (
-      <TransactionList
-        transactions={this.props.transactions}
-      />
+      <div className='transactions'>
+        <SearchBar/>
+        <TransactionList
+          transactions={this.props.transactions}
+        />
+      </div>
     )
   }
 }
