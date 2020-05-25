@@ -24,8 +24,7 @@ class Overview extends React.Component<TransactionListProps> {
   }
 
   render() {
-    if (this.props.transactions.length > 6) this.props.transactions.splice(0, this.props.transactions.length - 6)
-    const transactionDates = this.props.transactions.map((transaction: Transaction, i: number) =>
+    const transactionDates = this.props.transactions.map((transaction: Transaction) =>
       moment(transaction.created).format("MMM D")
     ).reverse()
     return (
