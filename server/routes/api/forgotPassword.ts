@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
     console.log(user._id)
     User.findOneAndUpdate({"_id": user.id}, {
       resetPasswordToken: token,
-      resetPasswordExpires: Date.now() + 3600000
+      resetPasswordExpires: new Date(Date.now() + 3600000)
     }, {new: true}).then(user => {
       console.log(user)
 
