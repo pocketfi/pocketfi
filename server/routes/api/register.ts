@@ -2,6 +2,7 @@ import {Router} from 'express';
 import bcrypt from 'bcryptjs';
 import User from '../../models/User';
 import {generateToken} from "../../utils/generateToken";
+import {IUser} from "../../types/interfaces/IUser";
 
 const router = Router();
 
@@ -14,7 +15,7 @@ router.post('/', (req, res) => {
 
   User.findOne({email}).then(user => {
     if (user)
-      return res.status(400).json({msg: 'User already exists'});
+      return res.status(400).json({msg: 'IUser already exists'});
 
     const newUser = new User({
       name,
@@ -27,7 +28,7 @@ router.post('/', (req, res) => {
         if (err) throw err;
         newUser.password = hash;
         newUser.save()
-          .then(user => {
+          .then((user:IUser) => {
             const token = generateToken(user.id);
             res.json({
               token,
