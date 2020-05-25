@@ -32,7 +32,6 @@ class Login extends React.Component<LoginProps> {
   }
 
   render() {
-    console.log(this.props.isAuthenticated);
     if (this.props.isAuthenticated) {
       this.props.history.push('/overview')
     }
@@ -52,6 +51,9 @@ class Login extends React.Component<LoginProps> {
           <Button onClick={() => this.handleSubmit()}>
             Login
           </Button>
+          <Link to='/forgotPassword'>
+            Forgot password?
+          </Link>
         </Form>
         <Link className='hint' to='/register'>
           Register
