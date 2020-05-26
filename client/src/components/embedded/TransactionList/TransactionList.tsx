@@ -8,6 +8,7 @@ import TransactionItem from '../../embedded/TransactionItem/TransactionItem';
 export interface TransactionListProps {
   transactions: Transaction[];
   onDelete: (id: string) => void;
+  onChange: (transaction: Transaction) => void;
 }
 
 export class TransactionList extends React.Component<TransactionListProps> {
@@ -26,6 +27,7 @@ export class TransactionList extends React.Component<TransactionListProps> {
               const transactionItem = <TransactionItem
                 transaction={transaction}
                 onDelete={() => this.props.onDelete(transaction._id)}
+                onChange={() => this.props.onChange(transaction)}
                 key={transaction._id}
               />;
 

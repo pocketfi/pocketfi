@@ -7,7 +7,7 @@
   .transaction-item
     width: 100%
     display: grid
-    grid-template-columns: auto 1fr auto
+    grid-template-columns: auto 4fr auto
     align-items: center
     justify-content: center
     padding: 2px 4px
@@ -17,18 +17,17 @@
     &:hover
       background: $gray
 
-    .category, .description, .actions
+    .category-wrapper, .description, .actions
       display: none
 
     .color-dot
       display: flex
 
+      svg
+        background: transparent
+
     .other-dot
       color: $dark
-
-    svg
-      font-size: 30px
-      background: transparent
 
   .transaction-preview
     width: 100%
@@ -48,13 +47,24 @@
     .color-dot
       display: none
 
-    .category
+    .category-wrapper
       grid-column: 1
       grid-row: 1
-      padding: 0 4px
-      margin: 4px 8px 4px 4px
-      border-radius: 4px
-      color: $white
+      padding: 4px
+      margin-right: 4px
+      max-width: 100px
+      white-space: nowrap
+
+      .category
+        padding: 0 4px
+        border-radius: 4px
+        color: $white
+        overflow-x: scroll
+
+        &::-webkit-scrollbar
+          height: 0
+          background: transparent
+
 
     .other-category
       background: $dark
@@ -87,6 +97,9 @@
       .move
         color: $purple
 
+  svg
+    font-size: 30px
+
   .place
     max-width: 100%
     font-size: 24px
@@ -100,7 +113,7 @@
     justify-content: flex-end
     white-space: nowrap
 
-    p
+    p, div
       font-size: 24px
       padding-left: 4px
 
