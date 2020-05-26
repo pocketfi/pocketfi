@@ -8,16 +8,14 @@ import registerRoutes from './routes/api/register';
 import userRoutes from './routes/api/user';
 import transactionRoutes from './routes/api/transaction';
 import forgotPasswordRoutes from './routes/api/forgotPassword'
-import resetRoutes from './routes/api/reset'
-import updatePasswordRoutes from './routes/api/updatePassword'
+import passwordRecoveryRoutes from './routes/api/passwordRecovery'
 
 export const authRoute = '/api/auth/';
 export const registerRoute = '/api/register/';
 export const userRoute = '/api/user/';
 export const transactionRoute = '/api/transaction/';
 export const forgotPasswordRoute ='/forgotPassword/';
-export const resetRoute ='/reset/';
-export const updatePasswordRoute ='/updatePassword/';
+export const passwordRecoveryRoute ='/';
 
 const app = express();
 
@@ -42,7 +40,6 @@ app.use(authRoute, authRoutes);
 app.use(userRoute, userRoutes);
 app.use(transactionRoute, transactionRoutes);
 app.use(forgotPasswordRoute, forgotPasswordRoutes);
-app.use(resetRoute, resetRoutes);
-app.use(updatePasswordRoute, updatePasswordRoutes);
+app.use(passwordRecoveryRoute, passwordRecoveryRoutes);
 
 export default app;

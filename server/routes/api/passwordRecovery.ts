@@ -1,10 +1,27 @@
 import {Router} from 'express';
 import User from "../../models/User";
+import {IUser} from "../../types/interfaces/IUser";
 import bcrypt from "bcryptjs";
 
 const router = Router();
 
-router.put('/', (req, res) => {
+router.get('/reset', (req, res)=> {
+  User.findOne({
+    resetPasswordToken: req.query.resetPasswordToken.toString(),
+    resetPasswordExpires: {$gt: new Date()}
+  }).then((user: IUser) => {
+    if (!user) {
+      res.json('password reset link is invalid or has expired')
+    } else {
+      res.status(200).send({
+        email: user.email,
+        resetLink: true
+      })
+    }
+  })
+})
+
+router.put('/updatePassword', (req, res) => {
   const {email} = req.body;
   User.findOne({email}).then(user => {
     if (user) {
@@ -26,3 +43,5 @@ router.put('/', (req, res) => {
 })
 
 export default router;
+
+
