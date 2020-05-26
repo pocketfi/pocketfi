@@ -3,7 +3,7 @@ import {ITransaction} from "../types/interfaces/ITransaction";
 import * as mongoose from "mongoose";
 
 const TransactionSchema = new Schema({
-  user:{
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true
@@ -35,11 +35,13 @@ const TransactionSchema = new Schema({
     default: Date.now
   }
 
-},{ _id: true,
+}, {
+  _id: true,
   id: true, toJSON: {
     virtuals: true,
     versionKey: true
-  }} );
+  }
+});
 
 
 const Transaction = model<ITransaction>('transaction', TransactionSchema);

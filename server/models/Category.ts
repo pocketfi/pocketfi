@@ -1,9 +1,9 @@
-import { Schema, model} from 'mongoose';
+import {Schema, model} from 'mongoose';
 import {ICategory} from "../types/interfaces/ICategory";
 import * as mongoose from "mongoose";
 
 const CategorySchema = new Schema({
-  user:{
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
@@ -14,7 +14,7 @@ const CategorySchema = new Schema({
   color: {
     type: String
   }
-},{
+}, {
   _id: true,
   id: true, toJSON: {
     virtuals: true,
