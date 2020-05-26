@@ -10,6 +10,8 @@ import {fetchRate} from "./actions/rateActions";
 import TransactionsList from "./components/routed/TransactionsList/TransactionsList";
 import socketIOClient from 'socket.io-client'
 import {Transaction} from "./types/Transaction";
+import ForgotPassword from "./components/routed/ForgotPassword/ForgotPassword";
+import ResetPassword from "./components/routed/ResetPassword/ResetPassword";
 import {transactionCreated} from "./actions/transactionAction";
 
 export class App extends React.Component {
@@ -38,6 +40,8 @@ export class App extends React.Component {
             <Route path='/transactions' component={TransactionsList}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
+            <Route path='/forgot_password' component={ForgotPassword}/>
+            <Route path='/reset/:token' component={ResetPassword}/>
           </Switch>
         </BrowserRouter>
       </div>
