@@ -1,6 +1,12 @@
 import React from 'react';
 import {GoogleLogin, GoogleLoginInfo} from "react-google-login-component";
 import './GoogleLoginButton.sass'
+import {connect} from "react-redux";
+import {AppState} from "../../../store";
+import {oauthGoogle} from "../../../actions/authActions";
+
+export const CLIENT_ID = process.env.CLIENT_ID || ''
+
 export interface LoginProps {
   oauthGoogle(access_token: string): void;
 }
@@ -13,10 +19,6 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
   }
 
   render() {
-    let CLIENT_ID;
-    if (process.env.CLIENT_ID !== undefined)
-      CLIENT_ID = process.env.CLIENT_ID;
-    else CLIENT_ID = '';
     return (
       <div className="react-google-oauth-button-main">
         <div className="react-google-oauth-button-border">
@@ -41,7 +43,7 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
           <GoogleLogin
             className='react-google-oauth-button-login'
             socialId={CLIENT_ID}
-            buttonText='Login with google'
+            buttonText='Log in with google'
             responseHandler={authResponse => this.handleResponseGoogle(authResponse)}
           />
         </div>
@@ -49,3 +51,8 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
     )
   }
 }
+
+const mapStateToProps = (state: AppState) => ({
+});
+
+export default connect(mapStateToProps, {oauthGoogle})(GoogleLoginButton);

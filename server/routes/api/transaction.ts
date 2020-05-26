@@ -65,7 +65,7 @@ router.get('/get', auth, (req, res) => {
   }).sort({
     created: 1
   }).populate('category').then((transactions: ITransaction[]) => {
-    res.json(transactions);
+    res.status(200).json(transactions);
   }).catch((err: any) => {
     console.error(err);
   })
@@ -114,7 +114,7 @@ router.post('/update', auth, (req, res) => {
           currency: transaction.currency,
           created: transaction.created,
           description: transaction.description
-        }, {new: true}).then((transaction) => {
+        }, {new: true}).then((transaction: ITransaction) => {
         if (transaction) res.status(200).json(transaction)
         else res.status(500)
       });

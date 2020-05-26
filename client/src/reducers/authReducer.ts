@@ -12,7 +12,7 @@ const initialState = {
   user: null
 };
 
-export default function (state = initialState, action: AuthActionTypes) {
+export default (state = initialState, action: AuthActionTypes) => {
   switch (action.type) {
     case USER_LOADING:
       return {
@@ -41,6 +41,13 @@ export default function (state = initialState, action: AuthActionTypes) {
         isAuthenticated: false
       };
     case LOGOUT_SUCCESS:
+      localStorage.removeItem('token');
+      return {
+        ...state,
+        token: null,
+        user: null,
+        isAuthenticated: false
+      };
     default:
       return state;
   }
