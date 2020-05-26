@@ -1,7 +1,8 @@
 import React from 'react';
 import './TransactionItem.sass'
 import {CategoryColor} from '../../../types/CategoryColor';
-import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all';
+import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons' +
+  '/all';
 import {TransactionType} from '../../../types/TransactionType';
 import {Transaction} from '../../../types/Transaction';
 import enhanceWithClickOutside from 'react-click-outside';

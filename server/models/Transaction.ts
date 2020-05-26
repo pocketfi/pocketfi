@@ -1,5 +1,5 @@
 import {Schema, model} from 'mongoose';
-import {Transaction} from "../types/interfaces/Transaction";
+import {ITransaction} from "../types/interfaces/ITransaction";
 import * as mongoose from "mongoose";
 
 const TransactionSchema = new Schema({
@@ -27,12 +27,15 @@ const TransactionSchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String
+  },
   created: {
     type: Date,
     default: Date.now
   }
 });
 
-const Transaction = model<Transaction>('transaction', TransactionSchema);
+const Transaction = model<ITransaction>('transaction', TransactionSchema);
 
 export default Transaction;

@@ -7,7 +7,10 @@ import Register from './components/routed/Register/Register';
 import Overview from './components/routed/Overview/Overview';
 import NewTransaction from './components/routed/NewTransaction/NewTransaction';
 import {fetchRate} from "./actions/rateActions";
-import TransactionsList from "./components/routed/Transactions/Transactions";
+import TransactionsList from "./components/routed/TransactionsList/TransactionsList";
+import socketIOClient from 'socket.io-client'
+import {Transaction} from "./types/Transaction";
+import {transactionCreated} from "./actions/transactionAction";
 
 export class App extends React.Component {
 
@@ -15,6 +18,14 @@ export class App extends React.Component {
     super(props);
     store.dispatch(loadUser());
     store.dispatch(fetchRate());
+  }
+
+  componentDidMount() {
+      const socket = socketIOClient('http://localhost:4000/');
+      socket.on("new", (transaction: Transaction) => {
+        // @ts-ignore
+        store.dispatch(transactionCreated(transaction))
+      });
   }
 
   render() {
