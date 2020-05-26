@@ -14,7 +14,7 @@ interface ResetPasswordProps {
 }
 
 class ResetPassword extends React.Component<ResetPasswordProps> {
-  state = {
+  state: any = {
     email: '',
     password: '',
     error: false,
