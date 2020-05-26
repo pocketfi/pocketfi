@@ -6,7 +6,7 @@ const router = Router();
 router.get('/', (req, res)=> {
   console.log(req.query.resetPasswordToken)
   User.findOne({
-    resetPasswordToken: req.query.resetPasswordToken,
+    resetPasswordToken: req.query.resetPasswordToken.toString(),
     resetPasswordExpires: {$gt: new Date()}
   }).then((user: IUser) => {
     if (!user) {
