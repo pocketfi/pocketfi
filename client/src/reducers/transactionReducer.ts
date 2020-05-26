@@ -43,9 +43,7 @@ export default (state = initialState, action: TransactionActionTypes) => {
     case TRANSACTION_DELETED:
       return {
         ...state,
-        // TODO
-        // @ts-ignore
-        transactions: state.transactions.filter(transaction => action.transaction._id !== transaction._id)
+        transactions: state.transactions.filter((transaction: any) => action.transaction.id !== transaction.id)
       }
     default:
       return state;

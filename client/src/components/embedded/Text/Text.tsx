@@ -22,8 +22,8 @@ export class Text extends React.Component<TextProps> {
   }
 
   handleValueChange(value: string) {
-    this.setState({value: value})
     this.props.onChange!(value)
+    this.setState({value: value})
   }
 
   render() {
@@ -31,7 +31,7 @@ export class Text extends React.Component<TextProps> {
       this.props.editable
         ? <ContentEditable
           className={this.props.className + ' editable-text'}
-          html={(this.props.value as string)}
+          html={(this.state.value as string)}
           onChange={e => this.handleValueChange(e.target.value)}
         />
         : <p className={this.props.className}>{this.props.value}</p>

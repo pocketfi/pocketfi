@@ -40,19 +40,20 @@ class TransactionItem extends React.Component<TransactionItemProps> {
     if (category) {
       category.name = this.state.categoryName
     }
-    this.setState(transactionChange);
-    const transaction = new Transaction(
-      this.props.transaction.id,
-      this.state.transactionType,
-      category,
-      this.state.place,
-      this.state.price,
-      this.state.currency,
-      this.props.transaction.created,
-      this.state.description
-    );
-    console.log(transaction)
-    this.props.onChange!(transaction)
+    this.setState(transactionChange, () => {
+      const transaction = new Transaction(
+        this.props.transaction.id,
+        this.state.transactionType,
+        category,
+        this.state.place,
+        this.state.price,
+        this.state.currency,
+        this.props.transaction.created,
+        this.state.description
+      );
+      console.log(transaction)
+      this.props.onChange!(transaction)
+    });
   }
 
   render() {
@@ -89,7 +90,7 @@ class TransactionItem extends React.Component<TransactionItemProps> {
               className='price'
               editable={this.state.expanded}
               value={this.state.price.toString()}
-              onChange={price => this.changeTransaction({price: price})}
+              onChange={price => this.changeTransaction({price: +price})}
             />
             <Text
               className='currency'

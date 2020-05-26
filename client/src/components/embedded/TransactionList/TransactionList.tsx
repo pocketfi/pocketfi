@@ -23,17 +23,16 @@ export class TransactionList extends React.Component<TransactionListProps> {
       <div className='transaction-list'>
         {
           this.props.transactions.reverse().map((transaction: any, i: number) => {
-              // TODO
               const transactionItem = <TransactionItem
                 transaction={transaction}
-                onDelete={() => this.props.onDelete(transaction._id)}
-                onChange={() => this.props.onChange(transaction)}
-                key={transaction._id}
+                onDelete={() => this.props.onDelete(transaction.id)}
+                onChange={t => this.props.onChange(t)}
+                key={transaction.id}
               />;
 
               if (i === 0 || transactionDates[i] !== transactionDates[i - 1]) {
                 return <>
-                  <SeparatorWithDate value={transactionDates[i]} key={`sep${transaction._id}`}/>
+                  <SeparatorWithDate value={transactionDates[i]} key={`sep${transaction.id}`}/>
                   {transactionItem}
                 </>
               }
