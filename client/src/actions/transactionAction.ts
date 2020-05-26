@@ -1,6 +1,6 @@
 import axios from 'axios';
-import {Transaction} from "../types/Transaction";
-import {Dispatch} from "redux";
+import {Transaction} from '../types/Transaction';
+import {Dispatch} from 'redux';
 import {
   TRANSACTION_CREATED,
   TRANSACTION_DELETED,
@@ -9,11 +9,11 @@ import {
   TRANSACTION_UPDATED,
   TransactionActionTypes,
   TRANSACTIONS_RECEIVED
-} from "./types/TransactionActionTypes";
-import {Msg} from "../types/Msg";
-import {tokenConfig} from "./authActions";
-import {AppState} from "../store";
-import {CreateTransaction} from "../types/CreateTransaction";
+} from './types/TransactionActionTypes';
+import {Msg} from '../types/Msg';
+import {tokenConfig} from './authActions';
+import {AppState} from '../store';
+import {CreateTransaction} from '../types/CreateTransaction';
 
 export const transactionSuccess = (): TransactionActionTypes => ({
   type: TRANSACTION_SUCCESS
@@ -79,11 +79,11 @@ export const updateTransaction = (transaction: Transaction) =>
 
 export const deleteTransaction = (transactionId: string) =>
   (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
-  axios.delete('api/transaction/delete/'+ transactionId, tokenConfig(getState))
-    .then(res => {
-      dispatch(transactionDeleted(res.data))
-    })
-    .catch(err => {
-      console.error(err)
-    })
-}
+    axios.delete('api/transaction/delete/' + transactionId, tokenConfig(getState))
+      .then(res => {
+        dispatch(transactionDeleted(res.data))
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }

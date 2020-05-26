@@ -6,8 +6,8 @@ import {
   TRANSACTION_UPDATED,
   TransactionActionTypes,
   TRANSACTIONS_RECEIVED
-} from "../actions/types/TransactionActionTypes";
-import {Transaction} from "../types/Transaction";
+} from '../actions/types/TransactionActionTypes';
+import {Transaction} from '../types/Transaction';
 
 const initialState = {
   transactions: []
@@ -43,7 +43,9 @@ export default function (state = initialState, action: TransactionActionTypes) {
     case TRANSACTION_DELETED:
       return {
         ...state,
-        transactions: state.transactions.filter(transaction => action.transaction !== transaction)
+        // TODO
+        // @ts-ignore
+        transactions: state.transactions.filter(transaction => action.transaction._id !== transaction._id)
       }
     default:
       return state;

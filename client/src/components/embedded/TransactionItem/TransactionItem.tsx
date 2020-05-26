@@ -1,17 +1,17 @@
 import React from 'react';
 import './TransactionItem.sass'
 import {CategoryColor} from '../../../types/CategoryColor';
-import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons' +
-  '/all';
 import {TransactionType} from '../../../types/TransactionType';
 import {Transaction} from '../../../types/Transaction';
 import enhanceWithClickOutside from 'react-click-outside';
 import TextareaAutosize from 'react-textarea-autosize';
+import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all';
 
 
 interface TransactionItemProps {
   expanded?: boolean;
   transaction: Transaction;
+  onDelete: () => void;
 }
 
 class TransactionItem extends React.Component<TransactionItemProps> {
@@ -66,7 +66,7 @@ class TransactionItem extends React.Component<TransactionItemProps> {
             onChange={e => this.setState({description: e.target.value})}
           />
           <div className='actions'>
-            <FaTrash className='delete'/>
+            <FaTrash className='delete' onClick={() => this.props.onDelete()}/>
             <FaCalendar className='move'/>
           </div>
         </div>
