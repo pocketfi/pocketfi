@@ -14,7 +14,7 @@ export const authRoute = '/api/auth/';
 export const registerRoute = '/api/register/';
 export const userRoute = '/api/user/';
 export const transactionRoute = '/api/transaction/';
-export const forgotPasswordRoute ='/forgotPassword/';
+export const forgotPasswordRoute ='/forgot_password/';
 export const passwordRecoveryRoute ='/';
 
 const app = express();

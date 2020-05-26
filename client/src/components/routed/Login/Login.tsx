@@ -51,7 +51,7 @@ class Login extends React.Component<LoginProps> {
           <Button onClick={() => this.handleSubmit()}>
             Login
           </Button>
-          <Link to='/forgotPassword'>
+          <Link to='/forgot_password'>
             Forgot password?
           </Link>
         </Form>

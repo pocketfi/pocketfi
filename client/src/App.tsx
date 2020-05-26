@@ -40,7 +40,7 @@ export class App extends React.Component {
             <Route path='/transactions' component={TransactionsList}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
-            <Route path='/forgotPassword' component={ForgotPassword}/>
+            <Route path='/forgot_password' component={ForgotPassword}/>
             <Route path='/reset/:token' component={ResetPassword}/>
           </Switch>
         </BrowserRouter>

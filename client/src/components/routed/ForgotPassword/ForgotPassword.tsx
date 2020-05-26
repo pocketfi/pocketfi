@@ -19,7 +19,7 @@ class ForgotPassword extends React.Component<ForgotPasswordProps> {
 
   recoveryPassword(email: string) {
     axios
-      .post('/forgotPassword', {email})
+      .post('/forgot_password', {email})
       .then(res => {
           if (res.data ==='email not in db'){
             this.setState({
