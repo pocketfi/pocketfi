@@ -10,9 +10,9 @@ import {fetchRate} from "./actions/rateActions";
 import TransactionsList from "./components/routed/TransactionsList/TransactionsList";
 import socketIOClient from 'socket.io-client'
 import {Transaction} from "./types/Transaction";
-import {transactionsReceived} from "./actions/transactionAction";
 import ForgotPassword from "./components/routed/ForgotPassword/ForgotPassword";
 import ResetPassword from "./components/routed/ResetPassword/ResetPassword";
+import {transactionCreated} from "./actions/transactionAction";
 
 export class App extends React.Component {
 
@@ -26,9 +26,7 @@ export class App extends React.Component {
       const socket = socketIOClient('http://localhost:4000/');
       socket.on("new", (transaction: Transaction) => {
         // @ts-ignore
-        let transactions = store.getState().transaction.transactions
-        transactions.push(transaction)
-        store.dispatch(transactionsReceived(transactions))
+        store.dispatch(transactionCreated(transaction))
       });
   }
 
