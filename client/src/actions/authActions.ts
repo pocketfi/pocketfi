@@ -92,9 +92,7 @@ export const login = ({email, password}: LoginUser) => (
     });
 };
 
-export const logout = () => (
-  dispatch: Dispatch<AppActions>
-) => {
+export const logout = () => ( dispatch: Dispatch<AppActions>) => {
   dispatch(logoutSuccess())
 };
 

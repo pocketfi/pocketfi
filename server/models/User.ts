@@ -1,5 +1,5 @@
 import { Schema, model} from 'mongoose';
-import {User} from "../types/interfaces/User";
+import {IUser} from "../types/interfaces/IUser";
 
 const UserSchema = new Schema({
     name: {
@@ -17,9 +17,15 @@ const UserSchema = new Schema({
     register_date: {
         type: Date,
         default: Date.now
+    },
+    resetPasswordToken: {
+        type: String,
+    },
+    resetPasswordExpires:{
+        type: Date,
     }
 });
 
-const User = model<User>('user', UserSchema);
+const User = model<IUser>('user', UserSchema);
 
 export default User;
