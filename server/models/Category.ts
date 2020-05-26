@@ -14,11 +14,14 @@ const CategorySchema = new Schema({
   color: {
     type: String
   }
-}, {
-  _id: true,
-  id: true, toJSON: {
-    virtuals: true,
-    versionKey: true
+});
+
+CategorySchema.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret) {
+    ret.id = ret._id;
+    delete ret._id
   }
 });
 

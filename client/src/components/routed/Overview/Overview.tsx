@@ -48,6 +48,7 @@ class Overview extends React.Component<OverviewProps> {
   }
 
   render() {
+    console.log(this.props.transactions)
     const transactions = this.props.transactions.filter(transaction => transaction.transactionType === TransactionType.EXPENSE);
     const USD = this.props.rates.find(rate => {
       return rate.code === 'USD'
