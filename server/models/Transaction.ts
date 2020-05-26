@@ -41,7 +41,7 @@ const TransactionSchema = new Schema({
 TransactionSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: (doc, ret) => {
     ret.id = ret._id;
     delete ret._id
   }

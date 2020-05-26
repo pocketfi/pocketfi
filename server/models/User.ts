@@ -29,7 +29,7 @@ const UserSchema = new Schema({
 UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: (doc, ret) => {
     ret.id = ret._id;
     delete ret._id
   }
