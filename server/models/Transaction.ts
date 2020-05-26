@@ -34,8 +34,15 @@ const TransactionSchema = new Schema({
     type: Date,
     default: Date.now
   }
-});
+
+},{ _id: true,
+  id: true, toJSON: {
+    virtuals: true,
+    versionKey: true
+  }} );
+
 
 const Transaction = model<ITransaction>('transaction', TransactionSchema);
+
 
 export default Transaction;

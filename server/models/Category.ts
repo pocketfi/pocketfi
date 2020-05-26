@@ -14,6 +14,12 @@ const CategorySchema = new Schema({
   color: {
     type: String
   }
+},{
+  _id: true,
+  id: true, toJSON: {
+    virtuals: true,
+    versionKey: true
+  }
 });
 
 const Category = model<ICategory>('category', CategorySchema);
