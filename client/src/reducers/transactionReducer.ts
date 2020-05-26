@@ -13,7 +13,7 @@ const initialState = {
   transactions: []
 };
 
-export default function (state = initialState, action: TransactionActionTypes) {
+export default (state = initialState, action: TransactionActionTypes) => {
   switch (action.type) {
     case TRANSACTION_SUCCESS:
       return {

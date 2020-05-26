@@ -5,7 +5,7 @@ const initialState = {
   rates: []
 };
 
-export default function (state = initialState, action: RateActionTypes) {
+export default (state = initialState, action: RateActionTypes) => {
   switch (action.type) {
     case RECEIVE_RATE:
       return {

@@ -8,7 +8,7 @@ const initialState = {
   user: null
 };
 
-export default function (state = initialState, action: RegisterActionTypes) {
+export default (state = initialState, action: RegisterActionTypes) => {
   switch (action.type) {
     case REGISTER_SUCCESS:
       localStorage.setItem('token', action.payload.token);
