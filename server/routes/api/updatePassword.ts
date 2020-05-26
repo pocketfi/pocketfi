@@ -15,8 +15,6 @@ router.put('/', (req, res) => {
             resetPasswordToken: null,
             resetPasswordExpires: null
           }, {new: true}).then(user => {
-            console.log(user)
-            console.log('password updated');
             res.status(200).send({updated: true})
           });
         })

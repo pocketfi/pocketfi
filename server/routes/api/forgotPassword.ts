@@ -18,15 +18,10 @@ router.post('/', (req, res) => {
   User.findOne({email}).then(user => {
     if (!user) return res.status(400).json({msg: 'email not in database'});
     const token = generateToken(user.id);
-    console.log(token)
-    console.log(user._id)
     User.findOneAndUpdate({"_id": user.id}, {
       resetPasswordToken: token,
       resetPasswordExpires: new Date(Date.now() + 3600000)
     }, {new: true}).then(user => {
-      console.log(user)
-
-      console.log(user)
 
       const transporter = nodemailer.createTransport({
         service: 'gmail',

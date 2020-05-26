@@ -27,7 +27,6 @@ class ForgotPassword extends React.Component<ForgotPasswordProps> {
               messageFromServer: ''
             });
           } else if (res.data === 'email sent'){
-            console.log(res.data)
             this.setState({
               showError: false,
               messageFromServer: 'email sent'
