@@ -16,7 +16,6 @@ class TransactionItem extends React.Component<TransactionItemProps> {
   };
 
   render() {
-    console.log(this.props.transaction)
     return (
       <div className={this.props.className}>
         <div className={(this.props.transaction.category) ? ('color' +

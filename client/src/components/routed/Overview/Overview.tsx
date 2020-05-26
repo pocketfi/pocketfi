@@ -113,7 +113,6 @@ class Overview extends React.Component<OverviewProps> {
             children={<MdAdd/>}
             title='New transaction'
             onClick={() => {
-              console.log('new!');
               this.props.history.push('/new');
             }}
           />

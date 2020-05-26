@@ -23,7 +23,6 @@ export class App extends React.Component {
   componentDidMount() {
       const socket = socketIOClient('http://localhost:4000/');
       socket.on("new", (transaction: Transaction) => {
-        console.log(transaction)
         // @ts-ignore
         store.dispatch(transactionCreated(transaction))
       });
