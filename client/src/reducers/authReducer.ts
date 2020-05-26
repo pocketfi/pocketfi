@@ -12,7 +12,7 @@ const initialState = {
   user: null
 };
 
-export default function (state = initialState, action: AuthActionTypes) {
+export default (state = initialState, action: AuthActionTypes) => {
   switch (action.type) {
     case USER_LOADING:
       return {
