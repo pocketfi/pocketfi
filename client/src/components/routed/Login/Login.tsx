@@ -32,7 +32,6 @@ class Login extends React.Component<LoginProps> {
   }
 
   render() {
-    console.log(this.props.isAuthenticated);
     if (this.props.isAuthenticated) {
       this.props.history.push('/overview')
     }
