@@ -8,9 +8,10 @@ export class Transaction {
   price: number;
   currency: string;
   created: Date;
+  description: string;
 
   constructor(id: string, transactionType: string, category: Category,
-              place: string, price: number, currency: string, created: Date) {
+              place: string, price: number, currency: string, created: Date, description: string) {
     this.id = id;
     this.transactionType = transactionType;
     this.category = category;
@@ -18,6 +19,7 @@ export class Transaction {
     this.price = price;
     this.currency = currency;
     this.created = created;
+    this.description = description
   }
 
 }
