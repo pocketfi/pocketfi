@@ -5,12 +5,12 @@ import {Separator} from '../../embedded/Separator/Separator';
 import {IoIosCalendar, MdAdd, MdAttachMoney, MdNotInterested, MdSettings, MdShowChart} from 'react-icons/all';
 import {Button} from 'reactstrap';
 import MenuItem from '../../embedded/MenuItem/MenuItem';
-import {connect} from "react-redux";
-import {getTransactions} from "../../../actions/transactionAction";
-import {AppState} from "../../../store";
-import {Transaction} from "../../../types/Transaction";
-import {Rate} from "../../../types/Rate";
-import {TransactionType} from "../../../types/TransactionType";
+import {connect} from 'react-redux';
+import {getTransactions} from '../../../actions/transactionAction';
+import {AppState} from '../../../store';
+import {Transaction} from '../../../types/Transaction';
+import {Rate} from '../../../types/Rate';
+import {TransactionType} from '../../../types/TransactionType';
 import {RouteComponentProps} from 'react-router-dom';
 
 export enum OverviewCardType {
@@ -27,6 +27,7 @@ export interface Card {
 
 export interface OverviewProps extends RouteComponentProps {
   getTransactions(): void
+
   transactions: Transaction[]
   rates: Rate[]
 }
@@ -48,7 +49,7 @@ class Overview extends React.Component<OverviewProps> {
   }
 
   render() {
-    console.log(this.props.transactions)
+    // TODO: refactor. Move cards calculation to separate method
     const transactions = this.props.transactions.filter(transaction => transaction.transactionType === TransactionType.EXPENSE);
     const USD = this.props.rates.find(rate => {
       return rate.code === 'USD'
@@ -103,19 +104,17 @@ class Overview extends React.Component<OverviewProps> {
         />
         <Separator/>
         <div className='menu'>
-          <MenuItem className='transactions' icon={<MdAttachMoney/>} title='Transactions' route='/transactions'/>
-          <MenuItem className='limits' icon={<MdNotInterested/>} title='Limits' route='/limits'/>
-          <MenuItem className='analytics' icon={<MdShowChart/>} title='Analytics' route='/analytics'/>
-          <MenuItem className='calendar' icon={<IoIosCalendar/>} title='Calendar' route='/calendar'/>
-          <MenuItem className='settings' icon={<MdSettings/>} title='Settings' route='/settings'/>
+          <MenuItem className='transactions-item' icon={<MdAttachMoney/>} title='Transactions' route='/transactions'/>
+          <MenuItem className='limits-item' icon={<MdNotInterested/>} title='Limits' route='/limits'/>
+          <MenuItem className='analytics-item' icon={<MdShowChart/>} title='Analytics' route='/analytics'/>
+          <MenuItem className='calendar-item' icon={<IoIosCalendar/>} title='Calendar' route='/calendar'/>
+          <MenuItem className='settings-item' icon={<MdSettings/>} title='Settings' route='/settings'/>
         </div>
         <div className='button-wrapper'>
           <Button
             children={<MdAdd/>}
             title='New transaction'
-            onClick={() => {
-              this.props.history.push('/new');
-            }}
+            onClick={() => { this.props.history.push('/new');}}
           />
         </div>
       </div>

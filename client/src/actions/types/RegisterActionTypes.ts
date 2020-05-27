@@ -1,8 +1,8 @@
-import {Msg} from "../../types/Msg";
-import {RegisteredUser} from "../../types/RegisteredUser";
+import {Msg} from '../../types/Msg';
+import {RegisteredUser} from '../../types/RegisteredUser';
 
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAIL = "REGISTER_FAIL";
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
+export const REGISTER_FAIL = 'REGISTER_FAIL';
 
 export interface RegisterSuccess {
   type: typeof REGISTER_SUCCESS;

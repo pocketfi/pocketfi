@@ -1,8 +1,8 @@
-import React from "react";
-import axios from "axios";
-import {Link, match} from "react-router-dom";
-import {PasswordInput} from "../../embedded/Input/PasswordInput/PasswordInput";
-import {Button, Form} from "reactstrap";
+import React from 'react';
+import axios from 'axios';
+import {Link, match} from 'react-router-dom';
+import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
+import {Button, Form} from 'reactstrap';
 import './ResetPassword.sass';
 
 interface ResetPasswordParams {
@@ -28,7 +28,7 @@ class ResetPassword extends React.Component<ResetPasswordProps> {
           resetPasswordToken: this.props.match.params.token
         }
       }).then(res => {
-      if (res.data.resetLink){
+      if (res.data.resetLink) {
         this.setState({
           email: res.data.email,
           error: false
@@ -81,9 +81,9 @@ class ResetPassword extends React.Component<ResetPasswordProps> {
               value={this.state.password}
               onChange={e => this.setState({password: e.target.value})}
             />
-          <Button onClick={() => this.handleSubmit()}>
-            Update password
-          </Button>
+            <Button onClick={() => this.handleSubmit()}>
+              Update password
+            </Button>
           </Form>
           {this.state.updated && (
             <div>

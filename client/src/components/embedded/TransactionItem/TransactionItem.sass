@@ -1,69 +1,130 @@
 @import 'src/colors'
+@import 'src/constants'
 
-.category
+.transaction
+  transition: all .5s
+
+  .transaction-item
+    width: 100%
+    display: grid
+    grid-template-columns: auto 4fr auto
+    align-items: center
+    justify-content: center
+    padding: 2px 4px
+    cursor: pointer
+    border-radius: 5px
+
+    &:hover
+      background: $gray
+
+    .category-wrapper, .description, .actions
+      display: none
+
+    .color-dot
+      display: flex
+
+      svg
+        background: transparent
+
+    .other-dot
+      color: $dark
+
+  .transaction-preview
+    width: 100%
+    display: grid
+    grid-template-columns: auto 1fr auto
+    grid-template-rows: repeat(3, auto)
+    align-items: center
+    justify-content: center
+    padding: 2px 4px
+    margin: 20px 0
+    border-radius: 5px
+    box-shadow: 0 0 20px 0 $gray
+
+    &:focus
+      outline: none
+
+    .color-dot
+      display: none
+
+    .category-wrapper
+      grid-column: 1
+      grid-row: 1
+      padding: 4px
+      margin-right: 4px
+      max-width: 100px
+      white-space: nowrap
+
+      .category
+        padding: 0 4px
+        border-radius: 4px
+        color: $white
+        overflow-x: scroll
+
+        &::-webkit-scrollbar
+          height: 0
+          background: transparent
+
+    .other-category
+      background: $dark
+
+    .description
+      grid-column: 2
+      grid-row: 2
+      margin: 5px 0
+      background: transparent
+
+    .actions
+      grid-column: 1/3
+      grid-row: 3
+      display: flex
+      align-items: center
+
+      svg
+        margin: 10px
+        cursor: pointer
+        opacity: .5
+        transition: all .2s
+        font-size: 30px
+
+        &:hover
+          opacity: 1
+
+      .delete
+        color: $red
+
+      .move
+        color: $purple
+
+  svg
+    font-size: 30px
+
+  .place
+    max-width: 100%
+    font-size: 24px
+    overflow-x: hidden
+    white-space: nowrap
+    text-overflow: ellipsis
+
+  .price-container
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    white-space: nowrap
+
+    p, div
+      font-size: 24px
+      padding-left: 4px
+
+    .currency
+      color: $dark
 
   .expense
-    width: 100%
-    display: flex
-    justify-content: flex-end
-    align-items: center
-
     svg
       color: $red
 
   .income
-    width: 100%
-    display: flex
-    justify-content: flex-end
-    align-items: center
-
     svg
       color: $green
 
-  .color0
-    svg
-      color: $red
-
-  .color1
-    svg
-      color: $crimson
-
-  .color2
-    svg
-      color: $violet
-
-  .color3
-    svg
-      color: $purple
-
-  .color4
-    svg
-      color: $indigo
-
-  .color5
-    svg
-      color: $blue
-
-  .color6
-    svg
-      color: $turquoise
-
-  .color7
-    svg
-      color: $green
-
-  .color8
-    svg
-      color: $light-green
-
-  .color9
-    svg
-      color: $yellow
-
-  .color10
-    svg
-      color: $orange
-
-  .color11
-    svg
-      color: $carrot
+  @import 'src/category-colors'

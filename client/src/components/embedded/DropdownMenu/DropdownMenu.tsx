@@ -1,9 +1,11 @@
 import React from 'react';
-import Select from "react-select";
+import Select from 'react-select';
 
 interface DropdownMenuProps {
   options: [];
+
   onChange(value: any): void;
+
   placeholder: string;
 }
 
@@ -44,7 +46,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps> {
           styles={customStyles}
           placeholder={this.props.placeholder}
           options={this.props.options}
-          components={{DropdownIndicator: () => null, IndicatorSeparator:() => null}}
+          components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
           onChange={this.handleChange}
         />
       </div>

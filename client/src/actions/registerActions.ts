@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {AppActions, REGISTER_FAIL, REGISTER_SUCCESS} from './types/RegisterActionTypes';
-import {AuthUser} from "../types/AuthUser";
-import {Dispatch} from "redux";
-import {Msg} from "../types/Msg";
-import {RegisteredUser} from "../types/RegisteredUser";
+import {AuthUser} from '../types/AuthUser';
+import {Dispatch} from 'redux';
+import {Msg} from '../types/Msg';
+import {RegisteredUser} from '../types/RegisteredUser';
 
 export const registerSuccess = (registeredUser: RegisteredUser): AppActions => ({
   type: REGISTER_SUCCESS,

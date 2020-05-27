@@ -6,14 +6,18 @@ import {
   TRANSACTION_UPDATED,
   TransactionActionTypes,
   TRANSACTIONS_RECEIVED
-} from "../actions/types/TransactionActionTypes";
-import {Transaction} from "../types/Transaction";
+} from '../actions/types/TransactionActionTypes';
+import {Transaction} from '../types/Transaction';
+
+export interface TransactionReducerState {
+  transactions: Transaction[]
+}
 
 const initialState = {
   transactions: []
 };
 
-export default (state = initialState, action: TransactionActionTypes) => {
+export default (state: TransactionReducerState = initialState, action: TransactionActionTypes) => {
   switch (action.type) {
     case TRANSACTION_SUCCESS:
       return {
@@ -43,7 +47,7 @@ export default (state = initialState, action: TransactionActionTypes) => {
     case TRANSACTION_DELETED:
       return {
         ...state,
-        transactions: state.transactions.filter(transaction => action.transaction !== transaction)
+        transactions: state.transactions.filter((transaction) => action.transaction.id !== transaction.id)
       }
     default:
       return state;

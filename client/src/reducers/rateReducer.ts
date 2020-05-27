@@ -1,4 +1,4 @@
-import {RateActionTypes, RECEIVE_RATE, REQUEST_ERROR} from "../actions/types/RateActionTypes";
+import {RateActionTypes, RECEIVE_RATE, REQUEST_ERROR} from '../actions/types/RateActionTypes';
 
 const initialState = {
   codeRates: [],

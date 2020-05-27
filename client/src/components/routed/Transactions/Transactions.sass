@@ -1,0 +1,24 @@
+@import 'src/colors'
+@import 'src/constants'
+
+#root
+  align-self: flex-start
+
+.transactions
+  display: flex
+  flex-direction: column
+  width: 100%
+  max-width: $max-page-width
+  height: 100%
+  margin: 0 10px
+
+  .search-bar
+    padding: 10px 0
+    z-index: 2
+
+  .transaction-list
+    margin-bottom: 10px
+    padding: 10px
+    border-radius: 10px
+    box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.02)
+
