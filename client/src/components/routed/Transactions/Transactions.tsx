@@ -28,7 +28,6 @@ class Transactions extends React.Component<TransactionsProps> {
   }
 
   handleEditTransaction(transaction: Transaction) {
-    console.log('edit transaction', transaction);
     this.props.updateTransaction(transaction);
   }
 

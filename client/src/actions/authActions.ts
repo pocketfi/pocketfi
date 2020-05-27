@@ -8,13 +8,13 @@ import {
   USER_LOADED,
   USER_LOADING
 } from './types/AuthActionTypes';
-import {ConfigHeaders} from "../types/ConfigHeaders";
-import {Dispatch} from "redux";
-import {Msg} from "../types/Msg";
-import {AppState} from "../store";
-import {RegisteredUser} from "../types/RegisteredUser";
-import {LoginUser} from "../types/LoginUser";
-import {AuthenticatedUser} from "../types/AuthenticatedUser";
+import {ConfigHeaders} from '../types/ConfigHeaders';
+import {Dispatch} from 'redux';
+import {Msg} from '../types/Msg';
+import {AppState} from '../store';
+import {RegisteredUser} from '../types/RegisteredUser';
+import {LoginUser} from '../types/LoginUser';
+import {AuthenticatedUser} from '../types/AuthenticatedUser';
 
 export const userLoading = (): AppActions => ({
   type: USER_LOADING
@@ -92,7 +92,7 @@ export const login = ({email, password}: LoginUser) => (
     });
 };
 
-export const logout = () => ( dispatch: Dispatch<AppActions>) => {
+export const logout = () => (dispatch: Dispatch<AppActions>) => {
   dispatch(logoutSuccess())
 };
 

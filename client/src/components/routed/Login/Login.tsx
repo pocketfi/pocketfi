@@ -9,11 +9,12 @@ import {Link, RouteComponentProps} from 'react-router-dom';
 import {LoginUser} from '../../../types/LoginUser';
 import './Login.sass'
 import * as actions from '../../../actions/authActions';
-import {GoogleLoginButton} from "../../embedded/GoogleLoginButton/GoogleLoginButton";
-import {AppState} from "../../../store";
+import {GoogleLoginButton} from '../../embedded/GoogleLoginButton/GoogleLoginButton';
+import {AppState} from '../../../store';
 
 export interface LoginProps extends AuthState, RouteComponentProps {
   login(user: AuthUser): void;
+
   oauthGoogle(access_token: string): void;
 }
 

@@ -4,14 +4,15 @@ import {connect} from 'react-redux';
 import './NewTransaction.sass'
 import {Switcher} from '../../embedded/Switcher/Switcher';
 import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
-import {AppState} from "../../../store";
-import {newTransaction} from "../../../actions/transactionAction";
-import {CreateTransaction} from "../../../types/CreateTransaction";
-import {TransactionType} from "../../../types/TransactionType";
-import {RouteComponentProps} from "react-router-dom";
+import {AppState} from '../../../store';
+import {newTransaction} from '../../../actions/transactionAction';
+import {CreateTransaction} from '../../../types/CreateTransaction';
+import {TransactionType} from '../../../types/TransactionType';
+import {RouteComponentProps} from 'react-router-dom';
 
 export interface NewTransactionProps extends RouteComponentProps {
   newTransaction(transaction: CreateTransaction): void;
+
   codeRates: [];
 }
 
@@ -68,7 +69,8 @@ class NewTransaction extends React.Component<NewTransactionProps> {
               onChange={e => this.setState({price: e.target.value})}
               placeholder="0.00"
             />
-            <DropdownMenu placeholder={this.state.placeholder} options={this.props.codeRates} onChange={value => this.setState({currency: value})}/>
+            <DropdownMenu placeholder={this.state.placeholder} options={this.props.codeRates}
+                          onChange={value => this.setState({currency: value})}/>
           </div>
           <Button
             className={this.state.transactionType.toLowerCase()}

@@ -15,13 +15,23 @@ interface TransactionItemProps {
   onChange?: (transaction: Transaction) => void;
 }
 
+interface TransactionItemState {
+  transactionType: string;
+  expanded: boolean;
+  price: number;
+  description: string;
+  currency: string;
+  place: string;
+  categoryName: string
+}
+
 class TransactionItem extends React.Component<TransactionItemProps> {
   static defaultProps = {
     onDelete: () => {},
     onChange: () => {}
   };
 
-  state = {
+  state: TransactionItemState = {
     expanded: false,
     transactionType: this.props.transaction.transactionType,
     categoryName: this.props.transaction.category ? this.props.transaction.category.name : 'Other',
@@ -51,7 +61,6 @@ class TransactionItem extends React.Component<TransactionItemProps> {
         this.props.transaction.created,
         this.state.description
       );
-      console.log(transaction)
       this.props.onChange!(transaction)
     });
   }
@@ -109,7 +118,6 @@ class TransactionItem extends React.Component<TransactionItemProps> {
 
           <div className='actions'>
             <FaTrash className='delete' onClick={() => this.props.onDelete!()}/>
-            {/*TODO*/}
             <FaCalendar className='move'/>
           </div>
         </div>
@@ -119,8 +127,7 @@ class TransactionItem extends React.Component<TransactionItemProps> {
 
   private getCategoryColorClass() {
     if (this.props.transaction.category) {
-      // @ts-ignore
-      return 'color' + CategoryColor[this.props.transaction.category.color];
+      return 'color' + CategoryColor[this.props.transaction.category.color as any];
     }
     if (this.state.transactionType === TransactionType.INCOME) {
       return 'color' + CategoryColor['GREEN'];

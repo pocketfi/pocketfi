@@ -1,9 +1,9 @@
 import React from 'react';
-import {GoogleLogin, GoogleLoginInfo} from "react-google-login-component";
+import {GoogleLogin, GoogleLoginInfo} from 'react-google-login-component';
 import './GoogleLoginButton.sass'
-import {connect} from "react-redux";
-import {AppState} from "../../../store";
-import {oauthGoogle} from "../../../actions/authActions";
+import {connect} from 'react-redux';
+import {AppState} from '../../../store';
+import {oauthGoogle} from '../../../actions/authActions';
 
 export const CLIENT_ID = process.env.CLIENT_ID || ''
 
@@ -52,7 +52,6 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-});
+const mapStateToProps = (state: AppState) => ({});
 
 export default connect(mapStateToProps, {oauthGoogle})(GoogleLoginButton);

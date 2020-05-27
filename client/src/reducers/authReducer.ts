@@ -1,10 +1,12 @@
 import {
   AUTH_ERROR,
-  AuthActionTypes, LOGIN_FAIL,
-  LOGIN_SUCCESS, LOGOUT_SUCCESS,
+  AuthActionTypes,
+  LOGIN_FAIL,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
   USER_LOADED,
   USER_LOADING
-} from "../actions/types/AuthActionTypes";
+} from '../actions/types/AuthActionTypes';
 
 const initialState = {
   token: localStorage.getItem('token'),

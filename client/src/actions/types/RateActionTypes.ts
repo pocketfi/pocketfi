@@ -1,5 +1,5 @@
-import {Rate} from "../../types/Rate";
-import {CodeRates} from "../../types/CodeRates";
+import {Rate} from '../../types/Rate';
+import {CodeRates} from '../../types/CodeRates';
 
 export const RECEIVE_RATE = 'RECEIVE_RATE';
 export const REQUEST_ERROR = 'REQUEST_ERROR';

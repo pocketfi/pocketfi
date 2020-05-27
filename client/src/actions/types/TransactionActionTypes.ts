@@ -1,5 +1,5 @@
-import {Msg} from "../../types/Msg";
-import {Transaction} from "../../types/Transaction";
+import {Msg} from '../../types/Msg';
+import {Transaction} from '../../types/Transaction';
 
 export const TRANSACTION_SUCCESS = 'TRANSACTION_SUCCESS';
 export const TRANSACTION_FAIL = 'TRANSACTION_FAIL';
