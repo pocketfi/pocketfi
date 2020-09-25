@@ -6,8 +6,10 @@ import {Transaction} from '../../../types/Transaction';
 import {TransactionList} from '../../embedded/TransactionList/TransactionList';
 import {SearchBar} from '../../embedded/SearchBar/SearchBar';
 import {deleteTransaction, getTransactions, updateTransaction} from '../../../actions/transactionAction';
+import {AuthState} from "../../../types/AuthState";
+import {RouteComponentProps} from "react-router-dom";
 
-export interface TransactionsProps {
+export interface TransactionsProps extends RouteComponentProps, AuthState {
   transactions: Transaction[]
 
   getTransactions(): void
@@ -32,6 +34,9 @@ class Transactions extends React.Component<TransactionsProps> {
   }
 
   render() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login')
+    }
     return (
       <div className='transactions'>
         <SearchBar/>
@@ -47,7 +52,9 @@ class Transactions extends React.Component<TransactionsProps> {
 
 const mapStateToProps = (state: AppState) => ({
   // @ts-ignore
-  transactions: state.transaction.transactions
+  transactions: state.transaction.transactions,
+  // @ts-ignore
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {getTransactions, deleteTransaction, updateTransaction})(Transactions);
