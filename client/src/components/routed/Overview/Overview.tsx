@@ -12,6 +12,7 @@ import {Transaction} from '../../../types/Transaction';
 import {Rate} from '../../../types/Rate';
 import {TransactionType} from '../../../types/TransactionType';
 import {RouteComponentProps} from 'react-router-dom';
+import {AuthState} from "../../../types/AuthState";
 
 export enum OverviewCardType {
   DAY = 'day',
@@ -25,7 +26,7 @@ export interface Card {
   averageDelta?: number;
 }
 
-export interface OverviewProps extends RouteComponentProps {
+export interface OverviewProps extends RouteComponentProps, AuthState {
   getTransactions(): void
 
   transactions: Transaction[]
@@ -49,6 +50,9 @@ class Overview extends React.Component<OverviewProps> {
   }
 
   render() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login')
+    }
     // TODO: refactor. Move cards calculation to separate method
     const transactions = this.props.transactions.filter(transaction => transaction.transactionType === TransactionType.EXPENSE);
     const USD = this.props.rates.find(rate => {
@@ -126,7 +130,9 @@ const mapStateToProps = (state: AppState) => ({
   // @ts-ignore
   transactions: state.transaction.transactions,
   // @ts-ignore
-  rates: state.rate.rates
+  rates: state.rate.rates,
+  // @ts-ignore
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {getTransactions})(Overview);

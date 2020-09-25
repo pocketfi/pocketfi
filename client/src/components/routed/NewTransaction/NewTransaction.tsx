@@ -9,8 +9,9 @@ import {newTransaction} from '../../../actions/transactionAction';
 import {CreateTransaction} from '../../../types/CreateTransaction';
 import {TransactionType} from '../../../types/TransactionType';
 import {RouteComponentProps} from 'react-router-dom';
+import {AuthState} from "../../../types/AuthState";
 
-export interface NewTransactionProps extends RouteComponentProps {
+export interface NewTransactionProps extends RouteComponentProps, AuthState {
   newTransaction(transaction: CreateTransaction): void;
 
   codeRates: [];
@@ -39,6 +40,9 @@ class NewTransaction extends React.Component<NewTransactionProps> {
   }
 
   render() {
+    if (!this.props.isAuthenticated) {
+      this.props.history.push('/login')
+    }
     return (
       <div className='new-transaction'>
         {/*TODO: back button*/}
@@ -85,7 +89,9 @@ class NewTransaction extends React.Component<NewTransactionProps> {
 
 const mapStateToProps = (state: AppState) => ({
   // @ts-ignore
-  codeRates: state.rate.codeRates
+  codeRates: state.rate.codeRates,
+  // @ts-ignore
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {newTransaction})(NewTransaction);
