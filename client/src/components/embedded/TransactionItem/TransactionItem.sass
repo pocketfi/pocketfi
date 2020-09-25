@@ -56,10 +56,12 @@
       white-space: nowrap
 
       .category
-        padding: 0 4px
+        padding: 2px 4px
         border-radius: 4px
         color: $white
-        overflow-x: scroll
+        overflow-x: auto
+        //hide scrollbar on firefox
+        scrollbar-width: none
 
         &::-webkit-scrollbar
           height: 0
