@@ -15,6 +15,9 @@
   padding: 10px
   box-shadow: 0 0 100px 100px rgba(0, 0, 0, 0.02)
 
+  .banner
+    max-height: 40%
+
   .separator
     margin: 8px
 
@@ -22,7 +25,6 @@
     width: 100%
     display: flex
     flex-direction: column
-    margin-bottom: 120px
 
     .transactions-item
       svg
@@ -51,6 +53,8 @@
     bottom: 0
     width: 100%
     max-width: $max-page-width
+    //it covers menu buttons on small screens so make it transparent to events
+    pointer-events: none
 
     button
       $button-size: 80px
@@ -61,6 +65,7 @@
       border-radius: 50%
       box-shadow: 5px 5px 10px 0 $gray
       transition: all .2s ease-in-out
+      pointer-events: all
 
       &:hover
         width: calc(#{$button-size} + 10px)
