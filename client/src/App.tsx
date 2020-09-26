@@ -13,6 +13,7 @@ import ForgotPassword from './components/routed/ForgotPassword/ForgotPassword';
 import ResetPassword from './components/routed/ResetPassword/ResetPassword';
 import {transactionCreated} from './actions/transactionAction';
 import Transactions from './components/routed/Transactions/Transactions';
+import PrivateRoute from "./components/routed/PrivateRoute /PrivateRoute";
 
 export class App extends React.Component {
 
@@ -31,13 +32,13 @@ export class App extends React.Component {
   }
 
   render() {
-    return (
+       return (
       <div className="App">
         <BrowserRouter>
           <Switch>
-            <Route path='/overview' component={Overview}/>
-            <Route path='/new' component={NewTransaction}/>
-            <Route path='/transactions' component={Transactions}/>
+            <PrivateRoute  path="/overview"  component={Overview}/>
+            <PrivateRoute path='/new' component={NewTransaction}/>
+            <PrivateRoute path='/transactions' component={Transactions}/>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
             <Route path='/forgot_password' component={ForgotPassword}/>
