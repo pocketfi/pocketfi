@@ -2,9 +2,12 @@ import axios from 'axios';
 import {Transaction} from '../types/Transaction';
 import {Dispatch} from 'redux';
 import {
+  FOUND_TRANSACTIONS,
+  FOUND_TRANSACTIONS_BY_CATEGORY,
   TRANSACTION_CREATED,
   TRANSACTION_DELETED,
   TRANSACTION_FAIL,
+  TRANSACTION_MESSAGE,
   TRANSACTION_SUCCESS,
   TRANSACTION_UPDATED,
   TransactionActionTypes,
@@ -15,8 +18,9 @@ import {tokenConfig} from './authActions';
 import {AppState} from '../store';
 import {CreateTransaction} from '../types/CreateTransaction';
 
-export const transactionSuccess = (): TransactionActionTypes => ({
-  type: TRANSACTION_SUCCESS
+export const transactionSuccess = (transaction: Transaction): TransactionActionTypes => ({
+  type: TRANSACTION_SUCCESS,
+  transaction: transaction
 });
 
 export const transactionFail = (message: Msg, status: number): TransactionActionTypes => ({
@@ -44,11 +48,26 @@ export const transactionDeleted = (transaction: Transaction): TransactionActionT
   transaction: transaction
 })
 
+export const transactionsFound = (transactions: Transaction[]): TransactionActionTypes => ({
+  type: FOUND_TRANSACTIONS,
+  transactions: transactions
+})
+
+export const transactionsFoundByCategory = (transactions: Transaction[]): TransactionActionTypes => ({
+  type: FOUND_TRANSACTIONS_BY_CATEGORY,
+  transactions: transactions
+})
+
+export const transactionMsg = (msg: string): TransactionActionTypes => ({
+  type: TRANSACTION_MESSAGE,
+  msg: msg
+})
+
 export const newTransaction = (transaction: CreateTransaction) => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
   axios
     .post('api/transaction/new', {transaction: transaction}, tokenConfig(getState))
     .then(res => {
-        dispatch(transactionSuccess())
+        dispatch(transactionSuccess(res.data))
       }
     )
     .catch(err => {
@@ -82,6 +101,32 @@ export const deleteTransaction = (transactionId: string) =>
     axios.delete('api/transaction/delete/' + transactionId, tokenConfig(getState))
       .then(res => {
         dispatch(transactionDeleted(res.data))
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+export const search = (searchText: string) =>
+  (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
+    axios.post('api/search/bycategory/', {searchText: searchText}, tokenConfig(getState))
+      .then(res => {
+        if (res.data.msg) {
+          dispatch(transactionMsg(res.data.msg))
+        } else {
+          dispatch(transactionsFoundByCategory(res.data))
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+    axios.post('api/search/transaction/', {searchText: searchText}, tokenConfig(getState))
+      .then(res => {
+        if (res.data.msg) {
+          dispatch(transactionMsg(res.data.msg))
+        } else {
+          dispatch(transactionsFound(res.data))
+        }
       })
       .catch(err => {
         console.error(err)
