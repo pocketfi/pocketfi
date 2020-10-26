@@ -1,6 +1,7 @@
 import React from 'react';
 import './SearchBar.sass'
 import {Input} from 'reactstrap';
+import {debounce} from 'lodash'
 
 interface SearchBarProps {
   changeSearch: (searchText: string) => void
@@ -14,8 +15,10 @@ export class SearchBar extends React.Component<SearchBarProps> {
 
   handleChange(searchText: string) {
     this.setState({query: searchText})
-      this.props.changeSearch(searchText);
+      this.debouncedSearch(searchText);
   }
+
+  debouncedSearch = debounce(searchText => this.props.changeSearch(searchText), 250)
 
   render() {
     return (

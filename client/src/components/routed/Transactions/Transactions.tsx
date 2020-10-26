@@ -11,6 +11,7 @@ export interface TransactionsProps {
   transactions: Transaction[]
   foundTransactions: Transaction[]
   transactionsFoundByCategory: Transaction[]
+
   getTransactions(): void
 
   deleteTransaction(id: string): void
@@ -40,21 +41,19 @@ class Transactions extends React.Component<TransactionsProps> {
 
   render() {
     let transactions = this.props.transactions
-
-    if (this.props.foundTransactions.length && this.props.transactionsFoundByCategory.length) {
+    let foundTransactions = this.props.foundTransactions
+    let transactionsFoundByCategory = this.props.transactionsFoundByCategory
+    if (foundTransactions.length && transactionsFoundByCategory.length) {
       transactions = []
-      this.props.foundTransactions.forEach(transaction => {
+      foundTransactions.forEach(transaction => transactions.push(transaction))
+      transactionsFoundByCategory.forEach(transaction => {
+        if (!transactions.find(t => t.id === transaction.id))
           transactions.push(transaction)
       })
-      this.props.transactionsFoundByCategory.forEach(transaction => {
-        if (!transactions.find(t => t.id===transaction.id))
-          transactions.push(transaction)
-      })
-    } else if (this.props.transactionsFoundByCategory.length && this.props.foundTransactions.length === 0) {
-      transactions = this.props.transactionsFoundByCategory
-    } else if (this.props.transactionsFoundByCategory.length===0 && this.props.foundTransactions.length) {
-      transactions = this.props.foundTransactions
-    }
+    } else if (transactionsFoundByCategory.length && foundTransactions.length === 0)
+      transactions = transactionsFoundByCategory
+    else if (transactionsFoundByCategory.length === 0 && foundTransactions.length)
+      transactions = foundTransactions
     return (
       <div className='transactions'>
         <SearchBar

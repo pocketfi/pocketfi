@@ -109,7 +109,7 @@ export const deleteTransaction = (transactionId: string) =>
 
 export const search = (searchText: string) =>
   (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
-    axios.post('api/search/bycategory/', {searchText: searchText}, tokenConfig(getState))
+    axios.post('api/search/by-category/', {searchText: searchText}, tokenConfig(getState))
       .then(res => {
         if (res.data.msg) {
           dispatch(transactionMsg(res.data.msg))
