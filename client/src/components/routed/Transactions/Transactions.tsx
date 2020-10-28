@@ -43,6 +43,7 @@ class Transactions extends React.Component<TransactionsProps> {
     let transactions = this.props.transactions
     let foundTransactions = this.props.foundTransactions
     let transactionsFoundByCategory = this.props.transactionsFoundByCategory
+
     if (foundTransactions.length && transactionsFoundByCategory.length) {
       transactions = []
       foundTransactions.forEach(transaction => transactions.push(transaction))

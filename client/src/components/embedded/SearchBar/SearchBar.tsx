@@ -15,10 +15,10 @@ export class SearchBar extends React.Component<SearchBarProps> {
 
   handleChange(searchText: string) {
     this.setState({query: searchText})
-      this.debouncedSearch(searchText);
+      this.debouncedSearch();
   }
 
-  debouncedSearch = debounce(searchText => this.props.changeSearch(searchText), 250)
+  debouncedSearch = debounce(() => this.props.changeSearch(this.state.query), 250)
 
   render() {
     return (

@@ -10,6 +10,7 @@ export const TRANSACTION_DELETED = 'TRANSACTION_DELETED';
 export const FOUND_TRANSACTIONS = 'FOUND_TRANSACTIONS';
 export const FOUND_TRANSACTIONS_BY_CATEGORY = 'FOUND_TRANSACTIONS_BY_CATEGORY';
 export const TRANSACTION_MESSAGE = 'TRANSACTION_MESSAGE';
+export const CATEGORY_MESSAGE = 'CATEGORY_MESSAGE';
 
 export interface TransactionSuccess {
   type: typeof TRANSACTION_SUCCESS;
@@ -56,6 +57,11 @@ export interface TransactionMessage {
   msg: string;
 }
 
+export interface CategoryMessage {
+  type: typeof CATEGORY_MESSAGE;
+  msg: string;
+}
+
 export type TransactionActionTypes =
   | TransactionSuccess
   | TransactionFail
@@ -66,5 +72,6 @@ export type TransactionActionTypes =
   | FoundTransactions
   | FoundByCategoryTransactions
   | TransactionMessage
+  | CategoryMessage
 
 export type AppActions = TransactionActionTypes;

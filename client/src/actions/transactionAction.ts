@@ -2,6 +2,7 @@ import axios from 'axios';
 import {Transaction} from '../types/Transaction';
 import {Dispatch} from 'redux';
 import {
+  CATEGORY_MESSAGE,
   FOUND_TRANSACTIONS,
   FOUND_TRANSACTIONS_BY_CATEGORY,
   TRANSACTION_CREATED,
@@ -63,6 +64,11 @@ export const transactionMsg = (msg: string): TransactionActionTypes => ({
   msg: msg
 })
 
+export const categoryMsg = (msg: string): TransactionActionTypes => ({
+  type: CATEGORY_MESSAGE,
+  msg: msg
+})
+
 export const newTransaction = (transaction: CreateTransaction) => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
   axios
     .post('api/transaction/new', {transaction: transaction}, tokenConfig(getState))
@@ -109,10 +115,12 @@ export const deleteTransaction = (transactionId: string) =>
 
 export const search = (searchText: string) =>
   (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
+    dispatch(transactionsFoundByCategory([]))
+    dispatch(transactionsFound([]))
     axios.post('api/search/by-category/', {searchText: searchText}, tokenConfig(getState))
       .then(res => {
         if (res.data.msg) {
-          dispatch(transactionMsg(res.data.msg))
+          dispatch(categoryMsg(res.data.msg))
         } else {
           dispatch(transactionsFoundByCategory(res.data))
         }
@@ -125,6 +133,7 @@ export const search = (searchText: string) =>
         if (res.data.msg) {
           dispatch(transactionMsg(res.data.msg))
         } else {
+          console.log(res.data)
           dispatch(transactionsFound(res.data))
         }
       })

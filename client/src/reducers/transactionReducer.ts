@@ -73,9 +73,7 @@ export default (state: TransactionReducerState = initialState, action: Transacti
     case TRANSACTION_MESSAGE:
       return {
         ...state,
-        msg: action.msg,
-        transactionsFoundByCategory: [],
-        foundTransactions: [],
+        msg: action.msg
       }
     default:
       return state;
