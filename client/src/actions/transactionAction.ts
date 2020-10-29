@@ -115,19 +115,6 @@ export const deleteTransaction = (transactionId: string) =>
 
 export const search = (searchText: string) =>
   (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
-    dispatch(transactionsFoundByCategory([]))
-    dispatch(transactionsFound([]))
-    axios.post('api/search/by-category/', {searchText: searchText}, tokenConfig(getState))
-      .then(res => {
-        if (res.data.msg) {
-          dispatch(categoryMsg(res.data.msg))
-        } else {
-          dispatch(transactionsFoundByCategory(res.data))
-        }
-      })
-      .catch(err => {
-        console.error(err)
-      })
     axios.post('api/search/transaction/', {searchText: searchText}, tokenConfig(getState))
       .then(res => {
         if (res.data.msg) {

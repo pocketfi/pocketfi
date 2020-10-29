@@ -41,20 +41,8 @@ class Transactions extends React.Component<TransactionsProps> {
 
   render() {
     let transactions = this.props.transactions
-    let foundTransactions = this.props.foundTransactions
-    let transactionsFoundByCategory = this.props.transactionsFoundByCategory
+    if (this.props.foundTransactions.length ) transactions = this.props.foundTransactions
 
-    if (foundTransactions.length && transactionsFoundByCategory.length) {
-      transactions = []
-      foundTransactions.forEach(transaction => transactions.push(transaction))
-      transactionsFoundByCategory.forEach(transaction => {
-        if (!transactions.find(t => t.id === transaction.id))
-          transactions.push(transaction)
-      })
-    } else if (transactionsFoundByCategory.length && foundTransactions.length === 0)
-      transactions = transactionsFoundByCategory
-    else if (transactionsFoundByCategory.length === 0 && foundTransactions.length)
-      transactions = foundTransactions
     return (
       <div className='transactions'>
         <SearchBar
