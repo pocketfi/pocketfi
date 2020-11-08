@@ -1,7 +1,7 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode} from 'react'
 import './MenuItem.sass'
-import {Title} from '../Title/Title';
-import {RouteComponentProps, withRouter} from 'react-router-dom';
+import {Title} from '../Title/Title'
+import {RouteComponentProps, withRouter} from 'react-router-dom'
 
 interface MenuItemProps extends RouteComponentProps {
   icon: ReactNode;
@@ -13,7 +13,7 @@ interface MenuItemProps extends RouteComponentProps {
 class MenuItem extends React.Component<MenuItemProps> {
   static defaultProps = {
     className: ''
-  };
+  }
 
   render() {
     return (
@@ -24,8 +24,8 @@ class MenuItem extends React.Component<MenuItemProps> {
         {this.props.icon}
         <Title value={this.props.title}/>
       </div>
-    );
+    )
   }
 }
 
-export default withRouter(MenuItem);
+export default withRouter(MenuItem)

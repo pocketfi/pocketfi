@@ -1,13 +1,13 @@
-import React from 'react';
-import {Button, Form, Input} from 'reactstrap';
-import {connect} from 'react-redux';
-import {AuthState} from '../../../types/AuthState';
-import {RegisterUser} from '../../../types/RegisterUser';
+import React from 'react'
+import {Button, Form, Input} from 'reactstrap'
+import {connect} from 'react-redux'
+import {AuthState} from '../../../types/AuthState'
+import {RegisterUser} from '../../../types/RegisterUser'
 import './../Login/Login.sass'
-import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
-import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
-import {Link} from 'react-router-dom';
-import {register} from '../../../actions/registerActions';
+import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput'
+import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput'
+import {Link} from 'react-router-dom'
+import {register} from '../../../actions/registerActions'
 
 export interface RegisterProps extends AuthState {
   register(user: RegisterUser): void;
@@ -18,10 +18,10 @@ class Register extends React.Component<RegisterProps> {
     name: '',
     email: '',
     password: ''
-  };
+  }
 
   handleSubmit() {
-    this.props.register(new RegisterUser(this.state.name, this.state.email, this.state.password));
+    this.props.register(new RegisterUser(this.state.name, this.state.email, this.state.password))
   }
 
   render() {
@@ -68,12 +68,12 @@ class Register extends React.Component<RegisterProps> {
           Login
         </Link>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state: AuthState) => ({
   isAuthenticated: state.isAuthenticated
-});
+})
 
-export default connect(mapStateToProps, {register})(Register);
+export default connect(mapStateToProps, {register})(Register)

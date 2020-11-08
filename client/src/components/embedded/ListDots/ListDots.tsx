@@ -1,6 +1,6 @@
-import React from 'react';
-import _ from 'lodash';
-import {FaCircle} from 'react-icons/all';
+import React from 'react'
+import _ from 'lodash'
+import {FaCircle} from 'react-icons/all'
 import './ListDots.sass'
 
 export interface ActiveDotsProps {
@@ -23,5 +23,5 @@ export const ListDots = ({
       />
     )}
   </div>
-);
+)
 

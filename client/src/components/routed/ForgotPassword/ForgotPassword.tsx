@@ -1,10 +1,10 @@
-import React from 'react';
-import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput';
-import {Button, Form} from 'reactstrap';
-import axios from 'axios';
+import React from 'react'
+import {EmailInput} from '../../embedded/Input/EmailInput/EmailInput'
+import {Button, Form} from 'reactstrap'
+import axios from 'axios'
 import './ForgotPassword.sass'
-import {Link} from 'react-router-dom';
-import {Text} from '../../embedded/Text/Text';
+import {Link} from 'react-router-dom'
+import {Text} from '../../embedded/Text/Text'
 
 export interface ForgotPasswordProps {
 
@@ -25,7 +25,7 @@ class ForgotPassword extends React.Component<ForgotPasswordProps> {
           this.setState({
             showError: true,
             messageFromServer: ''
-          });
+          })
         } else if (res.data === 'email sent') {
           this.setState({
             showError: false,
@@ -38,7 +38,7 @@ class ForgotPassword extends React.Component<ForgotPasswordProps> {
   }
 
   handleSubmit() {
-    this.recoveryPassword(this.state.email);
+    this.recoveryPassword(this.state.email)
   }
 
   render() {
@@ -77,4 +77,4 @@ class ForgotPassword extends React.Component<ForgotPasswordProps> {
   }
 }
 
-export default ForgotPassword;
+export default ForgotPassword

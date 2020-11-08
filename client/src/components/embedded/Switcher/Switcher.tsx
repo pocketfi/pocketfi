@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './Switcher.sass'
 
 interface SwitcherProps {
@@ -19,6 +19,6 @@ export class Switcher extends React.Component<SwitcherProps> {
         <div className={'option2 option ' + (this.props.switched ? 'active' : '')}>{this.props.option2}</div>
         <div className={'slider ' + (this.props.switched ? 'position2' : 'position1')}/>
       </div>
-    );
+    )
   }
 }

@@ -1,7 +1,7 @@
-import {config} from 'dotenv';
+import {config} from 'dotenv'
 
-config();
+config()
 
 export default {
   CLIENT_ID: process.env.CLIENT_ID
-};
+}

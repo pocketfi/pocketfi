@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import './SearchBar.sass'
-import {Input} from 'reactstrap';
+import {Input} from 'reactstrap'
 import {debounce} from 'lodash'
 
 interface SearchBarProps {
@@ -15,7 +15,7 @@ export class SearchBar extends React.Component<SearchBarProps> {
 
   handleChange(searchText: string) {
     this.setState({query: searchText})
-      this.debouncedSearch();
+    this.debouncedSearch()
   }
 
   debouncedSearch = debounce(() => this.props.changeSearch(this.state.query), 250)
@@ -29,7 +29,7 @@ export class SearchBar extends React.Component<SearchBarProps> {
           onChange={e => this.handleChange(e.target.value)}
         />
       </div>
-    );
+    )
   }
 
 }

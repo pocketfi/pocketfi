@@ -1,5 +1,5 @@
-import React from 'react';
-import Select from 'react-select';
+import React from 'react'
+import Select from 'react-select'
 
 interface DropdownMenuProps {
   options: [];
@@ -12,8 +12,8 @@ interface DropdownMenuProps {
 export class DropdownMenu extends React.Component<DropdownMenuProps> {
 
   handleChange = (selection: any) => {
-    this.props.onChange(selection.value);
-  };
+    this.props.onChange(selection.value)
+  }
 
   render() {
     const customStyles = {
@@ -39,7 +39,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps> {
         width: 50,
         height: 30
       })
-    };
+    }
     return (
       <div>
         <Select

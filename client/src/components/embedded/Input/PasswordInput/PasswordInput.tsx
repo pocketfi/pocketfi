@@ -1,5 +1,5 @@
-import React from 'react';
-import {Input, InputProps} from 'reactstrap';
+import React from 'react'
+import {Input, InputProps} from 'reactstrap'
 import '../Input.sass'
 
 export const PasswordInput = (props: InputProps) => (
@@ -10,4 +10,4 @@ export const PasswordInput = (props: InputProps) => (
     name='password'
     placeholder={props.placeholder || 'Password'}
   />
-);
+)

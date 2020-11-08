@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './Text.sass'
 import ContentEditable from 'react-contenteditable'
 
@@ -35,6 +35,6 @@ export class Text extends React.Component<TextProps> {
           onChange={e => this.handleValueChange(e.target.value)}
         />
         : <p className={this.props.className}>{this.props.value}</p>
-    );
+    )
   }
 }

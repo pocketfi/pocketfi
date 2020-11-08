@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import './SeparatorWithDate.sass'
 
 export interface SeparatorWithDateProps {
@@ -9,4 +9,4 @@ export const SeparatorWithDate = ({value}: SeparatorWithDateProps) => (
   <div className='separator-text'>
     {value}
   </div>
-);
+)
