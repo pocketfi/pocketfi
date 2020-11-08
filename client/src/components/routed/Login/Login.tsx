@@ -9,8 +9,8 @@ import {Link, RouteComponentProps} from 'react-router-dom'
 import {LoginUser} from '../../../types/LoginUser'
 import './Login.sass'
 import * as actions from '../../../actions/authActions'
-import {GoogleLoginButton} from '../../embedded/GoogleLoginButton/GoogleLoginButton'
 import {AppState} from '../../../store'
+import {GoogleLoginButton} from '../../embedded/GoogleLoginButton/GoogleLoginButton'
 
 export interface LoginProps extends AuthState, RouteComponentProps {
   login(user: AuthUser): void;
@@ -52,14 +52,14 @@ class Login extends React.Component<LoginProps> {
           <Button onClick={() => this.handleSubmit()}>
             Login
           </Button>
-          <Link to='/forgot_password'>
-            Forgot password?
-          </Link>
         </Form>
+        <GoogleLoginButton oauthGoogle={access_token => this.responseGoogle(access_token)}/>
+        <Link to='/forgot_password'>
+          Forgot password?
+        </Link>
         <Link className='hint' to='/register'>
           Register
         </Link>
-        <GoogleLoginButton oauthGoogle={access_token => this.responseGoogle(access_token)}/>
       </div>
     )
   }
