@@ -1,14 +1,14 @@
-import React from 'react';
-import {Button, Form, Input} from 'reactstrap';
-import {connect} from 'react-redux';
+import React from 'react'
+import {Button, Form, Input} from 'reactstrap'
+import {connect} from 'react-redux'
 import './NewTransaction.sass'
-import {Switcher} from '../../embedded/Switcher/Switcher';
-import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu';
-import {AppState} from '../../../store';
-import {newTransaction} from '../../../actions/transactionAction';
-import {CreateTransaction} from '../../../types/CreateTransaction';
-import {TransactionType} from '../../../types/TransactionType';
-import {RouteComponentProps} from 'react-router-dom';
+import {Switcher} from '../../embedded/Switcher/Switcher'
+import {DropdownMenu} from '../../embedded/DropdownMenu/DropdownMenu'
+import {AppState} from '../../../store'
+import {newTransaction} from '../../../actions/transactionAction'
+import {CreateTransaction} from '../../../types/CreateTransaction'
+import {TransactionType} from '../../../types/TransactionType'
+import {RouteComponentProps} from 'react-router-dom'
 
 export interface NewTransactionProps extends RouteComponentProps {
   newTransaction(transaction: CreateTransaction): void;
@@ -25,7 +25,7 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     price: '0.00',
     currency: 'USD',
     placeholder: 'USD'
-  };
+  }
 
   handleSubmit() {
     const transaction = new CreateTransaction(
@@ -33,9 +33,9 @@ class NewTransaction extends React.Component<NewTransactionProps> {
       this.state.category,
       this.state.place,
       this.state.price,
-      this.state.currency);
+      this.state.currency)
     this.props.newTransaction(transaction)
-    this.props.history.push('/overview');
+    this.props.history.push('/overview')
   }
 
   render() {
@@ -79,13 +79,13 @@ class NewTransaction extends React.Component<NewTransactionProps> {
           </Button>
         </Form>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state: AppState) => ({
   // @ts-ignore
   codeRates: state.rate.codeRates
-});
+})
 
-export default connect(mapStateToProps, {newTransaction})(NewTransaction);
+export default connect(mapStateToProps, {newTransaction})(NewTransaction)

@@ -31,11 +31,11 @@ export default (state: TransactionReducerState = initialState, action: Transacti
     case TRANSACTION_SUCCESS:
       return {
         ...state
-      };
+      }
     case TRANSACTION_FAIL:
       return {
         ...state
-      };
+      }
     case TRANSACTIONS_RECEIVED:
       return {
         ...state,
@@ -76,6 +76,6 @@ export default (state: TransactionReducerState = initialState, action: Transacti
         msg: action.msg
       }
     default:
-      return state;
+      return state
   }
 }

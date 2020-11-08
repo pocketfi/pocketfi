@@ -1,11 +1,11 @@
 import React from 'react'
 import './Transactions.sass'
-import {connect} from 'react-redux';
-import {AppState} from '../../../store';
-import {Transaction} from '../../../types/Transaction';
-import {TransactionList} from '../../embedded/TransactionList/TransactionList';
-import {SearchBar} from '../../embedded/SearchBar/SearchBar';
-import {deleteTransaction, getTransactions, search, updateTransaction} from '../../../actions/transactionAction';
+import {connect} from 'react-redux'
+import {AppState} from '../../../store'
+import {Transaction} from '../../../types/Transaction'
+import {TransactionList} from '../../embedded/TransactionList/TransactionList'
+import {SearchBar} from '../../embedded/SearchBar/SearchBar'
+import {deleteTransaction, getTransactions, search, updateTransaction} from '../../../actions/transactionAction'
 
 export interface TransactionsProps {
   transactions: Transaction[]
@@ -28,11 +28,11 @@ class Transactions extends React.Component<TransactionsProps> {
   }
 
   handleDeleteTransaction(id: string) {
-    this.props.deleteTransaction(id);
+    this.props.deleteTransaction(id)
   }
 
   handleEditTransaction(transaction: Transaction) {
-    this.props.updateTransaction(transaction);
+    this.props.updateTransaction(transaction)
   }
 
   handleSearch(searchText: string) {
@@ -41,7 +41,7 @@ class Transactions extends React.Component<TransactionsProps> {
 
   render() {
     let transactions = this.props.transactions
-    if (this.props.foundTransactions.length ) transactions = this.props.foundTransactions
+    if (this.props.foundTransactions.length) transactions = this.props.foundTransactions
 
     return (
       <div className='transactions'>
@@ -62,6 +62,6 @@ const mapStateToProps = (state: AppState) => ({
   transactions: state.transaction.transactions,
   foundTransactions: state.transaction.foundTransactions,
   transactionsFoundByCategory: state.transaction.transactionsFoundByCategory
-});
+})
 
-export default connect(mapStateToProps, {getTransactions, deleteTransaction, updateTransaction, search})(Transactions);
+export default connect(mapStateToProps, {getTransactions, deleteTransaction, updateTransaction, search})(Transactions)

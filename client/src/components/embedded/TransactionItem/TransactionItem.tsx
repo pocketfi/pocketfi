@@ -1,12 +1,12 @@
-import React from 'react';
+import React from 'react'
 import './TransactionItem.sass'
-import {CategoryColor} from '../../../types/CategoryColor';
-import {TransactionType} from '../../../types/TransactionType';
-import {Transaction} from '../../../types/Transaction';
-import enhanceWithClickOutside from 'react-click-outside';
-import TextareaAutosize from 'react-textarea-autosize';
-import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all';
-import {Text} from '../Text/Text';
+import {CategoryColor} from '../../../types/CategoryColor'
+import {TransactionType} from '../../../types/TransactionType'
+import {Transaction} from '../../../types/Transaction'
+import enhanceWithClickOutside from 'react-click-outside'
+import TextareaAutosize from 'react-textarea-autosize'
+import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all'
+import {Text} from '../Text/Text'
 
 
 interface TransactionItemProps {
@@ -29,7 +29,7 @@ class TransactionItem extends React.Component<TransactionItemProps> {
   static defaultProps = {
     onDelete: () => {},
     onChange: () => {}
-  };
+  }
 
   state: TransactionItemState = {
     expanded: false,
@@ -42,11 +42,11 @@ class TransactionItem extends React.Component<TransactionItemProps> {
   }
 
   handleClickOutside(): void {
-    this.setState({expanded: false});
+    this.setState({expanded: false})
   }
 
   changeTransaction(transactionChange: {}): void {
-    const category = this.props.transaction.category;
+    const category = this.props.transaction.category
     if (category) {
       category.name = this.state.categoryName
     }
@@ -60,13 +60,13 @@ class TransactionItem extends React.Component<TransactionItemProps> {
         this.state.currency,
         this.props.transaction.created,
         this.state.description
-      );
+      )
       this.props.onChange!(transaction)
-    });
+    })
   }
 
   render() {
-    const colorClass = this.getCategoryColorClass();
+    const colorClass = this.getCategoryColorClass()
 
     return (
       <div className='transaction'>
@@ -122,18 +122,18 @@ class TransactionItem extends React.Component<TransactionItemProps> {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   private getCategoryColorClass() {
     if (this.props.transaction.category) {
-      return 'color' + CategoryColor[this.props.transaction.category.color as any];
+      return 'color' + CategoryColor[this.props.transaction.category.color as any]
     }
     if (this.state.transactionType === TransactionType.INCOME) {
-      return 'color' + CategoryColor['GREEN'];
+      return 'color' + CategoryColor['GREEN']
     }
-    return '';
+    return ''
   }
 }
 
-export default enhanceWithClickOutside(TransactionItem);
+export default enhanceWithClickOutside(TransactionItem)

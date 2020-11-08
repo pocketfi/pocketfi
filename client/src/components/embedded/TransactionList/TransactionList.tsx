@@ -1,9 +1,9 @@
 import React from 'react'
 import './TransactionList.sass'
-import {Transaction} from '../../../types/Transaction';
-import {SeparatorWithDate} from '../SeparatorWithDate/SeparatorWithDate';
-import moment from 'moment';
-import TransactionItem from '../../embedded/TransactionItem/TransactionItem';
+import {Transaction} from '../../../types/Transaction'
+import {SeparatorWithDate} from '../SeparatorWithDate/SeparatorWithDate'
+import moment from 'moment'
+import TransactionItem from '../../embedded/TransactionItem/TransactionItem'
 
 export interface TransactionListProps {
   transactions: Transaction[];
@@ -28,7 +28,7 @@ export class TransactionList extends React.Component<TransactionListProps> {
                 onDelete={() => this.props.onDelete(transaction.id)}
                 onChange={t => this.props.onChange(t)}
                 key={transaction.id}
-              />;
+              />
 
               if (i === 0 || transactionDates[i] !== transactionDates[i - 1]) {
                 return <>
@@ -37,12 +37,12 @@ export class TransactionList extends React.Component<TransactionListProps> {
                 </>
               }
 
-              return transactionItem;
+            return transactionItem
             }
           )
         }
       </div>
-    );
+    )
   }
 
 }

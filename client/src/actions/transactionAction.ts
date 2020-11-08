@@ -1,6 +1,6 @@
-import axios from 'axios';
-import {Transaction} from '../types/Transaction';
-import {Dispatch} from 'redux';
+import axios from 'axios'
+import {Transaction} from '../types/Transaction'
+import {Dispatch} from 'redux'
 import {
   CATEGORY_MESSAGE,
   FOUND_TRANSACTIONS,
@@ -13,26 +13,26 @@ import {
   TRANSACTION_UPDATED,
   TransactionActionTypes,
   TRANSACTIONS_RECEIVED
-} from './types/TransactionActionTypes';
-import {Msg} from '../types/Msg';
-import {tokenConfig} from './authActions';
-import {AppState} from '../store';
-import {CreateTransaction} from '../types/CreateTransaction';
+} from './types/TransactionActionTypes'
+import {Msg} from '../types/Msg'
+import {tokenConfig} from './authActions'
+import {AppState} from '../store'
+import {CreateTransaction} from '../types/CreateTransaction'
 
 export const transactionSuccess = (transaction: Transaction): TransactionActionTypes => ({
   type: TRANSACTION_SUCCESS,
   transaction: transaction
-});
+})
 
 export const transactionFail = (message: Msg, status: number): TransactionActionTypes => ({
   type: TRANSACTION_FAIL,
   payload: {message, status}
-});
+})
 
 export const transactionsReceived = (transactions: Transaction[]): TransactionActionTypes => ({
   type: TRANSACTIONS_RECEIVED,
   transactions: transactions
-});
+})
 
 export const transactionUpdated = (transaction: Transaction): TransactionActionTypes => ({
   type: TRANSACTION_UPDATED,
@@ -77,9 +77,9 @@ export const newTransaction = (transaction: CreateTransaction) => (dispatch: Dis
       }
     )
     .catch(err => {
-      dispatch(transactionFail(err.data, err.status));
-    });
-};
+      dispatch(transactionFail(err.data, err.status))
+    })
+}
 
 export const getTransactions = () => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
   axios.get('api/transaction/get', tokenConfig(getState))
@@ -87,7 +87,7 @@ export const getTransactions = () => (dispatch: Dispatch<TransactionActionTypes>
       dispatch(transactionsReceived(res.data))
     })
     .catch(err => {
-      dispatch(transactionFail(err, err));
+      dispatch(transactionFail(err, err))
     })
 }
 

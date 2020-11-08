@@ -1,8 +1,8 @@
 import React from 'react'
 import './OverviewBanner.sass'
-import {ListDots} from '../ListDots/ListDots';
-import {OverviewCard} from '../OverviewCard/OverviewCard';
-import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/all';
+import {ListDots} from '../ListDots/ListDots'
+import {OverviewCard} from '../OverviewCard/OverviewCard'
+import {MdKeyboardArrowLeft, MdKeyboardArrowRight} from 'react-icons/all'
 
 export interface OverviewPriceBannerProps {
   activeCard?: number;
@@ -17,11 +17,11 @@ export class OverviewBanner extends React.Component<OverviewPriceBannerProps> {
 
   static defaultProps = {
     activeCard: 0
-  };
+  }
 
   state: OverviewPriceBannerState = {
     activeCard: this.props.activeCard || 0
-  };
+  }
 
   handleChangeCard(e: React.WheelEvent<HTMLDivElement>) {
     this.setState({
@@ -53,10 +53,10 @@ export class OverviewBanner extends React.Component<OverviewPriceBannerProps> {
   }
 
   private getNextCardIndex(direction: number) {
-    const nextUnbounded = this.state.activeCard + (direction > 0 ? 1 : -1);
+    const nextUnbounded = this.state.activeCard + (direction > 0 ? 1 : -1)
     return nextUnbounded < 0
       ? this.props.cards.length - 1
-      : nextUnbounded % this.props.cards.length;
+      : nextUnbounded % this.props.cards.length
   }
 
 }

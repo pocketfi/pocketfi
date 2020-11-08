@@ -1,9 +1,9 @@
-import React from 'react';
-import axios from 'axios';
-import {Link, match} from 'react-router-dom';
-import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput';
-import {Button, Form} from 'reactstrap';
-import './ResetPassword.sass';
+import React from 'react'
+import axios from 'axios'
+import {Link, match} from 'react-router-dom'
+import {PasswordInput} from '../../embedded/Input/PasswordInput/PasswordInput'
+import {Button, Form} from 'reactstrap'
+import './ResetPassword.sass'
 
 interface ResetPasswordParams {
   token: string;
@@ -42,7 +42,7 @@ class ResetPassword extends React.Component<ResetPasswordProps> {
   }
 
   handleSubmit() {
-    this.updatePassword();
+    this.updatePassword()
   }
 
   updatePassword() {
@@ -101,4 +101,4 @@ class ResetPassword extends React.Component<ResetPasswordProps> {
   }
 }
 
-export default ResetPassword;
+export default ResetPassword

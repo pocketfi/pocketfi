@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
 import './OverviewCard.sass'
-import {Card, OverviewCardType} from '../../routed/Overview/Overview';
-import {Text} from '../Text/Text';
-import {Title} from '../Title/Title';
+import {Card, OverviewCardType} from '../../routed/Overview/Overview'
+import {Text} from '../Text/Text'
+import {Title} from '../Title/Title'
 
 export interface OverviewCardProps {
   card: Card
@@ -10,7 +10,7 @@ export interface OverviewCardProps {
 
 export class OverviewCard extends React.Component<OverviewCardProps> {
   render() {
-    const {card} = this.props;
+    const {card} = this.props
     return (
       <div className='card'>
         <Text
@@ -26,7 +26,7 @@ export class OverviewCard extends React.Component<OverviewCardProps> {
           value={`${Math.abs(card.averageDelta)}% ${card.averageDelta > 0 ? 'more' : 'less'} than average`}
         />}
       </div>
-    );
+    )
   }
 }
 
