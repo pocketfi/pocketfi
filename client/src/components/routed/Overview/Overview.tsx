@@ -1,6 +1,6 @@
-import React from 'react'
+import React from 'react';
 import {OverviewBanner} from '../../embedded/OverviewBanner/OverviewBanner';
-import './Overview.sass'
+import './Overview.sass';
 import {Separator} from '../../embedded/Separator/Separator';
 import {IoIosCalendar, MdAdd, MdAttachMoney, MdNotInterested, MdSettings, MdShowChart} from 'react-icons/all';
 import {Button} from 'reactstrap';
@@ -25,7 +25,7 @@ export interface Card {
   averageDelta?: number;
 }
 
-export interface OverviewProps extends RouteComponentProps{
+export interface OverviewProps extends RouteComponentProps {
   getTransactions(): void
 
   transactions: Transaction[]
@@ -35,14 +35,14 @@ export interface OverviewProps extends RouteComponentProps{
 class Overview extends React.Component<OverviewProps> {
   constructor(props: OverviewProps) {
     super(props);
-    this.getTransactions()
+    this.getTransactions();
   }
 
   state: any = {
     spentDay: 0,
     spentWeek: 0,
     spentMonth: 0
-  }
+  };
 
   getTransactions() {
     this.props.getTransactions();
@@ -52,8 +52,8 @@ class Overview extends React.Component<OverviewProps> {
     // TODO: refactor. Move cards calculation to separate method
     const transactions = this.props.transactions.filter(transaction => transaction.transactionType === TransactionType.EXPENSE);
     const USD = this.props.rates.find(rate => {
-      return rate.code === 'USD'
-    })
+      return rate.code === 'USD';
+    });
     let spentDay = 0;
     let spentWeek = 0;
     let spentMonth = 0;
@@ -63,10 +63,10 @@ class Overview extends React.Component<OverviewProps> {
       let price = transaction.price;
       if (transaction.currency !== 'USD') {
         const currency = this.props.rates.find(rate => {
-          return rate.code === transaction.currency
-        })
+          return rate.code === transaction.currency;
+        });
         if (currency && USD) {
-          price = transaction.price * USD.value / currency.value
+          price = transaction.price * USD.value / currency.value;
         }
       }
       const transactionCreated = new Date(transaction.created);
@@ -77,7 +77,7 @@ class Overview extends React.Component<OverviewProps> {
         spentWeek += price;
       }
       spentMonth += price;
-    })
+    });
 
     const cards = [
       {
