@@ -44,7 +44,7 @@ export interface TransactionDeleted {
 
 export interface FoundTransactions {
   type: typeof FOUND_TRANSACTIONS;
-  transactions: Transaction[];
+  transactions: Transaction[] | null;
 }
 
 export interface FoundByCategoryTransactions {

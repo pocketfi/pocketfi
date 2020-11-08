@@ -14,14 +14,14 @@ import {Transaction} from '../types/Transaction'
 
 export interface TransactionReducerState {
   transactions: Transaction[],
-  foundTransactions: Transaction[],
+  foundTransactions: Transaction[] | null,
   transactionsFoundByCategory: Transaction[],
   msg: string
 }
 
 const initialState = {
   transactions: [],
-  foundTransactions: [],
+  foundTransactions: null,
   transactionsFoundByCategory: [],
   msg: ''
 }

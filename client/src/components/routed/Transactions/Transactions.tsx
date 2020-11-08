@@ -6,10 +6,11 @@ import {Transaction} from '../../../types/Transaction'
 import {TransactionList} from '../../embedded/TransactionList/TransactionList'
 import {SearchBar} from '../../embedded/SearchBar/SearchBar'
 import {deleteTransaction, getTransactions, search, updateTransaction} from '../../../actions/transactionAction'
+import {EmptyTransactionList} from '../../embedded/EmptyTransactionList/EmptyTransactionList'
 
 export interface TransactionsProps {
   transactions: Transaction[]
-  foundTransactions: Transaction[]
+  foundTransactions: Transaction[] | null
   transactionsFoundByCategory: Transaction[]
 
   getTransactions(): void
@@ -40,27 +41,33 @@ class Transactions extends React.Component<TransactionsProps> {
   }
 
   render() {
-    let transactions = this.props.transactions
-    if (this.props.foundTransactions.length) transactions = this.props.foundTransactions
-
+    const transactions = this.props.foundTransactions || this.props.transactions
+    const isSearchActive = !!this.props.foundTransactions
     return (
       <div className='transactions'>
         <SearchBar
           changeSearch={searchText => this.handleSearch(searchText)}
         />
-        <TransactionList
-          transactions={transactions}
-          onDelete={id => this.handleDeleteTransaction(id)}
-          onChange={transaction => this.handleEditTransaction(transaction)}
-        />
+        {
+          transactions.length !== 0 ?
+            <TransactionList
+              transactions={transactions}
+              onDelete={id => this.handleDeleteTransaction(id)}
+              onChange={transaction => this.handleEditTransaction(transaction)}
+            /> :
+            <EmptyTransactionList bySearch={isSearchActive}/>
+        }
       </div>
     )
   }
 }
 
 const mapStateToProps = (state: AppState) => ({
+  // @ts-ignore
   transactions: state.transaction.transactions,
+  // @ts-ignore
   foundTransactions: state.transaction.foundTransactions,
+  // @ts-ignore
   transactionsFoundByCategory: state.transaction.transactionsFoundByCategory
 })
 
