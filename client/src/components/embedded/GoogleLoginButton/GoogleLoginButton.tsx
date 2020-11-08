@@ -5,13 +5,17 @@ import {connect} from 'react-redux'
 import {AppState} from '../../../store'
 import {oauthGoogle} from '../../../actions/authActions'
 
-export const CLIENT_ID = process.env.CLIENT_ID || ''
+export const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID || ''
 
 export interface LoginProps {
   oauthGoogle(access_token: string): void;
 }
 
 export class GoogleLoginButton extends React.Component<LoginProps> {
+
+  oauthScopes = {
+    VIEW_EMAIL: 'https://www.googleapis.com/auth/userinfo.email'
+  }
 
   handleResponseGoogle(authResult: GoogleLoginInfo) {
     const access_token = authResult.getAuthResponse().access_token
@@ -42,6 +46,7 @@ export class GoogleLoginButton extends React.Component<LoginProps> {
           </div>
           <GoogleLogin
             className='react-google-oauth-button-login'
+            scope={`${this.oauthScopes['VIEW_EMAIL']}`}
             socialId={CLIENT_ID}
             buttonText='Log in with google'
             responseHandler={authResponse => this.handleResponseGoogle(authResponse)}
