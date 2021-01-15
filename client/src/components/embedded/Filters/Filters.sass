@@ -1,0 +1,181 @@
+@import 'src/colors'
+@import 'src/constants'
+@import 'src/category-colors'
+
+.filters
+
+  .filters-item
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+    grid-template-rows: repeat(2, auto)
+    align-items: center
+    justify-content: center
+    padding: 2px 4px
+    cursor: pointer
+    border-radius: 5px
+    margin-bottom: 10%
+
+    svg
+      margin: 10px
+      cursor: pointer
+      opacity: .5
+      transition: all .2s
+      font-size: 30px
+
+      &:hover
+        opacity: 1
+
+    .search-bar
+      grid-column-start: 1
+      grid-column-end: 6
+      grid-row-start: 1
+      grid-row-end: 1
+
+    .type
+      grid-column-start: 1
+      grid-column-end: 2
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+      white-space: nowrap
+
+    .category
+      grid-column-start: 2
+      grid-column-end: 3
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    .place
+      grid-column-start: 3
+      grid-column-end: 4
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    .from
+      grid-column-start: 4
+      grid-column-end: 5
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    .to
+      grid-column-start: 5
+      grid-column-end: 6
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+
+  .filters-preview
+    width: 100%
+    display: grid
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+    grid-template-rows: repeat(2, auto)
+    align-items: center
+    justify-content: center
+    padding: 2px 4px
+    border-radius: 10px
+    box-shadow: 0 0 20px 0 $gray
+    margin-bottom: 10%
+
+    &:focus
+      outline: none
+
+    .search-bar
+      grid-column-start: 1
+      grid-column-end: 6
+      grid-row-start: 1
+      grid-row-end: 1
+
+    .type
+      grid-column-start: 1
+      grid-column-end: 2
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+      white-space: nowrap
+
+    .category
+      grid-column-start: 2
+      grid-column-end: 3
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    .place
+      grid-column-start: 3
+      grid-column-end: 4
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    .from
+      grid-column-start: 4
+      grid-column-end: 5
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    .to
+      grid-column-start: 5
+      grid-column-end: 6
+      grid-row-start: 2
+      grid-row-end: 3
+      color: $dark
+      align-items: center
+      display: flex
+      justify-content: center
+
+    svg
+      margin: 10px
+      cursor: pointer
+      opacity: .5
+      transition: all .2s
+      font-size: 30px
+
+      &:hover
+        opacity: 1
+
+
+    .expense
+      color: $red
+
+      svg
+        color: $red
+
+    .income
+      color: $green
+
+      svg
+        color: $green
+

@@ -4,7 +4,6 @@ import {connect} from 'react-redux'
 import {AppState} from '../../../store'
 import {Transaction} from '../../../types/Transaction'
 import {TransactionList} from '../../embedded/TransactionList/TransactionList'
-import {SearchBar} from '../../embedded/SearchBar/SearchBar'
 import {deleteTransaction, getTransactions, search, updateTransaction} from '../../../actions/transactionAction'
 import {EmptyTransactionList} from '../../embedded/EmptyTransactionList/EmptyTransactionList'
 
@@ -45,13 +44,11 @@ class Transactions extends React.Component<TransactionsProps> {
     const isSearchActive = !!this.props.foundTransactions
     return (
       <div className='transactions'>
-        <SearchBar
-          changeSearch={searchText => this.handleSearch(searchText)}
-        />
         {
           transactions.length !== 0 ?
             <TransactionList
               transactions={transactions}
+              search={this.props.search}
               onDelete={id => this.handleDeleteTransaction(id)}
               onChange={transaction => this.handleEditTransaction(transaction)}
             /> :

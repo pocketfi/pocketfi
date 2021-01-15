@@ -24,8 +24,33 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     place: '',
     price: '0.00',
     currency: 'USD',
-    placeholder: 'USD'
+    placeholder: 'USD',
+    customStyles: {
+      control: (base: any) => ({
+        ...base,
+        backgroundColor: '#f1f1f1',
+        borderRadius: '8px',
+        borderStyle: 'none'
+      }),
+      valueContainer: (base: any) => ({
+        ...base,
+        position: 'initial'
+      }),
+      menuList: (base: any) => ({
+        ...base,
+        fontSize: 14,
+        height: 200
+      }),
+      input: (base: any) => ({
+        ...base,
+        margin: 0,
+        padding: 0,
+        width: 50,
+        height: 30
+      })
+    }
   }
+
 
   handleSubmit() {
     const transaction = new CreateTransaction(
@@ -69,8 +94,12 @@ class NewTransaction extends React.Component<NewTransactionProps> {
               onChange={e => this.setState({price: e.target.value})}
               placeholder="0.00"
             />
-            <DropdownMenu placeholder={this.state.placeholder} options={this.props.codeRates}
-                          onChange={value => this.setState({currency: value})}/>
+            <DropdownMenu
+              placeholder={this.state.placeholder}
+              options={this.props.codeRates}
+              onChange={value => this.setState({currency: value})}
+              customStyles={this.state.customStyles}
+            />
           </div>
           <Button
             className={this.state.transactionType.toLowerCase()}
