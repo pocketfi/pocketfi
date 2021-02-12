@@ -5,6 +5,8 @@ import {
   CATEGORY_MESSAGE,
   FOUND_TRANSACTIONS,
   FOUND_TRANSACTIONS_BY_CATEGORY,
+  PLACES_RECEIVED,
+  REQUEST_ERROR,
   TRANSACTION_CREATED,
   TRANSACTION_DELETED,
   TRANSACTION_FAIL,
@@ -69,6 +71,16 @@ export const categoryMsg = (msg: string): TransactionActionTypes => ({
   msg: msg
 })
 
+export const placesReceived = (places: string[]): TransactionActionTypes => ({
+  type: PLACES_RECEIVED,
+  places: places
+})
+
+export const requestError = (err: any): TransactionActionTypes => ({
+  type: REQUEST_ERROR,
+  err: err
+})
+
 export const newTransaction = (transaction: CreateTransaction) => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
   axios
     .post('api/transaction/new', {transaction: transaction}, tokenConfig(getState))
@@ -113,9 +125,16 @@ export const deleteTransaction = (transactionId: string) =>
       })
   }
 
-export const search = (searchText: string) =>
+export const search = (searchText?: string, transactionType?: string, category?: string, place?: string, startDate?: Date, endDate?: Date) =>
   (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
-    axios.post('api/search/transaction/', {searchText: searchText}, tokenConfig(getState))
+    axios.post('api/search/transaction/', {
+      searchText,
+      transactionType,
+      category,
+      place,
+      startDate,
+      endDate
+    }, tokenConfig(getState))
       .then(res => {
         if (res.data.msg) {
           dispatch(transactionMsg(res.data.msg))
@@ -128,3 +147,14 @@ export const search = (searchText: string) =>
         console.error(err)
       })
   }
+
+export const getPlaces = (place: string) => (dispatch: Dispatch<TransactionActionTypes>, getState: () => AppState) => {
+  axios.post('api/search/place', {place}, tokenConfig(getState))
+    .then(res => {
+      console.log(res.data)
+      dispatch(placesReceived(res.data))
+    })
+    .catch(err => {
+      dispatch(requestError(err))
+    })
+}

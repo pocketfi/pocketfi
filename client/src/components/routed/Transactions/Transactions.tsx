@@ -4,27 +4,42 @@ import {connect} from 'react-redux'
 import {AppState} from '../../../store'
 import {Transaction} from '../../../types/Transaction'
 import {TransactionList} from '../../embedded/TransactionList/TransactionList'
-import {deleteTransaction, getTransactions, search, updateTransaction} from '../../../actions/transactionAction'
+import {
+  deleteTransaction,
+  getPlaces,
+  getTransactions,
+  search,
+  updateTransaction
+} from '../../../actions/transactionAction'
 import {EmptyTransactionList} from '../../embedded/EmptyTransactionList/EmptyTransactionList'
+import {getCategories} from '../../../actions/categoryActions'
+import {Category} from '../../../types/Category'
 
 export interface TransactionsProps {
   transactions: Transaction[]
   foundTransactions: Transaction[] | null
   transactionsFoundByCategory: Transaction[]
-
-  getTransactions(): void
-
-  deleteTransaction(id: string): void
-
-  updateTransaction(transaction: Transaction): void
-
-  search(searchText: string): void
+  getCategories: (categoryName: string) => void
+  getPlaces: (place: string) => void
+  getTransactions: () => void
+  deleteTransaction: (id: string) => void
+  updateTransaction: (transaction: Transaction) => void
+  search: (searchText?: string, transactionType?: string, category?: string, place?: string, startDate?: Date, endDate?: Date) => void
+  categories: Category[]
+  places: string[]
 }
 
 class Transactions extends React.Component<TransactionsProps> {
   constructor(props: TransactionsProps) {
     super(props)
     this.props.getTransactions()
+    this.props.getCategories(this.state.categoryName)
+    this.props.getPlaces(this.state.place)
+  }
+
+  state: any = {
+    categoryName: '',
+    place: ''
   }
 
   handleDeleteTransaction(id: string) {
@@ -35,8 +50,8 @@ class Transactions extends React.Component<TransactionsProps> {
     this.props.updateTransaction(transaction)
   }
 
-  handleSearch(searchText: string) {
-    this.props.search(searchText)
+  handleGetCategories(categoryName: string) {
+    this.props.getCategories(categoryName)
   }
 
   render() {
@@ -47,6 +62,8 @@ class Transactions extends React.Component<TransactionsProps> {
         {
           transactions.length !== 0 ?
             <TransactionList
+              categories={this.props.categories}
+              places={this.props.places}
               transactions={transactions}
               search={this.props.search}
               onDelete={id => this.handleDeleteTransaction(id)}
@@ -60,12 +77,18 @@ class Transactions extends React.Component<TransactionsProps> {
 }
 
 const mapStateToProps = (state: AppState) => ({
-  // @ts-ignore
   transactions: state.transaction.transactions,
-  // @ts-ignore
   foundTransactions: state.transaction.foundTransactions,
-  // @ts-ignore
-  transactionsFoundByCategory: state.transaction.transactionsFoundByCategory
+  transactionsFoundByCategory: state.transaction.transactionsFoundByCategory,
+  categories: state.category.categories,
+  places: state.transaction.places
 })
 
-export default connect(mapStateToProps, {getTransactions, deleteTransaction, updateTransaction, search})(Transactions)
+export default connect(mapStateToProps, {
+  getTransactions,
+  deleteTransaction,
+  updateTransaction,
+  search,
+  getCategories,
+  getPlaces
+})(Transactions)

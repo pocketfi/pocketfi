@@ -1,6 +1,8 @@
 import {
   FOUND_TRANSACTIONS,
   FOUND_TRANSACTIONS_BY_CATEGORY,
+  PLACES_RECEIVED,
+  REQUEST_ERROR,
   TRANSACTION_CREATED,
   TRANSACTION_DELETED,
   TRANSACTION_FAIL,
@@ -16,14 +18,16 @@ export interface TransactionReducerState {
   transactions: Transaction[],
   foundTransactions: Transaction[] | null,
   transactionsFoundByCategory: Transaction[],
-  msg: string
+  err: any,
+  places: string[]
 }
 
 const initialState = {
   transactions: [],
   foundTransactions: null,
   transactionsFoundByCategory: [],
-  msg: ''
+  err: '',
+  places: []
 }
 
 export default (state: TransactionReducerState = initialState, action: TransactionActionTypes) => {
@@ -62,18 +66,26 @@ export default (state: TransactionReducerState = initialState, action: Transacti
       return {
         ...state,
         foundTransactions: action.transactions,
-        msg: ''
       }
     case FOUND_TRANSACTIONS_BY_CATEGORY:
       return {
         ...state,
         transactionsFoundByCategory: action.transactions,
-        msg: ''
       }
     case TRANSACTION_MESSAGE:
       return {
         ...state,
         msg: action.msg
+      }
+    case PLACES_RECEIVED:
+      return {
+        ...state,
+        places: action.places
+      }
+    case REQUEST_ERROR:
+      return {
+        ...state,
+        err: action.err
       }
     default:
       return state

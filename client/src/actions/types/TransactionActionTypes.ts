@@ -11,6 +11,8 @@ export const FOUND_TRANSACTIONS = 'FOUND_TRANSACTIONS'
 export const FOUND_TRANSACTIONS_BY_CATEGORY = 'FOUND_TRANSACTIONS_BY_CATEGORY'
 export const TRANSACTION_MESSAGE = 'TRANSACTION_MESSAGE'
 export const CATEGORY_MESSAGE = 'CATEGORY_MESSAGE'
+export const PLACES_RECEIVED = 'PLACES_RECEIVED'
+export const REQUEST_ERROR = 'REQUEST_ERROR'
 
 export interface TransactionSuccess {
   type: typeof TRANSACTION_SUCCESS;
@@ -62,6 +64,16 @@ export interface CategoryMessage {
   msg: string;
 }
 
+export interface PlacesReceived {
+  type: typeof PLACES_RECEIVED;
+  places: string[];
+}
+
+export interface RequestError {
+  type: typeof REQUEST_ERROR
+  err: any
+}
+
 export type TransactionActionTypes =
   | TransactionSuccess
   | TransactionFail
@@ -73,5 +85,8 @@ export type TransactionActionTypes =
   | FoundByCategoryTransactions
   | TransactionMessage
   | CategoryMessage
+  | PlacesReceived
+  | RequestError
+
 
 export type AppActions = TransactionActionTypes;

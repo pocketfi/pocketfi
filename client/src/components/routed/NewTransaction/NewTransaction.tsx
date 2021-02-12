@@ -26,11 +26,18 @@ class NewTransaction extends React.Component<NewTransactionProps> {
     currency: 'USD',
     placeholder: 'USD',
     customStyles: {
-      control: (base: any) => ({
+      option: (base: any, state: any) => ({
+        ...base,
+        backgroundColor: state.isSelected ? this.state.transactionType === TransactionType.INCOME ? '#52E071' : '#E05252' : '#f1f1f1',
+      }),
+      control: (base: any, state: any) => ({
         ...base,
         backgroundColor: '#f1f1f1',
         borderRadius: '8px',
-        borderStyle: 'none'
+        borderStyle: 'none',
+        borderColor: '#757575',
+        color: '#757575',
+        boxShadow: state.isFocused ? '0 0 0 1px #757575' : 0
       }),
       valueContainer: (base: any) => ({
         ...base,
@@ -39,7 +46,9 @@ class NewTransaction extends React.Component<NewTransactionProps> {
       menuList: (base: any) => ({
         ...base,
         fontSize: 14,
-        height: 200
+        height: 130,
+        backgroundColor: '#f1f1f1',
+        textAlign: 'center'
       }),
       input: (base: any) => ({
         ...base,
@@ -50,7 +59,6 @@ class NewTransaction extends React.Component<NewTransactionProps> {
       })
     }
   }
-
 
   handleSubmit() {
     const transaction = new CreateTransaction(

@@ -1,14 +1,13 @@
 import React from 'react'
 import Select from 'react-select'
+import {DropdownOptions} from '../../../types/DropdownOptions'
 
 interface DropdownMenuProps {
-  options: []
-
-  onChange(value: any): void
-
+  options: DropdownOptions[]
+  onChange: (value: any) => void
   placeholder: string
-
   customStyles: any
+  dropdownIndicator?: any
 }
 
 export class DropdownMenu extends React.Component<DropdownMenuProps> {
@@ -24,7 +23,10 @@ export class DropdownMenu extends React.Component<DropdownMenuProps> {
           styles={this.props.customStyles}
           placeholder={this.props.placeholder}
           options={this.props.options}
-          components={{DropdownIndicator: () => null, IndicatorSeparator: () => null}}
+          components={{
+            DropdownIndicator: this.props.dropdownIndicator ? this.props.dropdownIndicator : () => null,
+            IndicatorSeparator: () => null
+          }}
           onChange={this.handleChange}
         />
       </div>
