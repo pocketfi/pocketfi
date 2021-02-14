@@ -49,7 +49,7 @@ export const transactionDeleted = (transaction: Transaction): TransactionActionT
   transaction: transaction
 })
 
-export const transactionsFound = (transactions: Transaction[]): TransactionActionTypes => ({
+export const transactionsFound = (transactions: Transaction[] | null): TransactionActionTypes => ({
   type: FOUND_TRANSACTIONS,
   transactions: transactions
 })
@@ -119,8 +119,8 @@ export const search = (searchText: string) =>
       .then(res => {
         if (res.data.msg) {
           dispatch(transactionMsg(res.data.msg))
+          dispatch(transactionsFound([]))
         } else {
-          console.log(res.data)
           dispatch(transactionsFound(res.data))
         }
       })
