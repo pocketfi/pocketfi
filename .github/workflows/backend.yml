@@ -41,5 +41,4 @@ jobs:
       PORT: 4000
       MONGO_URI: mongodb://localhost:27017/expense_tracker
       JWT_SECRET: secret
-      MONGO_URI_TEST: mongodb://localhost:27017/expense_tracker_test
 
