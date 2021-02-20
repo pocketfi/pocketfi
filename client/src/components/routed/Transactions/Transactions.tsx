@@ -14,6 +14,7 @@ import {
 import {EmptyTransactionList} from '../../embedded/EmptyTransactionList/EmptyTransactionList'
 import {getCategories} from '../../../actions/categoryActions'
 import {Category} from '../../../types/Category'
+import Filters from '../../embedded/Filters/Filters'
 
 export interface TransactionsProps {
   transactions: Transaction[]
@@ -54,18 +55,21 @@ class Transactions extends React.Component<TransactionsProps> {
     this.props.getCategories(categoryName)
   }
 
+
   render() {
     const transactions = this.props.foundTransactions || this.props.transactions
     const isSearchActive = !!this.props.foundTransactions
     return (
       <div className='transactions'>
+        <Filters
+          categories={this.props.categories}
+          places={this.props.places}
+          search={this.props.search}
+        />
         {
           transactions.length !== 0 ?
             <TransactionList
-              categories={this.props.categories}
-              places={this.props.places}
               transactions={transactions}
-              search={this.props.search}
               onDelete={id => this.handleDeleteTransaction(id)}
               onChange={transaction => this.handleEditTransaction(transaction)}
             /> :

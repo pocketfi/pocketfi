@@ -4,16 +4,11 @@ import {Transaction} from '../../../types/Transaction'
 import {SeparatorWithDate} from '../SeparatorWithDate/SeparatorWithDate'
 import moment from 'moment'
 import TransactionItem from '../../embedded/TransactionItem/TransactionItem'
-import Filters from '../Filters/Filters'
-import {Category} from '../../../types/Category'
 
 export interface TransactionListProps {
   transactions: Transaction[]
   onDelete: (id: string) => void;
   onChange: (transaction: Transaction) => void
-  search: (searchText?: string, transactionType?: string, category?: string, place?: string, startDate?: Date, endDate?: Date) => void
-  categories: Category[]
-  places: string[]
 }
 
 export class TransactionList extends React.Component<TransactionListProps> {
@@ -26,11 +21,6 @@ export class TransactionList extends React.Component<TransactionListProps> {
       .reverse()
     return (
       <div className='transaction-list'>
-        <Filters
-          categories={this.props.categories}
-          places={this.props.places}
-          search={this.props.search}
-        />
         {
           this.props.transactions.reverse().map((transaction: any, i: number) => {
               const transactionItem = <TransactionItem
