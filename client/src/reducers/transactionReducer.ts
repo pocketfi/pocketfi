@@ -15,10 +15,10 @@ import {
 import {Transaction} from '../types/Transaction'
 
 export interface TransactionReducerState {
-  transactions: Transaction[],
-  foundTransactions: Transaction[] | null,
-  transactionsFoundByCategory: Transaction[],
-  err: any,
+  transactions: Transaction[]
+  foundTransactions: Transaction[] | null
+  transactionsFoundByCategory: Transaction[]
+  err: any
   places: string[]
 }
 

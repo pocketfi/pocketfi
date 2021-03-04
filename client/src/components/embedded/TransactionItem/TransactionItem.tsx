@@ -1,12 +1,12 @@
 import React from 'react'
 import './TransactionItem.sass'
-import {CategoryColor} from '../../../types/CategoryColor'
 import {TransactionType} from '../../../types/TransactionType'
 import {Transaction} from '../../../types/Transaction'
 import enhanceWithClickOutside from 'react-click-outside'
 import TextareaAutosize from 'react-textarea-autosize'
 import {FaCalendar, FaTrash, GoPrimitiveDot, MdExpandLess, MdExpandMore} from 'react-icons/all'
 import {Text} from '../Text/Text'
+import {CategoryColorName} from '../../../types/CategoryColorName'
 
 
 interface TransactionItemProps {
@@ -127,10 +127,10 @@ class TransactionItem extends React.Component<TransactionItemProps> {
 
   private getCategoryColorClass() {
     if (this.props.transaction.category) {
-      return 'color' + CategoryColor[this.props.transaction.category.color as any]
+      return 'color' + CategoryColorName[this.props.transaction.category.color as any]
     }
     if (this.state.transactionType === TransactionType.INCOME) {
-      return 'color' + CategoryColor['GREEN']
+      return 'color' + CategoryColorName['GREEN']
     }
     return ''
   }

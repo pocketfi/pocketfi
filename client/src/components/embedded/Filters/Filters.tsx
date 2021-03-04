@@ -10,6 +10,7 @@ import {CategoryColor} from '../../../types/CategoryColor'
 import {TransactionType} from '../../../types/TransactionType'
 import DatePicker from 'react-datepicker'
 import {components} from 'react-select'
+import {CategoryColorName} from '../../../types/CategoryColorName'
 
 interface FiltersProps {
   categories: Category[]
@@ -28,21 +29,7 @@ class Filters extends React.Component<FiltersProps> {
     typeColor: '',
     startDate: '',
     endDate: '',
-    searchText: '',
-    colors: {
-      RED: '#E05252',
-      CRIMSON: '#df5296',
-      VIOLET: '#cd52e0',
-      PURPLE: '#8052E0',
-      INDIGO: '#525fdf',
-      BLUE: '#53ade1',
-      TURQUOISE: '#53d8e1',
-      GREEN: '#52E071',
-      LIGHT_GREEN: '#a2e051',
-      YELLOW: '#E0D252',
-      ORANGE: '#e09552',
-      CARROT: '#e07352'
-    },
+    searchText: ''
   }
 
   handleClickOutside(): void {
@@ -68,8 +55,9 @@ class Filters extends React.Component<FiltersProps> {
     this.props.categories.forEach((category: Category) => {
       if (category.name === value) {
         this.setState({category: category})
+        type CategoryColorType = keyof typeof CategoryColor
         this.setState({
-          categoryColor: this.state.colors[category.color]
+          categoryColor: CategoryColor[category.color as CategoryColorType]
         }, () => {
           this.props.search(this.state.searchText, this.state.transactionType, this.state.category.name, this.state.place, this.state.startDate, this.state.endDate)
         })
@@ -348,7 +336,7 @@ class Filters extends React.Component<FiltersProps> {
 
   private getCategoryColorClass() {
     if (this.state.category) {
-      return 'category-color' + CategoryColor[this.state.category.color]
+      return 'category-color' + CategoryColorName[this.state.category.color]
     }
     return ''
   }
