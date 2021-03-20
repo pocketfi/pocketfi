@@ -260,75 +260,72 @@ class Filters extends React.Component<FiltersProps> {
     }
 
     return (
-      <div className='filters'>
+      <div
+        className={'filters' + (this.state.expanded ? ' expanded' : '')}
+        onClick={() => this.setState({expanded: true})}
+      >
+        <div className='search-bar'>
+          <SearchBar changeSearch={value => this.handleSearch(value)}/>
+        </div>
 
-        <div
-          className={(this.state.expanded ? 'filters-preview' : 'filters-item')}
-          onClick={() => this.setState({expanded: true})}
-        >
-          <div className='search-bar'>
-            <SearchBar changeSearch={value => this.handleSearch(value)}/>
-          </div>
+        <div className={'filter type ' + this.state.transactionType}>
+          <DropdownMenu
+            placeholder='type'
+            dropdownIndicator={typeDropdownIndicator}
+            options={transactionTypeOptions}
+            onChange={value => this.handleTypeChange(value)}
+            customStyles={typeCustomStyles}
+          />
+        </div>
 
-          <div className={'type ' + this.state.transactionType}>
-            <DropdownMenu
-              placeholder='type'
-              dropdownIndicator={typeDropdownIndicator}
-              options={transactionTypeOptions}
-              onChange={value => this.handleTypeChange(value)}
-              customStyles={typeCustomStyles}
+        <div className={'filter category ' + this.getCategoryColorClass()}>
+          <DropdownMenu
+            placeholder='category'
+            dropdownIndicator={categoryDropdownIndicator}
+            options={categoryOptions}
+            onChange={value => this.handleCategoryChange(value)}
+            customStyles={categoryCustomStyles}
+          />
+        </div>
+
+        <div className={'filter place ' + this.getPurpleColorClass()}>
+          <DropdownMenu
+            placeholder='place'
+            dropdownIndicator={placeDropdownIndicator}
+            options={placeOptions}
+            onChange={value => this.handlePlaceChange(value)}
+            customStyles={placeCustomStyles}
+          />
+        </div>
+
+        <div className={'filter from ' + (this.state.startDate ? 'category-color3' : '')}>
+          <label>
+            <IoMdCalendar/>
+            <DatePicker
+              selected={this.state.startDate}
+              dateFormat="MMM d"
+              maxDate={this.state.endDate}
+              closeOnScroll={true}
+              placeholderText={'from'}
+              onChange={date => this.handleSetStartDate(date)}
+              popperPlacement={'auto'}
             />
-          </div>
+          </label>
+        </div>
 
-          <div className={'category ' + this.getCategoryColorClass()}>
-            <DropdownMenu
-              placeholder='category'
-              dropdownIndicator={categoryDropdownIndicator}
-              options={categoryOptions}
-              onChange={value => this.handleCategoryChange(value)}
-              customStyles={categoryCustomStyles}
+        <div className={'filter to ' + (this.state.endDate ? 'category-color3' : '')}>
+          <label>
+            <IoMdCalendar/>
+            <DatePicker
+              selected={this.state.endDate}
+              dateFormat="MMM d"
+              minDate={this.state.startDate}
+              closeOnScroll={true}
+              placeholderText='to'
+              onChange={date => this.handleSetEndDate(date)}
+              popperPlacement={'auto-end'}
             />
-          </div>
-
-          <div className={'place ' + this.getPurpleColorClass()}>
-            <DropdownMenu
-              placeholder='place'
-              dropdownIndicator={placeDropdownIndicator}
-              options={placeOptions}
-              onChange={value => this.handlePlaceChange(value)}
-              customStyles={placeCustomStyles}
-            />
-          </div>
-
-          <div className={'from ' + (this.state.startDate ? 'category-color3' : '')}>
-            <label>
-              <IoMdCalendar/>
-              <DatePicker
-                selected={this.state.startDate}
-                dateFormat="MMM d"
-                maxDate={this.state.endDate}
-                closeOnScroll={true}
-                placeholderText={'from'}
-                onChange={date => this.handleSetStartDate(date)}
-                popperPlacement={'auto'}
-              />
-            </label>
-          </div>
-
-          <div className={'to ' + (this.state.endDate ? 'category-color3' : '')}>
-            <label>
-              <IoMdCalendar/>
-              <DatePicker
-                selected={this.state.endDate}
-                dateFormat="MMM d"
-                minDate={this.state.startDate}
-                closeOnScroll={true}
-                placeholderText='to'
-                onChange={date => this.handleSetEndDate(date)}
-                popperPlacement={'auto-end'}
-              />
-            </label>
-          </div>
+          </label>
         </div>
       </div>
     )
