@@ -84,7 +84,6 @@ class Filters extends React.Component<FiltersProps> {
   }
 
   render() {
-    console.log(this.state.startDate)
     const transactionTypeOptions: DropdownOptions[] = [
       {label: TransactionType.INCOME.toLocaleLowerCase(), value: TransactionType.INCOME.toLocaleLowerCase()},
       {label: TransactionType.EXPENSE.toLocaleLowerCase(), value: TransactionType.EXPENSE.toLocaleLowerCase()}
